@@ -8,8 +8,8 @@
 	$vars = $router->get_variables();
 
 
-	file_exists('controller/'.$file.'.php')? include('controller/'.$file. '.php') : include('controller/home.php');
-
+	// si existe el archivo lo incluyo, traigo un erro.
+	file_exists('controller/'.$file.'.php')? include('controller/'.$file. '.php') : include('404.php');
 
 
 	render($vars);
