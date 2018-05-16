@@ -8,7 +8,8 @@
 	$vars = $router->get_variables();
 
 
-	file_exists('test/'.$file.'.php')? include('test/'.$file. '.php') : include('test/home.php');
+	file_exists('controller/'.$file.'.php')? include('controller/'.$file. '.php') : include('controller/home.php');
+
 
 
 	render($vars);
