@@ -5,7 +5,6 @@
  */
 class Router
 {
-      var $path;
       var $file;
       var $variables;
 
@@ -18,16 +17,11 @@ class Router
        
             $url = explode('/', $url);
 
-            $url['1']? $this->path = $url['1'] : $this->path ='home';
+            $url['1']? $this->file = $url['1'] : $this->file ='home';
 
-            $this->file = $url['1'];
             $this->variables = array_slice($url, 2);
       }
 
- 	function get_url()
- 	{
-            return $this->path;
- 	}
 
       function get_file()
       {
