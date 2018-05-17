@@ -2,10 +2,10 @@
 -- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 13-05-2018 a las 23:41:57
--- Versión del servidor: 5.6.40-log
--- Versión de PHP: 5.6.15
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 17-05-2018 a las 20:03:30
+-- Versión del servidor: 5.7.21
+-- Versión de PHP: 5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `c0420145_ing2`
+-- Base de datos: `base`
 --
 
 -- --------------------------------------------------------
@@ -28,15 +28,17 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `calificacion`
 --
 
-CREATE TABLE `calificacion` (
-  `idCalificacion` int(6) NOT NULL,
+DROP TABLE IF EXISTS `calificacion`;
+CREATE TABLE IF NOT EXISTS `calificacion` (
+  `idCalificacion` int(6) NOT NULL AUTO_INCREMENT,
   `idCalificador` int(6) NOT NULL,
   `idCalificado` int(6) NOT NULL,
   `tipo` varchar(10) NOT NULL,
   `fecha` date NOT NULL,
   `hora` time NOT NULL,
   `calificacion` varchar(6) NOT NULL,
-  `comentario` varchar(255) NOT NULL
+  `comentario` varchar(255) NOT NULL,
+  PRIMARY KEY (`idCalificacion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -45,11 +47,13 @@ CREATE TABLE `calificacion` (
 -- Estructura de tabla para la tabla `pago`
 --
 
-CREATE TABLE `pago` (
-  `idPago` int(6) NOT NULL,
+DROP TABLE IF EXISTS `pago`;
+CREATE TABLE IF NOT EXISTS `pago` (
+  `idPago` int(6) NOT NULL AUTO_INCREMENT,
   `idViaje` int(6) NOT NULL,
   `fecha` date NOT NULL,
-  `hora` time NOT NULL
+  `hora` time NOT NULL,
+  PRIMARY KEY (`idPago`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -58,7 +62,8 @@ CREATE TABLE `pago` (
 -- Estructura de tabla para la tabla `participacion`
 --
 
-CREATE TABLE `participacion` (
+DROP TABLE IF EXISTS `participacion`;
+CREATE TABLE IF NOT EXISTS `participacion` (
   `idUsuario` int(6) NOT NULL,
   `idViaje` int(6) NOT NULL,
   `estado` varchar(10) NOT NULL,
@@ -71,14 +76,16 @@ CREATE TABLE `participacion` (
 -- Estructura de tabla para la tabla `pregunta`
 --
 
-CREATE TABLE `pregunta` (
-  `idPregunta` int(6) NOT NULL,
+DROP TABLE IF EXISTS `pregunta`;
+CREATE TABLE IF NOT EXISTS `pregunta` (
+  `idPregunta` int(6) NOT NULL AUTO_INCREMENT,
   `idPreguntante` int(6) NOT NULL,
   `idViaje` int(6) NOT NULL,
   `pregunta` varchar(255) NOT NULL,
   `respuesta` varchar(255) NOT NULL,
   `fecha` date NOT NULL,
-  `hora` time NOT NULL
+  `hora` time NOT NULL,
+  PRIMARY KEY (`idPregunta`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -87,21 +94,24 @@ CREATE TABLE `pregunta` (
 -- Estructura de tabla para la tabla `usuario`
 --
 
-CREATE TABLE `usuario` (
-  `idUser` int(6) NOT NULL,
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `idUser` int(6) NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
   `clave` varchar(50) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
-  `admin` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `admin` int(1) NOT NULL,
+  PRIMARY KEY (`idUser`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`idUser`, `email`, `clave`, `nombre`, `apellido`, `admin`) VALUES
-(1, 'koumsky@gmail.com', '1234putoelquelee', 'martin', 'salem', 1);
+(1, 'koumsky@gmail.com', '1234', 'martin', 'salem', 1),
+(2, '1234@gmail.com', '1234', 'Frederico', 'Garquez', 1);
 
 -- --------------------------------------------------------
 
@@ -109,16 +119,18 @@ INSERT INTO `usuario` (`idUser`, `email`, `clave`, `nombre`, `apellido`, `admin`
 -- Estructura de tabla para la tabla `vehiculo`
 --
 
-CREATE TABLE `vehiculo` (
-  `idVehiculo` int(6) NOT NULL,
+DROP TABLE IF EXISTS `vehiculo`;
+CREATE TABLE IF NOT EXISTS `vehiculo` (
+  `idVehiculo` int(6) NOT NULL AUTO_INCREMENT,
   `idPropietario` int(6) NOT NULL,
   `cant_asientos` int(2) NOT NULL,
   `modelo` varchar(30) NOT NULL,
   `marca` varchar(30) NOT NULL,
   `color` varchar(20) NOT NULL,
   `patente` varchar(10) NOT NULL COMMENT 'puede ser patente extrangera',
-  `estado` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `estado` varchar(20) NOT NULL,
+  PRIMARY KEY (`idVehiculo`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `vehiculo`
@@ -133,107 +145,30 @@ INSERT INTO `vehiculo` (`idVehiculo`, `idPropietario`, `cant_asientos`, `modelo`
 -- Estructura de tabla para la tabla `viaje`
 --
 
-CREATE TABLE `viaje` (
-  `idViaje` int(6) NOT NULL,
+DROP TABLE IF EXISTS `viaje`;
+CREATE TABLE IF NOT EXISTS `viaje` (
+  `idViaje` int(6) NOT NULL AUTO_INCREMENT,
   `idPiloto` int(6) NOT NULL,
   `idVehiculo` int(6) NOT NULL,
-  `fecha_publicacion` date NOT NULL,
-  `hora_publicacion` time NOT NULL,
-  `fecha_partida` date NOT NULL,
-  `hora_partida` time NOT NULL,
+  `fecha_publicacion` datetime NOT NULL,
+  `fecha_partida` datetime NOT NULL,
   `tipo` varchar(30) NOT NULL,
   `origen` varchar(60) NOT NULL,
   `destino` varchar(60) NOT NULL,
   `costo` int(7) NOT NULL,
-  `estado` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `estado` varchar(20) NOT NULL,
+  PRIMARY KEY (`idViaje`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `viaje`
 --
 
-INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `hora_publicacion`, `fecha_partida`, `hora_partida`, `tipo`, `origen`, `destino`, `costo`, `estado`) VALUES
-(1, 1, 1, '2018-05-01', '11:09:07', '2018-05-31', '07:03:00', 'unico', 'La Plata - BsAs', 'chapalmalal - BsAs', 8999, 'activo');
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `calificacion`
---
-ALTER TABLE `calificacion`
-  ADD PRIMARY KEY (`idCalificacion`);
-
---
--- Indices de la tabla `pago`
---
-ALTER TABLE `pago`
-  ADD PRIMARY KEY (`idPago`);
-
---
--- Indices de la tabla `pregunta`
---
-ALTER TABLE `pregunta`
-  ADD PRIMARY KEY (`idPregunta`);
-
---
--- Indices de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`idUser`);
-
---
--- Indices de la tabla `vehiculo`
---
-ALTER TABLE `vehiculo`
-  ADD PRIMARY KEY (`idVehiculo`);
-
---
--- Indices de la tabla `viaje`
---
-ALTER TABLE `viaje`
-  ADD PRIMARY KEY (`idViaje`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `calificacion`
---
-ALTER TABLE `calificacion`
-  MODIFY `idCalificacion` int(6) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `pago`
---
-ALTER TABLE `pago`
-  MODIFY `idPago` int(6) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `pregunta`
---
-ALTER TABLE `pregunta`
-  MODIFY `idPregunta` int(6) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  MODIFY `idUser` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `vehiculo`
---
-ALTER TABLE `vehiculo`
-  MODIFY `idVehiculo` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `viaje`
---
-ALTER TABLE `viaje`
-  MODIFY `idViaje` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `fecha_partida`, `tipo`, `origen`, `destino`, `costo`, `estado`) VALUES
+(1, 1, 1, '2018-05-01 10:18:12', '2018-05-31 07:09:08', 'unico', 'La Plata - BsAs', 'chapalmalal - BsAs', 8999, 'activo'),
+(2, 1, 2, '2018-05-10 04:26:19', '2018-05-26 09:10:17', 'recurrente', 'la quiaca', 'buenos aires', 500, 'suspendido'),
+(3, 1, 1, '2018-05-03 07:10:33', '2018-05-25 10:17:38', 'unico', 'Mendoza', 'La Pampa', 3600, 'cancelado'),
+(4, 1, 1, '2018-05-03 21:19:10', '2018-05-25 04:35:19', 'unico', 'Mendoza', 'La Pampa', 3600, 'terminado');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
