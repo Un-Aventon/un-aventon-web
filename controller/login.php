@@ -59,31 +59,46 @@
 
             } //fin verificar usuario existe
       }// fin verificar string
+      ?>
+      <div class="alert alert-danger" role="alert">
+ 		 Email o contraseña son incorrectos.
+	</div>
+	<?php
     }// fin verificar login
 
 
 		?>
-    <h3 style="text-align: center">Bienvenido de nuevo :)</h3>
-    <hr>
-    <form action="" method="post" class="login">
-      <div class="form-group">
-        <label for="email">Direccion Email</label>
-        <input name="mail" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Ingresa tu email">
-      </div>
-      <div class="form-group">
-        <label for="contraseña">Contraseña</label>
-        <input name="password" type="password" class="form-control" id="contraseña" placeholder="Ingresa tu contraseña">
-      </div>
-      <button name="login" type="submit" value="ingresar" class="btn btn-primary">Entrar</button>
-
-    </form>
-    <?php
-      if ( ($result == 0)){
-      echo "<hr />";
-      echo "<div class='alert alert-warning' role='alert'>Algun dato esta mal, volve a intentarlo!</div>";
-      }
-    ?>
-    <br><br>
-
-    <?php
+		<div class="offset-4">
+		<div class="card bg-white mb-3" style="max-width: 35rem; height: 25rem; margin-top: 10rem">
+  			<div class="card-header"><h2 class="text-center">Iniciar Sesión</h2></div>
+  			<div class="card-body">
+    			<form action="/login" method="post">
+				  <div class="form-group">
+				    <label for="exampleInputEmail1">Dirección de Email</label>
+				    <input type="email" name="mail" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingresa un email">
+				    <small id="emailHelp" class="form-text text-muted">Tu información nunca será compartida con terceros.</small>
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Contraseña</label>
+				    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Ingresa una contraseña">
+				  </div>
+				  <div class="form-check">
+				  <div class="row">
+				  	<div class="col-lg-6">
+				    	<input type="checkbox" class="form-check-input" id="exampleCheck1">
+				    	<label class="form-check-label" for="exampleCheck1">Recuerdame</label>
+					</div>
+					<div class="col-lg-6 justify-content-right">
+						<p class="text-right"><a href="/users/password/new">¿Olvidaste tu contraseña?</a></p>
+					</div>
+				  </div>
+				  </div>
+				  <div class="container-fluid" style="margin-top:.5rem; padding: 0">
+					<input type="submit" name="login" value="Inicia sesión!" class="btn btn-success form-control form-control-lg">
+				  </div>
+				</form>
+ 			 </div>
+		</div>
+		</div>
+		<?php
 	}
