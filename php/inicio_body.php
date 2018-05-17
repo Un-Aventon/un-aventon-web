@@ -15,4 +15,4 @@
     <?php
       include('php/navbar.php');
     ?>
-    <div class="container-fluid" style="background-color: #fff">
+    <div class="container" style="background-color: #fff;">

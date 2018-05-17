@@ -68,8 +68,12 @@
 
 
 		?>
-		<div class="offset-4">
-		<div class="card bg-white mb-3" style="max-width: 35rem; height: 25rem; margin-top: 10rem">
+	<!-- parche = cierro container superior -->
+	</div>
+
+	<div class="container h-100">
+  	<div class="row h-100 justify-content-center align-items-center">
+			<div class="card bg-white" style="max-width: 600px; height: 400px; margin-top: 20px; margin-bottom: 20px">
   			<div class="card-header"><h2 class="text-center">Iniciar Sesión</h2></div>
   			<div class="card-body">
     			<form action="/login" method="post">
@@ -83,22 +87,27 @@
 				    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Ingresa una contraseña">
 				  </div>
 				  <div class="form-check">
-				  <div class="row">
-				  	<div class="col-lg-6">
-				    	<input type="checkbox" class="form-check-input" id="exampleCheck1">
-				    	<label class="form-check-label" for="exampleCheck1">Recuerdame</label>
-					</div>
-					<div class="col-lg-6 justify-content-right">
-						<p class="text-right"><a href="/users/password/new">¿Olvidaste tu contraseña?</a></p>
-					</div>
-				  </div>
+				  	<div class="row">
+				  		<div class="col-lg-6">
+				    		<input type="checkbox" class="form-check-input" id="exampleCheck1">
+				    		<label class="form-check-label" for="exampleCheck1">Recuerdame</label>
+							</div>
+							<div class="col-lg-6 justify-content-right">
+								<p class="text-right"><a href="/users/password/new">¿Olvidaste tu contraseña?</a></p>
+							</div>
+				  	</div>
 				  </div>
 				  <div class="container-fluid" style="margin-top:.5rem; padding: 0">
-					<input type="submit" name="login" value="Inicia sesión!" class="btn btn-success form-control form-control-lg">
+						<input type="submit" name="login" value="Inicia sesión!" class="btn btn-success form-control form-control-lg">
 				  </div>
 				</form>
  			 </div>
 		</div>
-		</div>
+	</div>
+</div>
+
+<!-- fin parche = abro container -->
+<div class="container">
+
 		<?php
 	}
