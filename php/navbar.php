@@ -14,14 +14,19 @@
 
       <?php
       if(isset($_SESSION['nombre'])){
-        echo "<ul class='navbar-nav float-right'>
-                <li class='nav-item'>
-                    <a class='nav-link' href='/logout'>cerrar sesion</a>
-                </li>
-                <li class='nav-item'>
-                  <a class='nav-link' href='/perfil'>".$_SESSION['nombre']." ".$_SESSION['apellido']."</a>
-                </li>
-              </ul>";
+        ?>
+        <ul class='navbar-nav float-right' style="margin-right: 30px">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <?php echo $_SESSION['nombre']." ".$_SESSION['apellido']; ?>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/perfil">Mi perfil</a>
+                  <a class="dropdown-item" href="/logout">Cerrar sesion</a>
+                </div>
+            </li>
+        </ul>
+        <?php
       }
       else {
         echo "<ul class='navbar-nav float-right'>
