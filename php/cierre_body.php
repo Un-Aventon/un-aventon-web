@@ -1,4 +1,10 @@
+<div class="row" style="background-color: #333; color: #fafafa">
+  <div class="col-md-12">
+    <img src="img/nitny-logo.png" alt="nitny logo" style="width: 110px;" class="float-right">
+  </div>
 </div>
+</div>
+
 
 
 <!-- JS de bootstrap -->
