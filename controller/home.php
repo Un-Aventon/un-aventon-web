@@ -14,7 +14,7 @@
 			//parche
       $conexion=mysqli_connect("localhost","root","","base") or
     		die("Problemas con la conexión a la base de datos");
-				
+
 			$viajes=mysqli_query($conexion,"select *
 																						from viaje
 																						inner join usuario on viaje.idPiloto = usuario.idUser") or
@@ -32,7 +32,7 @@
 									<div class="col-md-8">
 										<i>piloto <?php echo$viaje['apellido']." ".$viaje['nombre']; ?></i>
 										<br>
-										partida: <?php echo$viaje['fecha_partida']." / ".$viaje['hora_partida']; ?>
+										partida: <?php echo$viaje['fecha_partida']; ?>
 										<br>
 										<b class="float-right">$<?php echo$viaje['costo']; ?></b>
 									</div>
