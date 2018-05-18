@@ -45,7 +45,7 @@
 											</small>
 										</div>
 										<div class="col-md-2">
-											<button class="btn btn-danger centrado" type="button" name="button">Unirse!</button>
+											<button class="btn btn-danger centrado" type="button" name="button">Ver mas!</button>
 										</div>
 									</div>
   							</div>

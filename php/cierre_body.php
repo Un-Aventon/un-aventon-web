@@ -1,7 +1,7 @@
 <div class="row" style="background-color: #333; color: #bbb">
   <div class="col-md-12">
     <small class="float-left">UnAventon © 2018</small>
-    <small class="float-right">Desarrollado por Nitny</small>
+    <small class="float-right">Desarrollado por <span style="color:#00b3b3">Nitny</span> - Web Design</small>
     <!--<img src="img/nitny-logo.png" alt="nitny logo" style="width: 110px;" class="float-right"> -->
   </div>
 </div>
