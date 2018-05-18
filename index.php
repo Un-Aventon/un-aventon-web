@@ -1,7 +1,6 @@
 
 <?php
 	session_start();
-	include ('core/core.php');
 	include ('core/router.php');
 	include ('php/inicio_body.php');
 
