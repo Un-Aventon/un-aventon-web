@@ -21,7 +21,8 @@
 
 			$viajes=mysqli_query($conexion,"select *
 											from viaje
-											inner join usuario on viaje.idPiloto = usuario.idUser") or
+											inner join usuario on viaje.idPiloto = usuario.idUser
+											where fecha_partida > now() and estado = 'activo'") or
 											die("Problemas en el select:".mysqli_error($conexion));
 
 						while ($viaje=mysqli_fetch_array($viajes)){
