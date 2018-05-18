@@ -33,6 +33,7 @@
                 <li class='nav-item float-right'>
                   <a class='nav-link' href='/login'>Login</a>
                 </li>
+                  <a class='nav-link' href='/registro'>Registro</a>
               </ul>";
       }
       ?>
