@@ -38,12 +38,16 @@ function render($vars = [])
     <div class="col-md-3" style="text-align: center">
       <img src="img/user.png" alt="imagen de usuario" style="width: 150px; margin-top: 15px">
     </div>
-    <div class="col-md-9">
+    <div class="col-md-8">
       <h1 class="display-4"><?php echo $user['nombre']; ?> <?php echo $user['apellido']; ?></h1>
       <span><?php echo $user['email']; ?></span><br>
       <span><?php echo $contador_vehiculos['cont']; ?> vehiculos</span> | <a href="#">agregar un vehiculo</a> | <a href="#">ver vehiculos</a> <br>
       <span><?php echo $contador['cont']; ?> viajes totales (*)</span>
     </div>
+    <div class="col-md-1">
+      <img src="img/cambio.png" alt="boton cambios" style="width: 40px; margin-top: 20px" title="cambiar datos personales">
+    </div>
+
   </div>
 
   <hr>
