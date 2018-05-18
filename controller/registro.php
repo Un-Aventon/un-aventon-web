@@ -76,7 +76,7 @@ function render($arr = [])
   <div class="container h-100">
     <div class="row h-100 justify-content-center align-items-center">
       <div class="card bg-white" style="max-width: 600px; margin-top: 20px; margin-bottom: 20px">
-        <div class="card-header"><h2 class="text-center">Iniciar Sesión</h2></div>
+        <div class="card-header"><h2 class="text-center">Registro</h2></div>
         <div class="card-body">
           <form action="/registro" method="post">
           <div class="form-group">
