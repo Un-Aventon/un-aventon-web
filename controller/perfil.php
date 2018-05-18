@@ -9,9 +9,9 @@ function render($vars = [])
 
 	 return $diferencia->format('%a');
   }
-  //parche
-  $conexion=mysqli_connect("localhost","root","","base") or
-    die("Problemas con la conexión a la base de datos");
+  //incluyo la conexion
+  include('php/conexion.php');
+
   $usuario=mysqli_query($conexion,"SELECT *
                                    FROM Usuario
                                    WHERE email='$_SESSION[mail]' limit 1")

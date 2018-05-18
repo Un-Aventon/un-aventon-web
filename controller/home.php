@@ -2,6 +2,7 @@
 
 	function render($vars = [])
 	{
+
 		// quitar y generalizar funcion
 		function dias_transcurridos($fecha_alta)
 		{
@@ -15,14 +16,13 @@
 
 		<div class="row">
 			<?php
-			//parche
-      $conexion=mysqli_connect("localhost","root","","base") or
-    		die("Problemas con la conexión a la base de datos");
+			// incluyo la conexion.
+			include('php/conexion.php');
 
 			$viajes=mysqli_query($conexion,"select *
-																						from viaje
-																						inner join usuario on viaje.idPiloto = usuario.idUser") or
-																						die("Problemas en el select:".mysqli_error($conexion));
+											from viaje
+											inner join usuario on viaje.idPiloto = usuario.idUser") or
+											die("Problemas en el select:".mysqli_error($conexion));
 
 						while ($viaje=mysqli_fetch_array($viajes)){
 							?>
@@ -54,12 +54,10 @@
 
 
 
-							<?php
-						}
-			?>
+				 <?php } ?>
 		</div>
 
 		<br><br><br><br><br><br><br><br><br><br>
 
-		<?php
+<?php
 	}
