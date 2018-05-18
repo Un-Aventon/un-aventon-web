@@ -143,19 +143,19 @@ function render($vars = [])
           <div class="form-group row">
             <label for="mail" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
-              <input type="email" class="form-control" id="mail" placeholder="Email" value="<?php echo $user['email']; ?>">
+              <input type="email" class="form-control" name='email' id="mail" placeholder="Email" value="<?php echo $user['email']; ?>">
             </div>
           </div>
           <div class="form-group row">
             <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="nombre" placeholder="nombre" value="<?php echo $user['nombre']; ?>">
+              <input type="text" class="form-control" name='nombre' id="nombre" placeholder="nombre" value="<?php echo $user['nombre']; ?>">
             </div>
           </div>
           <div class="form-group row">
             <label for="apellido" class="col-sm-2 col-form-label">Apellido</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="apellido" placeholder="apellido" value="<?php echo $user['apellido']; ?>">
+              <input type="text" class="form-control" name='apellido' id="apellido" placeholder="apellido" value="<?php echo $user['apellido']; ?>">
             </div>
           </div>
           <button type="submit" class="btn btn-primary float-right">Aplicar cambios</button>
