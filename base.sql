@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 17-05-2018 a las 20:03:30
+-- Tiempo de generación: 18-05-2018 a las 20:35:25
 -- Versión del servidor: 5.7.21
 -- Versión de PHP: 5.6.35
 
@@ -64,11 +64,20 @@ CREATE TABLE IF NOT EXISTS `pago` (
 
 DROP TABLE IF EXISTS `participacion`;
 CREATE TABLE IF NOT EXISTS `participacion` (
+  `idParticipacion` int(6) NOT NULL AUTO_INCREMENT,
   `idUsuario` int(6) NOT NULL,
   `idViaje` int(6) NOT NULL,
   `estado` varchar(10) NOT NULL,
-  `fecha_solicitud` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `fecha_solicitud` date NOT NULL,
+  PRIMARY KEY (`idParticipacion`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `participacion`
+--
+
+INSERT INTO `participacion` (`idParticipacion`, `idUsuario`, `idViaje`, `estado`, `fecha_solicitud`) VALUES
+(1, 2, 1, 'pendiente', '2018-05-10');
 
 -- --------------------------------------------------------
 
@@ -101,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `clave` varchar(50) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
-  `admin` int(1) NOT NULL,
+  `admin` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idUser`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
@@ -155,6 +164,7 @@ CREATE TABLE IF NOT EXISTS `viaje` (
   `tipo` varchar(30) NOT NULL,
   `origen` varchar(60) NOT NULL,
   `destino` varchar(60) NOT NULL,
+  `asientos_disponibles` int(2) NOT NULL,
   `costo` int(7) NOT NULL,
   `estado` varchar(20) NOT NULL,
   PRIMARY KEY (`idViaje`)
@@ -164,11 +174,11 @@ CREATE TABLE IF NOT EXISTS `viaje` (
 -- Volcado de datos para la tabla `viaje`
 --
 
-INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `fecha_partida`, `tipo`, `origen`, `destino`, `costo`, `estado`) VALUES
-(1, 1, 1, '2018-05-01 10:18:12', '2018-05-31 07:09:08', 'unico', 'La Plata - BsAs', 'chapalmalal - BsAs', 8999, 'activo'),
-(2, 1, 2, '2018-05-10 04:26:19', '2018-05-26 09:10:17', 'recurrente', 'la quiaca', 'buenos aires', 500, 'suspendido'),
-(3, 1, 1, '2018-05-03 07:10:33', '2018-05-25 10:17:38', 'unico', 'Mendoza', 'La Pampa', 3600, 'cancelado'),
-(4, 1, 1, '2018-05-03 21:19:10', '2018-05-25 04:35:19', 'unico', 'Mendoza', 'La Pampa', 3600, 'terminado');
+INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `fecha_partida`, `tipo`, `origen`, `destino`, `asientos_disponibles`, `costo`, `estado`) VALUES
+(1, 1, 1, '2018-05-01 10:18:12', '2018-05-31 07:09:08', 'unico', 'La Plata - BsAs', 'chapalmalal - BsAs', 3, 8999, 'activo'),
+(2, 1, 2, '2018-05-10 04:26:19', '2018-05-26 09:10:17', 'recurrente', 'la quiaca', 'buenos aires', 2, 500, 'suspendido'),
+(3, 1, 1, '2018-05-03 07:10:33', '2018-05-25 10:17:38', 'unico', 'Mendoza', 'La Pampa', 6, 3600, 'cancelado'),
+(4, 1, 1, '2018-05-03 21:19:10', '2018-05-25 04:35:19', 'unico', 'Mendoza', 'La Pampa', 1, 3600, 'terminado');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
