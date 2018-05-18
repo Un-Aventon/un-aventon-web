@@ -45,7 +45,7 @@ function render($vars = [])
       <span><?php echo $contador['cont']; ?> viajes totales</span>
     </div>
     <div class="col-md-1">
-      <img src="img/cambio.png" alt="boton cambios" style="width: 40px; margin-top: 20px" title="Cambiar datos personales">
+      <img src="img/cambio.png" alt="boton cambios" style="width: 40px; margin-top: 20px" title="Cambiar datos personales" data-toggle="modal" data-target="#modalCambioDatos">
     </div>
 
   </div>
@@ -125,5 +125,47 @@ function render($vars = [])
       ?>
     </div>
   </div>
+
+
+
+<!-- Modal Cambio de datos personales -->
+<div class="modal fade" id="modalCambioDatos" tabindex="-1" role="dialog" aria-labelledby="modalCambioDatos" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cambio de datos personales</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="modificar_datos" method="post">
+          <div class="form-group row">
+            <label for="mail" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="mail" placeholder="Email" value="<?php echo $user['email']; ?>">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="nombre" placeholder="nombre" value="<?php echo $user['nombre']; ?>">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="apellido" class="col-sm-2 col-form-label">Apellido</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="apellido" placeholder="apellido" value="<?php echo $user['apellido']; ?>">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary float-right">Aplicar cambios</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="#">Cambiar clave de acceso</a>
+      </div>
+    </div>
+  </div>
+</div>
   <?php
 }
