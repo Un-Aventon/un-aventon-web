@@ -42,10 +42,10 @@ function render($vars = [])
       <h1 class="display-4"><?php echo $user['nombre']; ?> <?php echo $user['apellido']; ?></h1>
       <span><?php echo $user['email']; ?></span><br>
       <span><?php echo $contador_vehiculos['cont']; ?> vehiculos</span> | <a href="#">agregar un vehiculo</a> | <a href="#">ver vehiculos</a> <br>
-      <span><?php echo $contador['cont']; ?> viajes totales (*)</span>
+      <span><?php echo $contador['cont']; ?> viajes totales</span>
     </div>
     <div class="col-md-1">
-      <img src="img/cambio.png" alt="boton cambios" style="width: 40px; margin-top: 20px" title="cambiar datos personales">
+      <img src="img/cambio.png" alt="boton cambios" style="width: 40px; margin-top: 20px" title="Cambiar datos personales">
     </div>
 
   </div>
@@ -54,11 +54,13 @@ function render($vars = [])
 
   <div class="row">
     <div class="col-md-6">
-      <h3>Mis viajes</h3>
+      <h3>Mis ultimos viajes</h3>
       <?php
         $viajes=mysqli_query($conexion,"SELECT *
                                        FROM viaje
-                                       WHERE idPiloto='$user[idUser]'")
+                                       WHERE idPiloto='$user[idUser]'
+                                       order by idViaje
+                                       limit 5")
                                        or
                                        die("Problemas en la base de datos:".mysqli_error($conexion));
         if (mysqli_num_rows($viajes) == 0){
@@ -73,32 +75,25 @@ function render($vars = [])
               <h5 class="card-title"><?php echo $viaje['origen']." a ".$viaje['destino'] ?>
                   <?php switch ($viaje['estado']) {
                     case 'activo':
-                        echo "<small class='float-right text-success'>";
+                        echo "<button type='button' class='btn btn-success btn-sm float-right ' disabled>";
                       break;
                     case 'terminado':
-                        echo "<small class='float-right text-primary'>";
+                        echo "<button type='button' class='btn btn-primary btn-sm float-right ' disabled>";
                       break;
                     case 'cancelado':
-                        echo "<small class='float-right text-danger'>";
+                        echo "<button type='button' class='btn btn-danger btn-sm float-right ' disabled>";
                       break;
                     case 'suspendido':
-                        echo "<small class='float-right text-warning'>";
+                        echo "<button type='button' class='btn btn-warning btn-sm float-right ' disabled>";
                       break;
                   }
-                  echo $viaje['estado']."</small>";
+                  echo $viaje['estado']."</button>";
                   ?>
               </h5>
               <small class="card-text">publicado <?php if(dias_transcurridos($viaje['fecha_publicacion']) == 0){echo "hoy";}
                                                         else {echo "hace ".dias_transcurridos($viaje['fecha_publicacion'])." dias";}?> <br>
               partida el <?php echo date("d-m-Y", strtotime($viaje['fecha_partida']));?> a las <?php echo date("H:i", strtotime($viaje['fecha_partida']));?> </small>
               <hr>
-            </div>
-
-            <!--<ul class="list-group list-group-flush">
-              <li class="list-group-item">lista 1</li>
-            </ul>
-          -->
-            <div class="card-body">
               <a href="#" class="card-link">dar de baja</a>
               <a href="#" class="card-link">ver postulantes</a>
             </div>
@@ -106,14 +101,18 @@ function render($vars = [])
           <?php
         }
       ?>
+
+      <center> <a href="#">Ver todos los viajes</a> </center>
     </div>
 
     <div class="col-md-6">
-      <h3>Mis postulaciones</h3>
+      <h3>Mis ultimas postulaciones</h3>
       <?php
         $postulaciones=mysqli_query($conexion,"SELECT *
                                        FROM participacion
-                                       WHERE idUsuario='$user[idUser]'")
+                                       WHERE idUsuario='$user[idUser]'
+                                       order by idParticipacion
+                                       limit 5")
                                        or
                                        die("Problemas en la base de datos:".mysqli_error($conexion));
         if (mysqli_num_rows($postulaciones) == 0){
