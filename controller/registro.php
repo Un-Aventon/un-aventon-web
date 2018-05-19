@@ -22,39 +22,57 @@ function render($arr = [])
           die("Problemas en la base de datos:".mysqli_error($conexion));
           if(mysqli_fetch_array($rec) > 0)
           {
-            echo '<div class="alert alert-danger" role="alert"> El e-mail ya se encuentra registrado </div>';
+                  echo '<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    El E-Mail ya se encuentra registrado
+              </div>';
             $form = true;
           }
         }else{
-           echo '<div class="alert alert-danger" role="alert"> El e-mail ingresado es incorrecto. </div>';
+                 echo '<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    El E-Mail ingresado no es válido.
+              </div>';
            $form = true;
           } 
 
           $edad = $_POST['edad'];
           if(calc_edad($edad) < 16)
           {
-             echo '<div class="alert alert-danger" role="alert"> Debes ser mayor de 16 años. </div>';
+                 echo '<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    Debes ser mayor de 16 años.
+              </div>';
              $form = true;
           }
 
           $pass = $_POST['pass'];
           if(!preg_match($simple_pattern, $pass))
           {
-            echo '<div class="alert alert-danger" role="alert"> la contraseña ingresada no es válida. </div>';
+                 echo '<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    La contraseña ingreasada no es válida.
+              </div>';
             $form = true;
           }
 
           $nombre = $_POST['nombre'];
           if(!preg_match($names_pattern, $nombre))
           {
-            echo '<div class="alert alert-danger" role="alert"> El nombre igresado no es válido. </div>';
+                 echo '<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    El nombre ingresado no es válido.
+              </div>';
             $form = true;
           }
 
           $apellido = $_POST['apellido'];
           if(!preg_match($names_pattern, $apellido))
           {
-            echo '<div class="alert alert-danger" role="alert"> El apellido ingresado no es válido. </div>';
+                 echo '<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    El Nombre ingresado no es válido.
+              </div>';
             $form = true;
           }
 
