@@ -26,14 +26,6 @@ function render($vars = [])
   $contador_vehiculos=mysqli_fetch_array($contador_vehiculos);
 
   !isset($_POST['marca'])?:include('php/alta_vehiculo.php');
-  if(isset($_COOKIE["carga_vehiculo"]) && $_COOKIE["carga_vehiculo"])
-  {
-      echo '<div class="alert alert-success alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    La carga del vehiculo se realizó correctamente!
-              </div>';
-      setcookie("carga_vehiculo",false);
-  }
 
   ?>
 
@@ -138,8 +130,7 @@ function render($vars = [])
                   echo $viaje['estado']."</button>";
                   ?>
               </h5>
-              <small class="card-text">publicado <?php if(dias_transcurridos($viaje['fecha_publicacion']) == 0){echo "hoy";}
-                                                        else {echo "hace ".dias_transcurridos($viaje['fecha_publicacion'])." dias";}?> <br>
+              <small class="card-text">publicado <?php echo dias_transcurridos($viaje['fecha_publicacion']); ?> <br>
               partida el <?php echo date("d-m-Y", strtotime($viaje['fecha_partida']));?> a las <?php echo date("H:i", strtotime($viaje['fecha_partida']));?> </small>
               <hr>
               <a href="#" class="card-link">dar de baja</a>
@@ -189,7 +180,7 @@ function render($vars = [])
           }
           echo "role='alert'>
                   participacion ".$postulacion['estado_participacion']." <span class='float-right'><a href='#'> cancelar postulacion </a> </span>
-                  <br><b> ".$postulacion['origen']." a ".$postulacion['destino']." </b> <a href='#' class='float-right'> ver viaje </a>
+                  <br><b> ".$postulacion['origen']." a ".$postulacion['destino']." </b> <a href='#' class='float'> ver viaje </a>
                   </div>";
 
         }

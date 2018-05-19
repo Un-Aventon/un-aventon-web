@@ -31,8 +31,7 @@
 											<small>
 											<b style="color:grey">Piloto </b> <?php echo $viaje['nombre']." ".$viaje['apellido'] ?> <br>
 											<?php echo $viaje['asientos_disponibles'] ?> asientos disponibles <br>
-											publicado <?php if(dias_transcurridos($viaje['fecha_publicacion']) == 0){echo "hoy";}
-				                                                  else {echo "hace ".dias_transcurridos($viaje['fecha_publicacion'])." dias";}?> <br>
+											publicado <?php echo dias_transcurridos($viaje['fecha_publicacion']); ?> <br>
 											</small>
 										</div>
 										<div class="col-md-2">
