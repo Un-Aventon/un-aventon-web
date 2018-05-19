@@ -27,6 +27,15 @@ function render($vars = [])
 
   !isset($_POST['marca'])?:include('php/alta_vehiculo.php');
 
+  if(isset($_COOKIE["carga_vehiculo"]) && $_COOKIE["carga_vehiculo"])
+  {
+      echo '<div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    La carga del vehiculo se realizó correctamente!
+              </div>';
+      setcookie("carga_vehiculo",false);
+  }
+
   ?>
 
 

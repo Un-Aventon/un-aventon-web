@@ -31,7 +31,7 @@ function render($arr = [])
           } 
 
           $edad = $_POST['edad'];
-          if($edad <= 16)
+          if(calc_edad($edad) < 16)
           {
              echo '<div class="alert alert-danger" role="alert"> Debes ser mayor de 16 años. </div>';
              $form = true;
@@ -96,7 +96,7 @@ function render($arr = [])
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Edad</label>
-            <input type="number" name="edad" class="form-control" id="edad" <?php if(isset($edad)){ echo 'value="' . $edad . '"';}else{ echo 'placeholder="Ingrese su edad"';}?>>
+            <input type="date" name="edad" class="form-control" id="edad" <?php if(isset($edad)){ echo 'value="' . $edad . '"';}?>>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Contraseña</label>

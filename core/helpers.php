@@ -16,3 +16,11 @@ function dias_transcurridos($fecha_alta)
    return 'hace '.$dif." dias";
  }
 }
+
+function calc_edad($fecha) { 
+    $tiempo = strtotime($fecha); 
+    $ahora = time(); 
+    $edad = ($ahora-$tiempo)/(60*60*24*365.25); 
+    $edad = floor($edad); 
+    return $edad; 
+} 
