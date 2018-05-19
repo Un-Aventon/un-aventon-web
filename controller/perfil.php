@@ -1,14 +1,6 @@
 <?php
 function render($vars = [])
 {
-  function dias_transcurridos($fecha_alta)
-  {
-	 $fecha_alta = date_create($fecha_alta);
-	 $fecha_actual   = date_create(date("d.m.Y"));
-	 $diferencia     = date_diff($fecha_alta, $fecha_actual);
-
-	 return $diferencia->format('%a');
-  }
   //incluyo la conexion
   include('php/conexion.php');
 
@@ -70,7 +62,7 @@ function render($vars = [])
             <label for="exampleInputPassword1">Color</label>
             <input type="text" name="color" class="form-control" id="color" placeholder="Ingresa el color">
           </div>
-          
+
           <div class="container-fluid" style="margin-top:.5rem; padding: 0">
             <input type="submit" name="registro" value="Cargar!" class="btn btn-success form-control form-control-lg">
           </div>
@@ -134,9 +126,6 @@ function render($vars = [])
                     case 'cancelado':
                         echo "<button type='button' class='btn btn-danger btn-sm float-right ' disabled>";
                       break;
-                    case 'suspendido':
-                        echo "<button type='button' class='btn btn-warning btn-sm float-right ' disabled>";
-                      break;
                   }
                   echo $viaje['estado']."</button>";
                   ?>
@@ -159,11 +148,12 @@ function render($vars = [])
     <div class="col-md-6">
       <h3>Mis ultimas postulaciones</h3>
       <?php
-        $postulaciones=mysqli_query($conexion,"SELECT *
+        $postulaciones=mysqli_query($conexion,"SELECT *, participacion.estado as estado_participacion
                                        FROM participacion
+                                       inner join viaje on participacion.idViaje=viaje.idViaje
                                        WHERE idUsuario='$user[idUser]'
                                        order by idParticipacion
-                                       limit 5")
+                                       limit 10")
                                        or
                                        die("Problemas en la base de datos:".mysqli_error($conexion));
         if (mysqli_num_rows($postulaciones) == 0){
@@ -171,9 +161,32 @@ function render($vars = [])
             echo "<a href='/'>ver viajes disponibles</a>";
         }
         while ($postulacion = mysqli_fetch_array($postulaciones)) {
-          echo "postulacion";
+          echo "<div class='alert ";
+          switch ($postulacion['estado_participacion']) {
+            case 'pendiente':
+                echo "alert-primary'";
+              break;
+            case 'terminada':
+                echo "alert-secondary'";
+              break;
+            case 'cancelada':
+                echo "alert-warning'";
+              break;
+            case 'aprobada':
+                echo "alert-success'";
+              break;
+            default:
+                echo "alert-secondary'";
+              break;
+          }
+          echo "role='alert'>
+                  participacion ".$postulacion['estado_participacion']." <span class='float-right'><a href='#'> cancelar postulacion </a> </span>
+                  <br><b> ".$postulacion['origen']." a ".$postulacion['destino']." </b> <a href='#' class='float-right'> ver viaje </a>
+                  </div>";
+
         }
       ?>
+        <center><a href="#">ver todas las postulaciones</a></center>
     </div>
   </div>
 

@@ -2,6 +2,7 @@
 <?php
 	session_start();
 	include ('core/router.php');
+	include ('core/helpers.php');
 	include ('php/inicio_body.php');
 
 	$router = new Router;

@@ -2,16 +2,6 @@
 
 	function render($vars = [])
 	{
-
-		// quitar y generalizar funcion
-		function dias_transcurridos($fecha_alta)
-		{
-		 $fecha_alta = date_create($fecha_alta);
-		 $fecha_actual   = date_create(date("d.m.Y"));
-		 $diferencia     = date_diff($fecha_alta, $fecha_actual);
-
-		 return $diferencia->format('%a');
-		}
 		?>
 
 		<div class="row">
