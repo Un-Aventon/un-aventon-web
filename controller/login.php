@@ -27,25 +27,9 @@
     }
 
 
-    function comprobar_strings($string){
-       if (strlen($string)<3 || strlen($string)>30){
-          return false;
-       }
-
-       //compruebo que los caracteres sean los permitidos
-       $permitidos = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_@.";
-       for ($i=0; $i<strlen($string); $i++){
-          if (strpos($permitidos, substr($string,$i,1))===false){
-             return false;
-          }
-       }
-       return true;
-    }
-
-
     $result = 67;
     if(isset($_POST['login'])){
-      if( (comprobar_strings($_POST['mail'])) & (comprobar_strings($_POST['password'])) ){
+      if( (comprobar_string($_POST['mail'])) & (comprobar_string($_POST['password'])) ){
 
             $result = verificar_login($_POST['mail'],$_POST['password'],$result);
             if($result != 0){
