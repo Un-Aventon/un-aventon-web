@@ -32,7 +32,58 @@ function render($vars = [])
                                     or
                                     die ("problemas con el contador");
   $contador_vehiculos=mysqli_fetch_array($contador_vehiculos);
+
+  !isset($_POST['marca'])?:include('php/alta_vehiculo.php');
+
   ?>
+
+
+<!-- Modal -->
+<div class="modal fade" id="CargarAuto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registrar un Vehiculo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/perfil" method="post">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Marca</label>
+            <input type="text" name="marca" class="form-control" id="marca" aria-describedby="emailHelp" placeholder="Ingresa la marca">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Modelo</label>
+            <input type="text" name="modelo" class="form-control" id="modelo" placeholder="Ingrese el modelo">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Patente</label>
+            <input type="text" name="patente" class="form-control" id="patente" placeholder="Ingresa la patente">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Cantidad de Asientos (sin contar el del conductor)</label>
+            <input type="number" name="cant_asientos" class="form-control" id="cant_asientos" placeholder="Ingrese la cantidadde asientos">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Color</label>
+            <input type="text" name="color" class="form-control" id="color" placeholder="Ingresa el color">
+          </div>
+          
+          <div class="container-fluid" style="margin-top:.5rem; padding: 0">
+            <input type="submit" name="registro" value="Registrarse!" class="btn btn-success form-control form-control-lg">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End Modal -->
 
   <div class="row">
     <div class="col-md-3" style="text-align: center">
@@ -41,7 +92,7 @@ function render($vars = [])
     <div class="col-md-8">
       <h1 class="display-4"><?php echo $user['nombre']; ?> <?php echo $user['apellido']; ?></h1>
       <span><?php echo $user['email']; ?></span><br>
-      <span><?php echo $contador_vehiculos['cont']; ?> vehiculos</span> | <a href="#">agregar un vehiculo</a> | <a href="#">ver vehiculos</a> <br>
+      <span><?php echo $contador_vehiculos['cont']; ?> vehiculos</span> | <a href="#" data-toggle="modal" data-target="#CargarAuto">agregar un vehiculo</a> | <a href="#">ver vehiculos</a> <br>
       <span><?php echo $contador['cont']; ?> viajes totales</span>
     </div>
     <div class="col-md-1">
