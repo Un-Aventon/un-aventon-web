@@ -6,7 +6,10 @@
 
 	if((!preg_match($pattern_old, $_POST['patente'])) and (!preg_match($pattern_new, $_POST['patente'])))
 	{
-		echo '<div class="alert alert-danger" role="alert"> La patente ingresada no es válida </div>';
+                  echo '<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    La patente ingresada no es válida.
+              </div>';
 	}else
 	{
 		$ok = true;
@@ -17,35 +20,50 @@
 
 		 if(mysqli_fetch_array($rec))
 		 {
-		 	echo '<div class="alert alert-danger" role="alert"> La patente se encuentra registrada </div>';
+                  echo '<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                   La patente ya se encuentra registrada.
+              </div>';
 		 	$ok = false;
 		 }else
 		 {
 		 	$marca = $_POST['marca'];
 		 	if(!preg_match($text_pattern, $marca))
 		 	{
-		 		echo '<div class="alert alert-danger" role="alert"> La marca ingresada no es válida </div>';
+                  echo '<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    La marca ingresada no es válida.
+              </div>';
 		 		$ok = false;
 		 	}
 
 		 	$modelo = $_POST['modelo'];
 		 	if(!preg_match($text_pattern, $marca))
 		 	{
-		 		echo '<div class="alert alert-danger" role="alert"> El modelo ingresado no es válido </div>';
+                  echo '<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    El modelo ingresado no es válido.
+              </div>';
 		 		$ok = false;
 		 	}
 
 		 	$cant_asientos = $_POST['cant_asientos'];
-		 	if($cant_asientos < 2)
+		 	if($cant_asientos < 1)
 		 	{
-		 		echo '<div class="alert alert-danger" role="alert"> El vehiculo debe tener almenos 1 asiento</div>';
+                  echo '<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    Debe tener almenos 1 asiento.
+              </div>';
 		 		$ok = false;
 		 	}
 
 		 	$color = $_POST['color'];
 		 	if(!preg_match($text_pattern, $color))
 		 	{
-		 		echo '<div class="alert alert-danger" role="alert"> color ingresado no es válido</div>';
+	                  echo '<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    El color ingresado no es válido.
+              </div>';
 		 		$ok = false;
 		 	}
 
