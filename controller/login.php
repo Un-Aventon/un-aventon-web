@@ -27,7 +27,7 @@
     }
 
 
-    function comprobar_string($string){
+    function comprobar_strings($string){
        if (strlen($string)<3 || strlen($string)>30){
           return false;
        }
@@ -45,7 +45,7 @@
 
     $result = 67;
     if(isset($_POST['login'])){
-      if( (comprobar_string($_POST['mail'])) & (comprobar_string($_POST['password'])) ){
+      if( (comprobar_strings($_POST['mail'])) & (comprobar_strings($_POST['password'])) ){
 
             $result = verificar_login($_POST['mail'],$_POST['password'],$result);
             if($result != 0){
