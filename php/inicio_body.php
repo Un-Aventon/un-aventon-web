@@ -17,4 +17,4 @@
     <?php
       include('php/navbar.php');
     ?>
-    <div class="container" style="background-color: #FFF; border-radius: 5px">
+    <div class="container" style="background-color:; border-radius: 5px">
