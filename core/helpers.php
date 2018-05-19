@@ -26,7 +26,7 @@ function calc_edad($fecha) {
 }
 
 function comprobar_string($string){
-   if (strlen($string)<3 || strlen($string)>30){
+   if (strlen($string)<5 || strlen($string)>50){
       return false;
    }
 
