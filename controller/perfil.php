@@ -72,7 +72,7 @@ function render($vars = [])
           </div>
           
           <div class="container-fluid" style="margin-top:.5rem; padding: 0">
-            <input type="submit" name="registro" value="Registrarse!" class="btn btn-success form-control form-control-lg">
+            <input type="submit" name="registro" value="Cargar!" class="btn btn-success form-control form-control-lg">
           </div>
         </form>
       </div>
