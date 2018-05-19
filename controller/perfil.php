@@ -36,6 +36,17 @@ function render($vars = [])
       setcookie("carga_vehiculo",false);
   }
 
+  // cargo algoritmo de modificacion de datos
+  !isset($_POST['email'])?:include('php/modificar_datos.php');
+
+  if(isset($_COOKIE["modificacion_datos"]) && $_COOKIE["modificacion_datos"])
+  {
+      echo '<br><div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    Se modificaron los datos exitosamente!
+              </div>';
+      setcookie("modificacion_datos",false);
+  }
   ?>
 
 
@@ -91,7 +102,7 @@ function render($vars = [])
       <img src="img/user.png" alt="imagen de usuario" style="width: 150px; margin-top: 15px">
     </div>
     <div class="col-md-8">
-      <h1 class="display-4"><?php echo $user['nombre']; ?> <?php echo $user['apellido']; ?></h1>
+      <h1 class="display-4"><?php echo $user['nombre']." ".$user['apellido']; ?></h1>
       <span><?php echo $user['email']; ?></span><br>
       <span><?php echo $contador_vehiculos['cont']; ?> vehiculos</span> | <a href="#" data-toggle="modal" data-target="#CargarAuto">agregar un vehiculo</a> | <a href="#">ver vehiculos</a> <br>
       <span><?php echo $contador['cont']; ?> viajes totales</span>
@@ -211,7 +222,7 @@ function render($vars = [])
         </button>
       </div>
       <div class="modal-body">
-        <form action="modificar_datos" method="post">
+        <form action="/perfil" method="post">
           <div class="form-group row">
             <label for="mail" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
