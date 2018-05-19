@@ -54,6 +54,10 @@
 		 		$rec=mysqli_query($conexion,"INSERT into vehiculo (idPropietario,cant_asientos,modelo,marca,color,patente,estado) VALUES ('$user[idUser]','$cant_asientos','$modelo','$marca','$color','$patente','re piola' )") or die ('error '.mysqli_error($conexion));
 
 		 		echo '<div class="alert alert-success" role="alert"> El vehiculo se cargo exitosamente</div>';
+
+		 		setcookie("carga_vehiculo",true);
+		 		
+		 		header('Location: /perfil');
 		 	}
 
 		 }
