@@ -8,7 +8,7 @@ function render($arr = [])
 
     if(isset($_POST['registro']))
     {    
-        $simple_pattern ='/^[a-zA-Z0-9\-_.,! ]{3,50}$/';
+        $simple_pattern ='/^[a-zA-Z0-9\-_.,! ]{5,50}$/';
         $names_pattern ='/^[a-zA-Z ]{3,50}$/';
         $email_patter = '/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/';
         $mail = $_POST['mail'];
@@ -105,20 +105,20 @@ function render($arr = [])
             <small id="emailHelp" class="form-text text-muted">Tu información nunca será compartida con terceros.</small>
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Nombre</label>
+            <label>Nombre</label>
             <input type="text" name="nombre" class="form-control" id="nombre" <?php if(isset($nombre) && preg_match($names_pattern, $nombre)){echo 'value="'. $nombre.'"';}else{echo 'placeholder="Ingrese su nombre"';} ?>>
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Apellido</label>
+            <label>Apellido</label>
             <input type="text" name="apellido" class="form-control" id="apellido" <?php if(isset($apellido) && preg_match($names_pattern, $apellido)){echo 'value="'. $apellido.'"';}else{echo 'placeholder="Ingrese su apellido"';} ?>>
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Edad</label>
+            <label>Edad</label>
             <input type="date" name="edad" class="form-control" id="edad" <?php if(isset($edad)){ echo 'value="' . $edad . '"';}?>>
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Contraseña</label>
-            <input type="password" name="pass" class="form-control" id="pass" placeholder="Ingresa una contraseña">
+            <label>Contraseña</label>
+            <input type="password" name="pass" class="form-control" id="pass" pattern="{5,50}" placeholder="Ingresa una contraseña">
           </div>
           
           <div class="container-fluid" style="margin-top:.5rem; padding: 0">
