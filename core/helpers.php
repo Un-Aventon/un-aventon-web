@@ -26,16 +26,7 @@ function calc_edad($fecha) {
 }
 
 function comprobar_string($string){
-   if (strlen($string)<5 || strlen($string)>50){
-      return false;
-   }
-
-   //compruebo que los caracteres sean los permitidos
-   $permitidos = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_@.";
-   for ($i=0; $i<strlen($string); $i++){
-      if (strpos($permitidos, substr($string,$i,1))===false){
-         return false;
-      }
-   }
-   return true;
+	$expresion = '/^[a-zA-Z0-9@-_. ]{5,50}/';
+	
+	return(preg_match($expresion, $string));
 }
