@@ -67,6 +67,8 @@ function render($arr = [])
 
   }
 
+
+
   if($form)
   {
   ?>
@@ -81,20 +83,20 @@ function render($arr = [])
           <form action="/registro" method="post">
           <div class="form-group">
             <label for="exampleInputEmail1">Dirección de Email</label>
-            <input type="email" name="mail" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Ingresa un email">
+            <input type="email" name="mail" class="form-control" id="email" aria-describedby="emailHelp" <?php if(isset($mail) && preg_match($email_patter, $mail)){echo 'value="'. $mail.'"';}else{echo 'placeholder="Ingrese su email"';} ?>>
             <small id="emailHelp" class="form-text text-muted">Tu información nunca será compartida con terceros.</small>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Nombre</label>
-            <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese su nombre">
+            <input type="text" name="nombre" class="form-control" id="nombre" <?php if(isset($nombre) && preg_match($names_pattern, $nombre)){echo 'value="'. $nombre.'"';}else{echo 'placeholder="Ingrese su nombre"';} ?>>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Apellido</label>
-            <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Ingresa su apellido">
+            <input type="text" name="apellido" class="form-control" id="apellido" <?php if(isset($apellido) && preg_match($names_pattern, $apellido)){echo 'value="'. $apellido.'"';}else{echo 'placeholder="Ingrese su apellido"';} ?>>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Edad</label>
-            <input type="number" name="edad" class="form-control" id="edad" placeholder="Ingrese su edad">
+            <input type="number" name="edad" class="form-control" id="edad" <?php if(isset($edad)){ echo 'value="' . $edad . '"';}else{ echo 'placeholder="Ingrese su edad"';}?>>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Contraseña</label>
