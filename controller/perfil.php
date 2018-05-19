@@ -106,7 +106,7 @@ function render($vars = [])
 
   <div class="row">
     <div class="col-md-6">
-      <h3>Mis ultimos viajes</h3>
+      <h3>Mis ultimos viajes </h3>
       <?php
         $viajes=mysqli_query($conexion,"SELECT *
                                        FROM viaje
