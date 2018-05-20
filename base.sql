@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 18-05-2018 a las 20:35:25
+-- Tiempo de generación: 20-05-2018 a las 20:45:32
 -- Versión del servidor: 5.7.21
 -- Versión de PHP: 5.6.35
 
@@ -44,6 +44,29 @@ CREATE TABLE IF NOT EXISTS `calificacion` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `estado_viaje`
+--
+
+DROP TABLE IF EXISTS `estado_viaje`;
+CREATE TABLE IF NOT EXISTS `estado_viaje` (
+  `idEstado` int(1) NOT NULL AUTO_INCREMENT,
+  `color` varchar(14) NOT NULL,
+  `estado` varchar(14) NOT NULL,
+  PRIMARY KEY (`idEstado`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `estado_viaje`
+--
+
+INSERT INTO `estado_viaje` (`idEstado`, `color`, `estado`) VALUES
+(1, 'success', 'activo'),
+(2, 'danger', 'cancelado'),
+(3, 'primary', 'terminado');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `pago`
 --
 
@@ -70,14 +93,17 @@ CREATE TABLE IF NOT EXISTS `participacion` (
   `estado` varchar(10) NOT NULL,
   `fecha_solicitud` date NOT NULL,
   PRIMARY KEY (`idParticipacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `participacion`
 --
 
 INSERT INTO `participacion` (`idParticipacion`, `idUsuario`, `idViaje`, `estado`, `fecha_solicitud`) VALUES
-(1, 2, 1, 'pendiente', '2018-05-10');
+(1, 1, 1, 'pendiente', '2018-05-10'),
+(3, 1, 3, 'aprobada', '2018-05-10'),
+(4, 1, 4, 'cancelada', '2018-05-10'),
+(5, 1, 5, 'terminada', '2018-05-10');
 
 -- --------------------------------------------------------
 
@@ -112,15 +138,16 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `apellido` varchar(50) NOT NULL,
   `admin` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`idUser`, `email`, `clave`, `nombre`, `apellido`, `admin`) VALUES
-(1, 'koumsky@gmail.com', '1234', 'martin', 'salem', 1),
-(2, '1234@gmail.com', '1234', 'Frederico', 'Garquez', 1);
+(1, 'koumsky@gmail.com', '12345', 'Juanchotazo', 'Rumero', 1),
+(2, '1234@gmail.com', '12345', 'Frederico', 'Garquez', 1),
+(3, 'kaksk@gmail.com', 'fdgfdgf', 'dsafds', 'sdfds', 0);
 
 -- --------------------------------------------------------
 
@@ -139,14 +166,16 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
   `patente` varchar(10) NOT NULL COMMENT 'puede ser patente extrangera',
   `estado` varchar(20) NOT NULL,
   PRIMARY KEY (`idVehiculo`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `vehiculo`
 --
 
 INSERT INTO `vehiculo` (`idVehiculo`, `idPropietario`, `cant_asientos`, `modelo`, `marca`, `color`, `patente`, `estado`) VALUES
-(1, 1, 3, '2018', 'renault 12', 'marron con verde', 'ac 789 op', 'eselente');
+(1, 1, 3, '2018', 'renault 12', 'marron con verde', 'ac 789 op', 'eselente'),
+(2, 1, 5, 'en tanga', 'tuvieja', 'caca', 'jey001', 're piola'),
+(3, 1, 2, 'fsdgfdsg', 'dgdf', 'dsfds', 'hjh212', 're piola');
 
 -- --------------------------------------------------------
 
@@ -166,19 +195,20 @@ CREATE TABLE IF NOT EXISTS `viaje` (
   `destino` varchar(60) NOT NULL,
   `asientos_disponibles` int(2) NOT NULL,
   `costo` int(7) NOT NULL,
-  `estado` varchar(20) NOT NULL,
+  `estado` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idViaje`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `viaje`
 --
 
 INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `fecha_partida`, `tipo`, `origen`, `destino`, `asientos_disponibles`, `costo`, `estado`) VALUES
-(1, 1, 1, '2018-05-01 10:18:12', '2018-05-31 07:09:08', 'unico', 'La Plata - BsAs', 'chapalmalal - BsAs', 3, 8999, 'activo'),
-(2, 1, 2, '2018-05-10 04:26:19', '2018-05-26 09:10:17', 'recurrente', 'la quiaca', 'buenos aires', 2, 500, 'suspendido'),
-(3, 1, 1, '2018-05-03 07:10:33', '2018-05-25 10:17:38', 'unico', 'Mendoza', 'La Pampa', 6, 3600, 'cancelado'),
-(4, 1, 1, '2018-05-03 21:19:10', '2018-05-25 04:35:19', 'unico', 'Mendoza', 'La Pampa', 1, 3600, 'terminado');
+(1, 1, 1, '2018-05-01 10:18:12', '2018-05-31 07:09:08', 'unico', 'La Plata', 'chapalmalal', 3, 8999, 1),
+(2, 1, 2, '2018-05-10 04:26:19', '2018-05-02 09:10:17', 'recurrente', 'la quiaca', 'buenos aires', 2, 500, 1),
+(3, 1, 1, '2018-05-03 07:10:33', '2018-05-25 10:17:38', 'unico', 'Mendoza', 'La Pampa', 6, 3600, 2),
+(4, 1, 1, '2018-05-03 21:19:10', '2018-05-25 04:35:19', 'unico', 'Mendoza', 'La Pampa', 1, 3600, 3),
+(5, 1, 1, '2018-05-03 07:10:33', '2018-05-25 10:17:38', 'unico', 'Mendoza', 'La Pampa', 6, 3600, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,7 +3,6 @@
 	function render($vars = [])
 	{
 		?>
-
 		<div class="row">
 			<?php
 			// incluyo la conexion.
@@ -12,7 +11,7 @@
 			$viajes=mysqli_query($conexion,"select *
 											from viaje
 											inner join usuario on viaje.idPiloto = usuario.idUser
-											where fecha_partida > now() and estado = 'activo'") or
+											where fecha_partida > now() and estado = 1") or
 											die("Problemas en el select:".mysqli_error($conexion));
 
 						while ($viaje=mysqli_fetch_array($viajes)){
@@ -40,8 +39,6 @@
 									</div>
   							</div>
 							</div>
-
-
 
 
 				 <?php } ?>

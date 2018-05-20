@@ -119,8 +119,9 @@ function render($vars = [])
     <div class="col-md-6">
       <h3>Mis ultimos viajes </h3>
       <?php
-        $viajes=mysqli_query($conexion,"SELECT *
+        $viajes=mysqli_query($conexion,"SELECT *, viaje.estado as 'estadodelviaje'
                                        FROM viaje
+                                       INNER JOIN estado_viaje on viaje.estado=estado_viaje.idEstado
                                        WHERE idPiloto='$user[idUser]'
                                        order by idViaje
                                        limit 5")
@@ -136,19 +137,9 @@ function render($vars = [])
             <img class="card-img-top" src="img/prueba_maps.png" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title"><?php echo $viaje['origen']." a ".$viaje['destino'] ?>
-                  <?php switch ($viaje['estado']) {
-                    case 'activo':
-                        echo "<button type='button' class='btn btn-success btn-sm float-right ' disabled>";
-                      break;
-                    case 'terminado':
-                        echo "<button type='button' class='btn btn-primary btn-sm float-right ' disabled>";
-                      break;
-                    case 'cancelado':
-                        echo "<button type='button' class='btn btn-danger btn-sm float-right ' disabled>";
-                      break;
-                  }
-                  echo $viaje['estado']."</button>";
-                  ?>
+                  <button type='button' class='btn btn-<?php echo $viaje['color']; ?> btn-sm float-right ' disabled>
+                    <?php echo $viaje['estado']; ?>
+                  </button>
               </h5>
               <small class="card-text">publicado <?php echo dias_transcurridos($viaje['fecha_publicacion']); ?> <br>
               partida el <?php echo date("d-m-Y", strtotime($viaje['fecha_partida']));?> a las <?php echo date("H:i", strtotime($viaje['fecha_partida']));?> </small>
