@@ -173,8 +173,13 @@ function render($vars = [])
         }
         while ($postulacion = mysqli_fetch_array($postulaciones)) {
           echo "<div class='alert alert-".$postulacion['color']."' role='alert'>
-                  participacion ".$postulacion['estado']." <span class='float-right'><a href='#'> cancelar postulacion </a> </span>
-                  <br><b> ".$postulacion['origen']." a ".$postulacion['destino']." </b> <a href='#' class='float'> ver viaje </a>
+                  participacion ".$postulacion['estado'];
+
+          if ($postulacion['estado_participacion'] < 3){
+            echo "<span class='float-right'><a href='#'> cancelar postulacion </a> </span>";
+          }
+
+          echo "<br><b> ".$postulacion['origen']." a ".$postulacion['destino']." </b> <a href='#' class='float'> ver detalles </a>
                   </div>";
 
         }
