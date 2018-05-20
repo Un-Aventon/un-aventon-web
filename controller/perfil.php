@@ -158,9 +158,10 @@ function render($vars = [])
     <div class="col-md-6">
       <h3>Mis ultimas postulaciones</h3>
       <?php
-        $postulaciones=mysqli_query($conexion,"SELECT *, participacion.estado as estado_participacion
+        $postulaciones=mysqli_query($conexion,"SELECT *, participacion.estado as estado_participacion, viaje.estado as estado_viaje
                                        FROM participacion
                                        inner join viaje on participacion.idViaje=viaje.idViaje
+                                       inner join estado_participacion on participacion.estado=estado_participacion.idEstado
                                        WHERE idUsuario='$user[idUser]'
                                        order by idParticipacion
                                        limit 10")
@@ -171,26 +172,8 @@ function render($vars = [])
             echo "<a href='/'>ver viajes disponibles</a>";
         }
         while ($postulacion = mysqli_fetch_array($postulaciones)) {
-          echo "<div class='alert ";
-          switch ($postulacion['estado_participacion']) {
-            case 'pendiente':
-                echo "alert-primary'";
-              break;
-            case 'terminada':
-                echo "alert-secondary'";
-              break;
-            case 'cancelada':
-                echo "alert-warning'";
-              break;
-            case 'aprobada':
-                echo "alert-success'";
-              break;
-            default:
-                echo "alert-secondary'";
-              break;
-          }
-          echo "role='alert'>
-                  participacion ".$postulacion['estado_participacion']." <span class='float-right'><a href='#'> cancelar postulacion </a> </span>
+          echo "<div class='alert alert-".$postulacion['color']."' role='alert'>
+                  participacion ".$postulacion['estado']." <span class='float-right'><a href='#'> cancelar postulacion </a> </span>
                   <br><b> ".$postulacion['origen']." a ".$postulacion['destino']." </b> <a href='#' class='float'> ver viaje </a>
                   </div>";
 

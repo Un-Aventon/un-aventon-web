@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 20-05-2018 a las 20:58:01
+-- Tiempo de generación: 20-05-2018 a las 21:21:05
 -- Versión del servidor: 5.7.21
 -- Versión de PHP: 5.6.35
 
@@ -40,6 +40,31 @@ CREATE TABLE IF NOT EXISTS `calificacion` (
   `comentario` varchar(255) NOT NULL,
   PRIMARY KEY (`idCalificacion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_participacion`
+--
+
+DROP TABLE IF EXISTS `estado_participacion`;
+CREATE TABLE IF NOT EXISTS `estado_participacion` (
+  `idEstado` int(1) NOT NULL AUTO_INCREMENT,
+  `color` varchar(14) NOT NULL,
+  `estado` varchar(40) NOT NULL,
+  PRIMARY KEY (`idEstado`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `estado_participacion`
+--
+
+INSERT INTO `estado_participacion` (`idEstado`, `color`, `estado`) VALUES
+(1, 'primary', 'pendiente'),
+(2, 'success', 'aprobada'),
+(3, 'warning', 'cancelada por mi'),
+(4, 'danger', 'cancelada por el piloto'),
+(5, 'secondary', 'terminada');
 
 -- --------------------------------------------------------
 
@@ -90,20 +115,21 @@ CREATE TABLE IF NOT EXISTS `participacion` (
   `idParticipacion` int(6) NOT NULL AUTO_INCREMENT,
   `idUsuario` int(6) NOT NULL,
   `idViaje` int(6) NOT NULL,
-  `estado` varchar(10) NOT NULL,
   `fecha_solicitud` date NOT NULL,
+  `estado` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idParticipacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `participacion`
 --
 
-INSERT INTO `participacion` (`idParticipacion`, `idUsuario`, `idViaje`, `estado`, `fecha_solicitud`) VALUES
-(1, 1, 1, 'pendiente', '2018-05-10'),
-(3, 1, 3, 'aprobada', '2018-05-10'),
-(4, 1, 4, 'cancelada', '2018-05-10'),
-(5, 1, 5, 'terminada', '2018-05-10');
+INSERT INTO `participacion` (`idParticipacion`, `idUsuario`, `idViaje`, `fecha_solicitud`, `estado`) VALUES
+(1, 1, 1, '2018-05-10', 1),
+(3, 1, 3, '2018-05-10', 2),
+(4, 1, 4, '2018-05-10', 3),
+(5, 1, 5, '2018-05-10', 5),
+(6, 1, 4, '2018-05-10', 4);
 
 -- --------------------------------------------------------
 
