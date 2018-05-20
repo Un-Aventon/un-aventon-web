@@ -1,0 +1,35 @@
+	.card-header{
+		/*background-color: #EF7476;*/
+		height: 4rem;
+	}
+
+	#cuerpo{
+		height: 20rem
+
+	}
+	.profile-header-img{
+		width: 3rem;
+	}
+
+
+	.profile-header-img > img.img-circle {
+	    width: 70px;
+	    height: 70px;
+	    max-width: 100px;
+	    max-height: 100px;
+	    -webkit-border-radius: 50%;
+	    -moz-border-radius: 50%;
+	    border-radius: 50%;
+	    border: 2px solid grey;
+	}
+
+	.tipo{
+		color: white;
+		font-family: sans-serif;
+		font-size: 40rem;
+		font-weight: bold;
+	}
+
+	th,tr{
+		font-family: helvetica;
+	}

@@ -104,7 +104,7 @@ function render($vars = [])
     <div class="col-md-8">
       <h1 class="display-4"><?php echo $user['nombre']." ".$user['apellido']; ?></h1>
       <span><?php echo $user['email']; ?></span><br>
-      <span><?php echo $contador_vehiculos['cont']; ?> vehiculos</span> | <a href="#" data-toggle="modal" data-target="#CargarAuto">agregar un vehiculo</a> | <a href="#">ver vehiculos</a> <br>
+      <span><?php echo $contador_vehiculos['cont']; ?> vehiculos</span> | <a href="#" data-toggle="modal" data-target="#CargarAuto">agregar un vehiculo</a> | <a href="/listado-vehiculos">ver vehiculos</a> <br>
       <span><?php echo $contador['cont']; ?> viajes totales</span>
     </div>
     <div class="col-md-1">
