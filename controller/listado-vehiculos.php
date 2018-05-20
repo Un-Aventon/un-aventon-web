@@ -1,7 +1,21 @@
 <?php
 
 function render($vars = []){
+
+	include('php/conexion.php');
+	// si hay vehiculo para cargar, incluyo el algoritmo.
+	!isset($_POST['marca'])?:include('php/alta_vehiculo.php');
+	 if(isset($_COOKIE["carga_vehiculo"]) && $_COOKIE["carga_vehiculo"])
+ 	 {
+      echo '<div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    La carga del vehiculo se realizó correctamente!
+              </div>';
+      setcookie("carga_vehiculo",false);
+ 	 }
 	?>
+
+
 		<!-- Modal -->
 		<div class="modal fade" id="CargarAuto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
@@ -13,7 +27,7 @@ function render($vars = []){
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		        <form action="/perfil" method="post">
+		        <form action="/listado-vehiculos" method="post">
 		          <div class="form-group">
 		            <label for="exampleInputEmail1">Marca</label>
 		            <input type="text" name="marca" class="form-control" id="marca" aria-describedby="emailHelp" placeholder="Ingresa la marca">
@@ -68,7 +82,7 @@ function render($vars = []){
 		</div>
 		 <hr>
 	<?php
-	include('php/conexion.php');
+
 	$consulta = "select * from usuario 
 						  inner join vehiculo on usuario.idUser=vehiculo.idPropietario
 						  where usuario.idUser='$_SESSION[userId]'";

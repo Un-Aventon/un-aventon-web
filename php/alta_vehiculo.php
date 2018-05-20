@@ -69,13 +69,18 @@
 
 		 	if($ok)
 		 	{
-		 		$rec=mysqli_query($conexion,"INSERT into vehiculo (idPropietario,cant_asientos,modelo,marca,color,patente,estado) VALUES ('$user[idUser]','$cant_asientos','$modelo','$marca','$color','$patente','re piola' )") or die ('error '.mysqli_error($conexion));
+		 		isset($user)? $u = $user['idUser'] : $u = $_SESSION['userId'];
+		 		
+		 		echo $u;
+
+		 		mysqli_query($conexion,"INSERT into vehiculo (idPropietario,cant_asientos,modelo,marca,color,patente,estado) VALUES ('$u','$cant_asientos','$modelo','$marca','$color','$patente','re piola' )") or die ('error '.mysqli_error($conexion));
 
 		 		echo '<div class="alert alert-success" role="alert"> El vehiculo se cargo exitosamente</div>';
 
 		 		setcookie("carga_vehiculo",true);
-		 		
-		 		header('Location: /perfil');
+		 		$r = new Router;
+		 		$file = $r->get_file();
+		 		header('Location: /' . $file);
 		 	}
 
 		 }
