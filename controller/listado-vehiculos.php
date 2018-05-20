@@ -83,11 +83,12 @@ function render($vars = []){
 		 <hr>
 	<?php
 
-	$consulta = "select * from usuario 
-						  inner join vehiculo on usuario.idUser=vehiculo.idPropietario
-						  where usuario.idUser='$_SESSION[userId]'";
+	$consulta = "select *, vehiculo.tipo as 'vehiculotipo' 
+							from vehiculo
+							INNER JOIN tipo_vehiculo on vehiculo.tipo=tipo_vehiculo.idTipo
+						  where idPropietario='$_SESSION[userId]'";
 
-	$vehiculos=mysqli_query($conexion, $consulta) 
+	$vehiculos=mysqli_query($conexion, $consulta)
 			or die("error de la consulta:".mysqli_error($conexion));
 
 	$elementosEnFila;
@@ -106,7 +107,7 @@ function render($vars = []){
 ?>
 				<div class="card" style="width: 20rem;">
 							    <div class="card-header bg-dark text-white">
-								    	<div class="profile-header-container">   
+								    	<div class="profile-header-container">
 								  			<div class="row" style="margin-top: -.5rem; margin-left: -1rem;">
 								  				<div class="col col-md-4 profile-header-img">
 											     	<img class="img-circle" src="img/icono_coche.jpg"/>
@@ -172,4 +173,3 @@ function render($vars = []){
 	<div class="container">
 	<?php
 }
-

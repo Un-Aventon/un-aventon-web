@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 20-05-2018 a las 20:45:32
+-- Tiempo de generación: 20-05-2018 a las 20:58:01
 -- Versión del servidor: 5.7.21
 -- Versión de PHP: 5.6.35
 
@@ -126,6 +126,30 @@ CREATE TABLE IF NOT EXISTS `pregunta` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tipo_vehiculo`
+--
+
+DROP TABLE IF EXISTS `tipo_vehiculo`;
+CREATE TABLE IF NOT EXISTS `tipo_vehiculo` (
+  `idTipo` int(1) NOT NULL AUTO_INCREMENT,
+  `icono` varchar(140) DEFAULT NULL,
+  `tipo` varchar(11) NOT NULL,
+  PRIMARY KEY (`idTipo`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tipo_vehiculo`
+--
+
+INSERT INTO `tipo_vehiculo` (`idTipo`, `icono`, `tipo`) VALUES
+(1, NULL, 'auto'),
+(2, NULL, 'camioneta'),
+(3, NULL, 'moto'),
+(4, NULL, 'camion');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -165,6 +189,7 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
   `color` varchar(20) NOT NULL,
   `patente` varchar(10) NOT NULL COMMENT 'puede ser patente extrangera',
   `estado` varchar(20) NOT NULL,
+  `tipo` int(1) DEFAULT NULL,
   PRIMARY KEY (`idVehiculo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
@@ -172,10 +197,10 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
 -- Volcado de datos para la tabla `vehiculo`
 --
 
-INSERT INTO `vehiculo` (`idVehiculo`, `idPropietario`, `cant_asientos`, `modelo`, `marca`, `color`, `patente`, `estado`) VALUES
-(1, 1, 3, '2018', 'renault 12', 'marron con verde', 'ac 789 op', 'eselente'),
-(2, 1, 5, 'en tanga', 'tuvieja', 'caca', 'jey001', 're piola'),
-(3, 1, 2, 'fsdgfdsg', 'dgdf', 'dsfds', 'hjh212', 're piola');
+INSERT INTO `vehiculo` (`idVehiculo`, `idPropietario`, `cant_asientos`, `modelo`, `marca`, `color`, `patente`, `estado`, `tipo`) VALUES
+(1, 1, 3, '2018', 'renault 12', 'marron con verde', 'ac 789 op', 'eselente', 1),
+(2, 1, 5, 'en tanga', 'tuvieja', 'verde', 'jey001', 're piola', 2),
+(3, 1, 2, 'fsdgfdsg', 'dgdf', 'dsfds', 'hjh212', 're piola', 3);
 
 -- --------------------------------------------------------
 
