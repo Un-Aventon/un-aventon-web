@@ -1,1 +1,1 @@
-Deny from all
+RewriteRule ^ /index.php [QSA,L]
