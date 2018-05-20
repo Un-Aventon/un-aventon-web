@@ -14,6 +14,13 @@
 											where fecha_partida > now() and estado = 1") or
 											die("Problemas en el select:".mysqli_error($conexion));
 
+											// to do: meterle un poco de color
+											if (mysqli_num_rows($viajes) == 0){
+							            echo "<div class='alert alert-light' role='alert'>
+  																	Parece que no hay viajes disponibles <a href='#' class='alert-link'>:(</a>
+																</div>";
+							        }
+
 						while ($viaje=mysqli_fetch_array($viajes)){
 							?>
 
