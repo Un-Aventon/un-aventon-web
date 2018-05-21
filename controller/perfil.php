@@ -47,6 +47,10 @@ function render($vars = [])
               </div>';
       setcookie("modificacion_datos",false);
   }
+
+  $tipos=mysqli_query($conexion,"SELECT * FROM `tipo_vehiculo` ")
+                                   or
+                                   die("Problemas en la base de datos:".mysqli_error($conexion));
   ?>
 
 
@@ -74,6 +78,16 @@ function render($vars = [])
             <label for="exampleInputPassword1">Patente</label>
             <input type="text" name="patente" class="form-control" id="patente" placeholder="Ingresa la patente">
           </div>
+          <div class="form-group">
+            <label for="tipo">Tipo:</label>
+              <select class="form-control" name="tipo" id="tipo">
+                <?php
+                  while ($t=mysqli_fetch_array($tipos)){
+                    echo '<option value="'. $t['idTipo'] .'">'. $t['tipo'] .'</option>';
+                  }
+                ?>
+            </select>
+          </div> 
           <div class="form-group">
             <label for="exampleInputPassword1">Cantidad de Asientos (sin contar el del conductor)</label>
             <input type="number" name="cant_asientos" class="form-control" id="cant_asientos" placeholder="Ingrese la cantidadde asientos">

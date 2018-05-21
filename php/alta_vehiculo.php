@@ -4,6 +4,7 @@
 	$pattern_new = '/^[a-zA-Z]{2}[0-9]{3}[a-zA-Z]{2}/';
 	$text_pattern = '/^[a-zA-Z0-9]{3,50}$/';
 
+
 	if((!preg_match($pattern_old, $_POST['patente'])) and (!preg_match($pattern_new, $_POST['patente'])))
 	{
                   echo '<div class="alert alert-danger alert-dismissable">
@@ -57,6 +58,15 @@
 		 		$ok = false;
 		 	}
 
+		 	$tipo = $_POST['tipo'];
+		 	if($tipo > 0)
+		 	{
+		 		echo '<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    El tipo ingresado no es válido.
+              </div>';
+		 	}
+
 		 	$color = $_POST['color'];
 		 	if(!preg_match($text_pattern, $color))
 		 	{
@@ -73,7 +83,7 @@
 		 		
 		 		echo $u;
 
-		 		mysqli_query($conexion,"INSERT into vehiculo (idPropietario,cant_asientos,modelo,marca,color,patente,estado) VALUES ('$u','$cant_asientos','$modelo','$marca','$color','$patente','re piola' )") or die ('error '.mysqli_error($conexion));
+		 		mysqli_query($conexion,"INSERT into vehiculo (idPropietario,cant_asientos,modelo,marca,color,patente,estado,tipo) VALUES ('$u','$cant_asientos','$modelo','$marca','$color','$patente','piolasa','$tipo' )") or die ('error '.mysqli_error($conexion));
 
 		 		echo '<div class="alert alert-success" role="alert"> El vehiculo se cargo exitosamente</div>';
 
