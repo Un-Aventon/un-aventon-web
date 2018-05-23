@@ -227,7 +227,7 @@ function render($vars = []){
 								          </div>
 								          <input name="idVehiculo" type="hidden" value="<?php echo $vehiculo['idVehiculo']; ?>">
 								          <div class="container-fluid" style="margin-top:.5rem; padding: 0">
-								            <input type="submit" name="modificar" class="btn btn-success form-control form-control-lg">
+								            <input type="submit" name="modificar" value="Guardar Cambios" class="btn btn-success form-control form-control-lg">
 								          </div>
 								        </form>
 								      </div>

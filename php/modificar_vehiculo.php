@@ -59,7 +59,7 @@
 		 	{
 
 		 		$consulta = "UPDATE vehiculo
-		 					 SET cant_asientos = '$cant_asientos', marca = '$marca', modelo = '$modelo', color = '$color', estado = '$estado', tipo = '$tipo'
+		 					 SET cant_asientos = '$cant_asientos', marca = '$marca', modelo = '$modelo', color = '$color', tipo = '$tipo'
 		 					 WHERE idVehiculo = '$_POST[idVehiculo]' ";
 		 		mysqli_query($conexion, $consulta) or 
 		 										   die("error en la modificacion".mysqli_error($conexion));
