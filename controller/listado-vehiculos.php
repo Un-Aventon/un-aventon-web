@@ -7,7 +7,7 @@ function render($vars = []){
 	!isset($_POST['cargaVehiculo'])?:include('php/alta_vehiculo.php');
 
 	!isset($_POST['idBaja'])?:include('php/baja_vehiculo.php');
-	
+
 	 if(isset($_COOKIE["carga_vehiculo"]) && $_COOKIE["carga_vehiculo"])
  	 {
       echo '<div class="alert alert-success alert-dismissable">
@@ -190,7 +190,7 @@ function render($vars = []){
 							      				{
 							      					echo '<form action="/listado-vehiculos" method="POST">
 							    							<input type="text" name="idBaja" value="'.$vehiculo['idVehiculo'].'"hidden>
-							    							<button class="btn btn-outline-danger btn-block"> Eliminar </button>
+							    							<button class="btn btn-outline-danger btn-block" onclick="return confirm(\'está seguro que quiere eliminar el vehiculo con patente'.$vehiculo['patente'].'?\')"> Eliminar </button>
 							   							 </form>';
 							      					
 							      				}
