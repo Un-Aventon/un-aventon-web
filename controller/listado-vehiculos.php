@@ -65,7 +65,7 @@ function render($vars = []){
   								}
   							?>
 						</select>
-					</div> 
+					</div>
 				</br>
 		          <div class="form-group">
 		            <label for="exampleInputPassword1">Cantidad de Asientos (sin contar el del conductor)</label>
@@ -110,7 +110,7 @@ function render($vars = []){
 		 <hr>
 	<?php
 
-	$consulta = "select *, vehiculo.tipo as 'vehiculotipo' 
+	$consulta = "select *, vehiculo.tipo as 'vehiculotipo'
 							from vehiculo
 							INNER JOIN tipo_vehiculo on vehiculo.tipo=tipo_vehiculo.idTipo
 						  where idPropietario='$_SESSION[userId]'";
@@ -140,10 +140,10 @@ function render($vars = []){
 								    	<div class="profile-header-container">
 								  			<div class="row" style="margin-top: -.5rem; margin-left: -1rem;">
 								  				<div class="col col-md-4 profile-header-img">
-											     	<img class="img-circle" src="img/icono_coche.jpg"/>
+											     	<img class="img-circle" src="<?php echo $vehiculo['icono'] ?>"/>
 												</div>
 												<div class="col col-md-8" style="margin-top: 1.5rem; margin-left: -1.7rem;">
-											   		<p class="text-left tipo" style="font-family: helvetica; font-size: 1.3rem"> <?php echo $vehiculo['tipo'];?></p>
+											   		<p class="text-left tipo float-right" style="font-family: helvetica; font-size: 30px; margin-top: -10px"> <?php echo $vehiculo['patente'];?></p>
 												</div>
 								  			</div>
 										</div>
@@ -215,7 +215,7 @@ function render($vars = []){
                   										   }
 						  							?>
 												</select>
-											</div> 
+											</div>
 										</br>
 								          <div class="form-group">
 								            <label for="exampleInputPassword1">Cantidad de Asientos (sin contar el del conductor)</label>
