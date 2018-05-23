@@ -4,7 +4,7 @@ function render($vars = []){
 
 	include('php/conexion.php');
 	// si hay vehiculo para cargar, incluyo el algoritmo.
-	!isset($_POST['marca'])?:include('php/alta_vehiculo.php');
+	!isset($_POST['cargaVehiculo'])?:include('php/alta_vehiculo.php');
 	 if(isset($_COOKIE["carga_vehiculo"]) && $_COOKIE["carga_vehiculo"])
  	 {
       echo '<div class="alert alert-success alert-dismissable">
@@ -13,6 +13,17 @@ function render($vars = []){
               </div>';
       setcookie("carga_vehiculo",false);
  	 }
+
+ 	 !isset($_POST['modificar'])?:include('php/modificar_vehiculo.php');
+	 if(isset($_COOKIE["modifica_vehiculo"]) && $_COOKIE["modifica_vehiculo"])
+ 	 {
+      echo '<div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    La modificacion del vehiculo se realizó correctamente!
+              </div>';
+      setcookie("modifica_vehiculo",false);
+ 	 }
+
 
  	   $tipos=mysqli_query($conexion,"SELECT * FROM `tipo_vehiculo` ")
                                    or
@@ -66,7 +77,7 @@ function render($vars = []){
 		          </div>
 
 		          <div class="container-fluid" style="margin-top:.5rem; padding: 0">
-		            <input type="submit" name="registro" value="Cargar!" class="btn btn-success form-control form-control-lg">
+		            <input type="submit" name="cargaVehiculo" value="Cargar!" class="btn btn-success form-control form-control-lg">
 		          </div>
 		        </form>
 		      </div>
@@ -93,7 +104,7 @@ function render($vars = []){
 		</div>
 		<div class="row">
 			<div class="offset-10">
-				<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#CargarAuto">Agregar vehículo</button>
+				<button type="button" name="cargaVehiculo" class="btn btn-outline-success" data-toggle="modal" data-target="#CargarAuto">Agregar vehículo</button>
 			</div>
 		</div>
 		 <hr>
@@ -108,6 +119,9 @@ function render($vars = []){
 			or die("error de la consulta:".mysqli_error($conexion));
 
 	$elementosEnFila;
+
+	// Sirve para distinguir cada modal
+	$numElto = 0;
 
 	$vehiculo = mysqli_fetch_array($vehiculos);
 	while($vehiculo){
@@ -160,7 +174,7 @@ function render($vars = []){
 							    <div class="card-footer">
 							      <div class="row">
 							      	<div class="col col-md-6">
-							      			<button type="button" class="btn btn-outline-dark btn-block">Modificar</button>
+							      			<button type="button" class="btn btn-outline-dark btn-block" data-toggle="modal" data-target="<?php echo "#ModificarAuto$numElto"?>">Modificar</button>
 							      		</div>
 							      		<div class="col col-md-6">
 							      			<button type="button" class="btn btn-outline-danger btn-block">Eliminar</button>
@@ -168,13 +182,75 @@ function render($vars = []){
 							      </div>
 							    </div>
 							  </div>
+
+													  <!-- Modal para modificar datos del vehiculo -->
+								<div class="modal fade" id="<?php echo "ModificarAuto$numElto"?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="exampleModalLabel">Modificar vehículo</h5>
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
+								      </div>
+								      <div class="modal-body">
+								        <form action="/listado-vehiculos" method="post">
+								          <div class="form-group">
+								            <label for="exampleInputEmail1">Marca</label>
+								            <input type="text" name="marca" class="form-control" id="marca" aria-describedby="emailHelp" value="<?php echo $vehiculo['marca']?>">
+								          </div>
+								          <div class="form-group">
+								            <label for="exampleInputPassword1">Modelo</label>
+								            <input type="text" name="modelo" class="form-control" id="modelo" value="<?php echo $vehiculo['modelo']?>">
+								          </div>
+								           <div class="form-group">
+												<label for="tipo">Tipo:</label>
+						  						<select class="form-control" name="tipo" id="tipo">
+						  							<?php
+						  								  $tipos=mysqli_query($conexion,"SELECT * FROM `tipo_vehiculo` ")
+    																													or
+                                   																						die("Problemas en la base de datos:".mysqli_error($conexion));
+						  								   while ($t=mysqli_fetch_array($tipos)){
+                   											  echo '<option value="'. $t['idTipo'] .'">'. $t['tipo'] .'</option>';
+                  										   }
+						  							?>
+												</select>
+											</div> 
+										</br>
+								          <div class="form-group">
+								            <label for="exampleInputPassword1">Cantidad de Asientos (sin contar el del conductor)</label>
+								            <input type="number" name="cant_asientos" class="form-control" id="cant_asientos" value="<?php echo $vehiculo['cant_asientos']?>">
+								          </div>
+								          <div class="form-group">
+								            <label for="exampleInputPassword1">Color</label>
+								            <input type="text" name="color" class="form-control" id="color" value="<?php echo $vehiculo['color']?>">
+								          </div>
+								          <input name="idVehiculo" type="hidden" value="<?php echo $vehiculo['idVehiculo']; ?>">
+								          <div class="container-fluid" style="margin-top:.5rem; padding: 0">
+								            <input type="submit" name="modificar" class="btn btn-success form-control form-control-lg">
+								          </div>
+								        </form>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+
+								<!-- End Modal -->
 							  <?php
+
 
 			// Nuevo elemento en la fila
 			$elementosEnFila++;
 
+			// Sirve para distinguir cada modal
+			$numElto++;
+
 			// Nos traemos el proximo vehiculo, si existe
 			$vehiculo = mysqli_fetch_array($vehiculos);
+
 		}
 		?>
 		</div> <!-- Fin div "card-deck" -->
