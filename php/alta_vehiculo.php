@@ -2,7 +2,7 @@
 
 	$pattern_old = '/^[a-zA-Z]{3}[0-9]{3}/';
 	$pattern_new = '/^[a-zA-Z]{2}[0-9]{3}[a-zA-Z]{2}/';
-	$text_pattern = '/^[a-zA-Z0-9]{3,50}$/';
+	$text_pattern = '/^[a-zA-Z0-9 ]{3,50}$/';
 
 
 	if((!preg_match($pattern_old, $_POST['patente'])) and (!preg_match($pattern_new, $_POST['patente'])))
