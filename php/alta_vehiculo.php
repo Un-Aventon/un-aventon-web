@@ -39,7 +39,7 @@
 		 	}
 
 		 	$modelo = $_POST['modelo'];
-		 	if(!preg_match($text_pattern, $marca))
+		 	if(!preg_match($text_pattern, $modelo))
 		 	{
                   echo '<div class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
