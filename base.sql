@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 20-05-2018 a las 21:21:05
+-- Tiempo de generación: 23-05-2018 a las 21:24:13
 -- Versión del servidor: 5.7.21
 -- Versión de PHP: 5.6.35
 
@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 INSERT INTO `usuario` (`idUser`, `email`, `clave`, `nombre`, `apellido`, `admin`) VALUES
-(1, 'koumsky@gmail.com', '12345', 'Juanchotazo', 'Rumero', 1),
+(1, 'koumsky@gmail.com', '12345', 'Juancho', 'Rumero', 1),
 (2, '1234@gmail.com', '12345', 'Frederico', 'Garquez', 1),
 (3, 'kaksk@gmail.com', 'fdgfdgf', 'dsafds', 'sdfds', 0);
 
@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
   `estado` varchar(20) NOT NULL,
   `tipo` int(1) DEFAULT NULL,
   PRIMARY KEY (`idVehiculo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `vehiculo`
@@ -226,7 +226,9 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
 INSERT INTO `vehiculo` (`idVehiculo`, `idPropietario`, `cant_asientos`, `modelo`, `marca`, `color`, `patente`, `estado`, `tipo`) VALUES
 (1, 1, 3, '2018', 'renault 12', 'marron con verde', 'ac 789 op', 'eselente', 1),
 (2, 1, 5, 'en tanga', 'tuvieja', 'verde', 'jey001', 're piola', 2),
-(3, 1, 2, 'fsdgfdsg', 'dgdf', 'dsfds', 'hjh212', 're piola', 3);
+(3, 1, 2, 'fsdgfdsg', 'dgdf', 'dsfds', 'hjh212', 're piola', 3),
+(4, 1, 3, 'en tanga', 'tuvieja', 'azul', 'hjh213', 're piola', NULL),
+(5, 1, 4, 'fz 2018', 'yamaha', 'azul', 'jey002', 'piolasa', 3);
 
 -- --------------------------------------------------------
 
@@ -257,8 +259,8 @@ CREATE TABLE IF NOT EXISTS `viaje` (
 INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `fecha_partida`, `tipo`, `origen`, `destino`, `asientos_disponibles`, `costo`, `estado`) VALUES
 (1, 1, 1, '2018-05-01 10:18:12', '2018-05-31 07:09:08', 'unico', 'La Plata', 'chapalmalal', 3, 8999, 1),
 (2, 1, 2, '2018-05-10 04:26:19', '2018-05-02 09:10:17', 'recurrente', 'la quiaca', 'buenos aires', 2, 500, 1),
-(3, 1, 1, '2018-05-03 07:10:33', '2018-05-25 10:17:38', 'unico', 'Mendoza', 'La Pampa', 6, 3600, 2),
-(4, 1, 1, '2018-05-03 21:19:10', '2018-05-25 04:35:19', 'unico', 'Mendoza', 'La Pampa', 1, 3600, 3),
+(3, 1, 1, '2018-05-03 07:10:33', '2018-05-25 10:17:38', 'unico', 'Mendoza', 'La Pampa', 6, 3600, 1),
+(4, 1, 1, '2018-05-03 21:19:10', '2018-05-25 04:35:19', 'unico', 'Mendoza', 'La Pampa', 1, 3600, 1),
 (5, 1, 1, '2018-05-03 07:10:33', '2018-05-25 10:17:38', 'unico', 'Mendoza', 'La Pampa', 6, 3600, 1);
 COMMIT;
 
