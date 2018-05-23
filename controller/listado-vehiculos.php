@@ -135,7 +135,7 @@ function render($vars = []){
 		while(($vehiculo) &&($elementosEnFila <= 3)){
 			// Incluye todo el contenido html de un vehiculo
 ?>
-				<div class="card" style="width: 20rem;">
+				<div class="card" style="width: 20rem; margin-left: 30px; margin-right: 30px">
 							    <div class="card-header bg-dark text-white">
 								    	<div class="profile-header-container">
 								  			<div class="row" style="margin-top: -.5rem; margin-left: -1rem;">
@@ -258,6 +258,7 @@ function render($vars = []){
 		<?php
 	}
 	?>
+
 	<!-- PARCHE fin -->
 	</div>
 
