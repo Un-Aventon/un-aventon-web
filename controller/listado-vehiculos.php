@@ -135,7 +135,7 @@ function render($vars = []){
 		while(($vehiculo) &&($elementosEnFila <= 3)){
 			// Incluye todo el contenido html de un vehiculo
 ?>
-				<div class="card" style="width: 20rem;">
+				<div class="card" style="width: 20rem; margin-left: 30px; margin-right: 30px">
 							    <div class="card-header bg-dark text-white">
 								    	<div class="profile-header-container">
 								  			<div class="row" style="margin-top: -.5rem; margin-left: -1rem;">
@@ -143,7 +143,8 @@ function render($vars = []){
 											     	<img class="img-circle" src="<?php echo $vehiculo['icono'] ?>"/>
 												</div>
 												<div class="col col-md-8" style="margin-top: 1.5rem; margin-left: -1.7rem;">
-											   		<p class="text-left tipo float-right" style="font-family: helvetica; font-size: 30px; margin-top: -10px"> <?php echo $vehiculo['patente'];?></p>
+											   		<span class="text-left tipo float-right" style="font-family: helvetica; font-size: 30px; margin-top: -25px"> <?php echo $vehiculo['patente'];?></span><br>
+														<small class="float-right" style="margin-top: -15px"><?php echo $vehiculo['tipo'];?></small>
 												</div>
 								  			</div>
 										</div>
@@ -258,6 +259,7 @@ function render($vars = []){
 		<?php
 	}
 	?>
+
 	<!-- PARCHE fin -->
 	</div>
 
