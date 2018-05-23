@@ -5,6 +5,9 @@ function render($vars = []){
 	include('php/conexion.php');
 	// si hay vehiculo para cargar, incluyo el algoritmo.
 	!isset($_POST['cargaVehiculo'])?:include('php/alta_vehiculo.php');
+
+	!isset($_POST['idBaja'])?:include('php/baja_vehiculo.php');
+	
 	 if(isset($_COOKIE["carga_vehiculo"]) && $_COOKIE["carga_vehiculo"])
  	 {
       echo '<div class="alert alert-success alert-dismissable">
@@ -30,7 +33,6 @@ function render($vars = []){
                                    die("Problemas en la base de datos:".mysqli_error($conexion));
 
 	?>
-
 
 		<!-- Modal -->
 		<div class="modal fade" id="CargarAuto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -68,7 +70,7 @@ function render($vars = []){
 					</div>
 				</br>
 		          <div class="form-group">
-		            <label for="exampleInputPassword1">Cantidad de Asientos (sin contar el del conductor)</label>
+		            <label for="exampleInputPassword1">Cantidad de Asientos </label>
 		            <input type="number" name="cant_asientos" class="form-control" id="cant_asientos" placeholder="Ingrese la cantidadde asientos">
 		          </div>
 		          <div class="form-group">
@@ -177,8 +179,22 @@ function render($vars = []){
 							      	<div class="col col-md-6">
 							      			<button type="button" class="btn btn-outline-dark btn-block" data-toggle="modal" data-target="<?php echo "#ModificarAuto$numElto"?>">Modificar</button>
 							      		</div>
-							      		<div class="col col-md-6">
-							      			<button type="button" class="btn btn-outline-danger btn-block">Eliminar</button>
+							      		<div class="col col-md-6" >
+							      			<?php
+												$viajes = mysqli_query($conexion, "SELECT * FROM viaje where idVehiculo='$vehiculo[idVehiculo]'");
+
+							      				if($cant_viajes = mysqli_num_rows($viajes) > 0)
+							      				{
+							      					echo '<buton class="btn btn-outline-danger btn-block" onclick="alert(\'El vehiculo se encuentra postulado a '.$cant_viajes.' viaje/s\')" > Eliminar </button>';
+							      				}else
+							      				{
+							      					echo '<form action="/listado-vehiculos" method="POST">
+							    							<input type="text" name="idBaja" value="'.$vehiculo['idVehiculo'].'"hidden>
+							    							<button class="btn btn-outline-danger btn-block"> Eliminar </button>
+							   							 </form>';
+							      					
+							      				}
+							      			?>
 							      		</div>
 							      </div>
 							    </div>
