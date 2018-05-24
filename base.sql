@@ -168,10 +168,10 @@ CREATE TABLE IF NOT EXISTS `tipo_vehiculo` (
 --
 
 INSERT INTO `tipo_vehiculo` (`idTipo`, `icono`, `tipo`) VALUES
-(1, NULL, 'auto'),
-(2, NULL, 'camioneta'),
-(3, NULL, 'moto'),
-(4, NULL, 'camion');
+(1, 'img/vehiculos/coche.png', 'auto'),
+(2, 'img/vehiculos/camioneta.png', 'camioneta'),
+(3, 'img/vehiculos/moto.png', 'moto'),
+(4, 'img/vehiculos/camion.png', 'camion');
 
 -- --------------------------------------------------------
 
