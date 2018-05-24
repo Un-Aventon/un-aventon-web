@@ -7,7 +7,7 @@ function render($vars = []){
 	function modificable($id, $numElto){
 		include('php/conexion.php');
 		$consulta = "SELECT * FROM viaje WHERE idVehiculo = '$id'";
-		$viajes = mysqli_query($conexion, $consulta) or 
+		$viajes = mysqli_query($conexion, $consulta) or
 													die("Error en la busqueda de vehiculos que esten en viajes" . mysqli_error($conexion));
 		$esModificable = "#ModificarAuto$numElto";
 		if($viaje = mysqli_fetch_array($viajes)){
@@ -57,7 +57,7 @@ function render($vars = []){
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
-		      <div class="modal-body">		
+		      <div class="modal-body">
 				<div class="alert alert-danger alert-dismissable">
 		             <button type="button" class="close" data-dismiss="alert">&times;</button>
 		                 El vehiculo esta siendo utilizado en tus viajes,
@@ -193,23 +193,23 @@ function render($vars = []){
 										</div>
 								    </div>
 							    <div class="card-body">
-							      <h5 class="card-title text-center" style="font-family: sans-serif;font-size: 1.3rem;color: #575656; margin-top: .3rem; margin-bottom: 1.3rem;">Detalles del vehículo</h5>
+							      <!-- <h5 class="card-title text-center" style="font-family: sans-serif;font-size: 1.3rem;color: #575656; margin-top: .3rem; margin-bottom: 1.3rem;">Detalles del vehículo</h5> -->
 									<table class="table">
 									  <tbody>
 									    <tr>
-									      <th scope="row">Modelo</th>
+									      <th scope="row" style="color:grey">Modelo</th>
 									      <td><?php echo "$vehiculo[marca] $vehiculo[modelo]"; ?></td>
 									    </tr>
 									    <tr>
-									      <th scope="row">Estado</th>
+									      <th scope="row" style="color:grey">Estado</th>
 									      <td><?php echo $vehiculo['estado']; ?></td>
 									    </tr>
 									    <tr>
-									      <th scope="row">Color</th>
+									      <th scope="row" style="color:grey">Color</th>
 									      <td style=""><?php echo $vehiculo['color']; ?></td>
 									    </tr>
 									    <tr>
-									      <th scope="row">Cantidad<br>Asientos</th>
+									      <th scope="row" style="color:grey">Cantidad<br>Asientos</th>
 									      <td><?php echo $vehiculo['cant_asientos']; ?></td>
 									    </tr>
 									  </tbody>
@@ -233,7 +233,7 @@ function render($vars = []){
 							    							<input type="text" name="idBaja" value="'.$vehiculo['idVehiculo'].'"hidden>
 							    							<button class="btn btn-outline-danger btn-block" onclick="return confirm(\'está seguro que quiere eliminar el vehiculo con patente '.$vehiculo['patente'].'?\')"> Eliminar </button>
 							   							 </form>';
-							      					
+
 							      				}
 							      			?>
 							      		</div>
