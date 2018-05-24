@@ -5,7 +5,9 @@
 	{
 
 		$c = mysqli_query($conexion, "SELECT * from vehiculo where idVehiculo = $id");
-		if(mysqli_num_rows($c) == 0)
+		$cant = mysqli_num_rows($c);
+		$c = mysqli_fetch_array($c);
+		if($cant == 0 || $c['idPropietario'] != $_SESSION['userId'])
 		{
 			//no se encontro el vehiculo
 			echo '<div class="alert alert-danger alert-dismissable">
