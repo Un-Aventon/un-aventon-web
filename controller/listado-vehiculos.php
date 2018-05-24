@@ -231,7 +231,7 @@ function render($vars = []){
 							      				{
 							      					echo '<form action="/listado-vehiculos" method="POST">
 							    							<input type="text" name="idBaja" value="'.$vehiculo['idVehiculo'].'"hidden>
-							    							<button class="btn btn-outline-danger btn-block" onclick="return confirm(\'está seguro que quiere eliminar el vehiculo con patente'.$vehiculo['patente'].'?\')"> Eliminar </button>
+							    							<button class="btn btn-outline-danger btn-block" onclick="return confirm(\'está seguro que quiere eliminar el vehiculo con patente '.$vehiculo['patente'].'?\')"> Eliminar </button>
 							   							 </form>';
 							      					
 							      				}
