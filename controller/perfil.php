@@ -87,7 +87,7 @@ function render($vars = [])
                   }
                 ?>
             </select>
-          </div> 
+          </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Cantidad de Asientos (sin contar el del conductor)</label>
             <input type="number" name="cant_asientos" class="form-control" id="cant_asientos" placeholder="Ingrese la cantidad de asientos">
@@ -125,7 +125,7 @@ function render($vars = [])
       <span><?php echo $contador['cont']; ?> viajes totales</span>
     </div>
     <div class="col-md-1">
-      <img src="img/cambio.png" alt="boton cambios" style="width: 40px; margin-top: 20px" title="Cambiar datos personales" data-toggle="modal" data-target="#modalCambioDatos">
+      <img src="img/cambio.png" class="boton_cambios" alt="boton cambios" title="Cambiar datos personales" data-toggle="modal" data-target="#modalCambioDatos">
     </div>
 
   </div>
