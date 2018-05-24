@@ -41,7 +41,7 @@
 											</small>
 										</div>
 										<div class="col-md-2">
-											<button class="btn btn-danger centrado" type="button" name="button">Ver mas!</button>
+											<button class="btn btn-danger centrado" type="button" name="button" onclick="alert('Esta funcion todavia esta en desarrollo')">Ver mas!</button>
 										</div>
 									</div>
   							</div>

@@ -98,7 +98,7 @@ function render($vars = [])
           </div>
           <div class="form-group">
                 <label for="exampleInputPassword1">Estado</label>
-                <input type="text" name="estado" class="form-control" id="estado" placeholder="Ingresa el estado del vehiculo">
+                <input type="text" name="estado" class="form-control" id="estado" placeholder="Ingresa en que estado esta el vehiculo">
               </div>
           <div class="container-fluid" style="margin-top:.5rem; padding: 0">
             <input type="submit" name="registro" value="Cargar!" class="btn btn-success form-control form-control-lg">
@@ -161,15 +161,15 @@ function render($vars = [])
               <small class="card-text">publicado <?php echo dias_transcurridos($viaje['fecha_publicacion']); ?> <br>
               partida el <?php echo date("d-m-Y", strtotime($viaje['fecha_partida']));?> a las <?php echo date("H:i", strtotime($viaje['fecha_partida']));?> </small>
               <hr>
-              <a href="#" class="card-link">dar de baja</a>
-              <a href="#" class="card-link">ver postulantes</a>
+              <a href="#" class="card-link" onclick="alert('Esta funcion todavia esta en desarrollo')">dar de baja</a>
+              <a href="#" class="card-link" onclick="alert('Esta funcion todavia esta en desarrollo')">ver postulantes</a>
             </div>
           </div>
           <?php
         }
       ?>
 
-      <center> <a href="#">Ver todos los viajes</a> </center>
+      <center> <a href="#" onclick="alert('Esta funcion todavia esta en desarrollo')">Ver todos los viajes</a> </center>
     </div>
 
     <div class="col-md-6">
@@ -193,15 +193,15 @@ function render($vars = [])
                   participacion ".$postulacion['estado'];
 
           if ($postulacion['estado_participacion'] < 3){
-            echo "<span class='float-right'><a href='#'> cancelar postulacion </a> </span>";
+            echo "<span class='float-right'><a href='#'"; ?> onclick="alert('Esta funcion todavia esta en desarrollo')"> <?php echo "cancelar postulacion </a> </span>";
           }
 
-          echo "<br><b> ".$postulacion['origen']." a ".$postulacion['destino']." </b> <a href='#' class='float'> ver detalles </a>
+          echo "<br><b> ".$postulacion['origen']." a ".$postulacion['destino']." </b> <a href='#' class='float'"; ?> onclick="alert('Esta funcion todavia esta en desarrollo')"> <?php echo " ver detalles </a>
                   </div>";
 
         }
       ?>
-        <center><a href="#">ver todas las postulaciones</a></center>
+        <center><a href="#" onclick="alert('Esta funcion todavia esta en desarrollo')">ver todas las postulaciones</a></center>
     </div>
   </div>
 
@@ -241,7 +241,7 @@ function render($vars = [])
         </form>
       </div>
       <div class="modal-footer">
-        <a href="#">Cambiar clave de acceso</a>
+        <a href="#" onclick="alert('Esta funcion todavia esta en desarrollo')">Cambiar clave de acceso</a>
       </div>
     </div>
   </div>

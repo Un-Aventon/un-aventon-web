@@ -76,7 +76,7 @@
 				    		<label class="form-check-label" for="exampleCheck1">Recuerdame</label>
 							</div>
 							<div class="col-lg-6 justify-content-right">
-								<p class="text-right"><a href="/users/password/new">¿Olvidaste tu contraseña?</a></p>
+								<p class="text-right"><a href="#" onclick="alert('Esta funcion todavia esta en desarrollo')">¿Olvidaste tu contraseña?</a></p>
 							</div>
 				  	</div>
 				  </div>
