@@ -76,6 +76,15 @@
               </div>';
 		 		$ok = false;
 		 	}
+		 	$estado = $_POST['estado'];
+		 	if(!preg_match($text_pattern, $estado))
+		 	{
+	                  echo '<div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    El estado ingresado no es válido.
+              </div>';
+		 		$ok = false;
+		 	}
 
 		 	if($ok)
 		 	{
@@ -83,7 +92,7 @@
 		 		
 		 		echo $u;
 
-		 		mysqli_query($conexion,"INSERT into vehiculo (idPropietario,cant_asientos,modelo,marca,color,patente,estado,tipo) VALUES ('$u','$cant_asientos','$modelo','$marca','$color','$patente','piolasa','$tipo' )") or die ('error '.mysqli_error($conexion));
+		 		mysqli_query($conexion,"INSERT into vehiculo (idPropietario,cant_asientos,modelo,marca,color,patente,estado,tipo) VALUES ('$u','$cant_asientos','$modelo','$marca','$color','$patente','$estado','$tipo' )") or die ('error '.mysqli_error($conexion));
 
 		 		echo '<div class="alert alert-success" role="alert"> El vehiculo se cargo exitosamente</div>';
 

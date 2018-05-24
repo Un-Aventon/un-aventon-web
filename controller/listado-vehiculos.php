@@ -3,6 +3,20 @@
 function render($vars = []){
 
 	include('php/conexion.php');
+
+	function modificable($id, $numElto){
+		include('php/conexion.php');
+		$consulta = "SELECT * FROM viaje WHERE idVehiculo = '$id'";
+		$viajes = mysqli_query($conexion, $consulta) or 
+													die("Error en la busqueda de vehiculos que esten en viajes" . mysqli_error($conexion));
+		$esModificable = "#ModificarAuto$numElto";
+		if($viaje = mysqli_fetch_array($viajes)){
+			$esModificable = "#errorModificacion";
+		}
+
+		return $esModificable;
+	}
+
 	// si hay vehiculo para cargar, incluyo el algoritmo.
 	!isset($_POST['cargaVehiculo'])?:include('php/alta_vehiculo.php');
 
@@ -33,8 +47,32 @@ function render($vars = []){
                                    die("Problemas en la base de datos:".mysqli_error($conexion));
 
 	?>
+		<!-- Modal para error de modificacion -->
+		<div class="modal fade" id="errorModificacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Modificar un Vehiculo</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">		
+				<div class="alert alert-danger alert-dismissable">
+		             <button type="button" class="close" data-dismiss="alert">&times;</button>
+		                 El vehiculo esta siendo utilizado en tus viajes,
+		                 debes cancelar el viaje o modificar el vehiculo
+		                 que usas en el mismo.
+		         </div>
+		       </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 
-		<!-- Modal -->
+		<!-- Modal carga del vehiculo-->
 		<div class="modal fade" id="CargarAuto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
@@ -71,13 +109,16 @@ function render($vars = []){
 				</br>
 		          <div class="form-group">
 		            <label for="exampleInputPassword1">Cantidad de Asientos </label>
-		            <input type="number" name="cant_asientos" class="form-control" id="cant_asientos" placeholder="Ingrese la cantidadde asientos">
+		            <input type="number" name="cant_asientos" class="form-control" id="cant_asientos" placeholder="Ingrese la cantidad de asientos">
 		          </div>
 		          <div class="form-group">
 		            <label for="exampleInputPassword1">Color</label>
 		            <input type="text" name="color" class="form-control" id="color" placeholder="Ingresa el color">
 		          </div>
-
+		           <div class="form-group">
+		            <label for="exampleInputPassword1">Estado</label>
+		            <input type="text" name="estado" class="form-control" id="estado" placeholder="Ingresa el estado del vehiculo">
+		          </div>
 		          <div class="container-fluid" style="margin-top:.5rem; padding: 0">
 		            <input type="submit" name="cargaVehiculo" value="Cargar!" class="btn btn-success form-control form-control-lg">
 		          </div>
@@ -160,8 +201,8 @@ function render($vars = []){
 									      <td><?php echo "$vehiculo[marca] $vehiculo[modelo]"; ?></td>
 									    </tr>
 									    <tr>
-									      <th scope="row">Patente</th>
-									      <td><?php echo $vehiculo['patente']; ?></td>
+									      <th scope="row">Estado</th>
+									      <td><?php echo $vehiculo['estado']; ?></td>
 									    </tr>
 									    <tr>
 									      <th scope="row">Color</th>
@@ -177,7 +218,7 @@ function render($vars = []){
 							    <div class="card-footer">
 							      <div class="row">
 							      	<div class="col col-md-6">
-							      			<button type="button" class="btn btn-outline-dark btn-block" data-toggle="modal" data-target="<?php echo "#ModificarAuto$numElto"?>">Modificar</button>
+							      			<button type="button" class="btn btn-outline-dark btn-block" data-toggle="modal" data-target="<?php echo modificable($vehiculo['idVehiculo'], $numElto)?>">Modificar</button>
 							      		</div>
 							      		<div class="col col-md-6" >
 							      			<?php
@@ -241,6 +282,10 @@ function render($vars = []){
 								          <div class="form-group">
 								            <label for="exampleInputPassword1">Color</label>
 								            <input type="text" name="color" class="form-control" id="color" value="<?php echo $vehiculo['color']?>">
+								          </div>
+								           <div class="form-group">
+								            <label for="exampleInputPassword1">Estado</label>
+								            <input type="text" name="estado" class="form-control" id="estado" value="<?php echo $vehiculo['estado']?>">
 								          </div>
 								          <input name="idVehiculo" type="hidden" value="<?php echo $vehiculo['idVehiculo']; ?>">
 								          <div class="container-fluid" style="margin-top:.5rem; padding: 0">
