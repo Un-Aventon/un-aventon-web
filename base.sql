@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 23-05-2018 a las 21:24:13
+-- Tiempo de generación: 25-05-2018 a las 21:56:42
 -- Versión del servidor: 5.7.21
 -- Versión de PHP: 5.6.35
 
@@ -214,8 +214,8 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
   `marca` varchar(30) NOT NULL,
   `color` varchar(20) NOT NULL,
   `patente` varchar(10) NOT NULL COMMENT 'puede ser patente extrangera',
-  `estado` varchar(20) NOT NULL,
   `tipo` int(1) DEFAULT NULL,
+  `eliminado` tinyint(1) NOT NULL,
   PRIMARY KEY (`idVehiculo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
@@ -223,12 +223,11 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
 -- Volcado de datos para la tabla `vehiculo`
 --
 
-INSERT INTO `vehiculo` (`idVehiculo`, `idPropietario`, `cant_asientos`, `modelo`, `marca`, `color`, `patente`, `estado`, `tipo`) VALUES
-(1, 1, 3, '2018', 'renault 12', 'marron con verde', 'ac 789 op', 'eselente', 1),
-(2, 1, 5, 'en tanga', 'tuvieja', 'verde', 'jey001', 're piola', 2),
-(3, 1, 2, 'fsdgfdsg', 'dgdf', 'dsfds', 'hjh212', 're piola', 3),
-(4, 1, 3, 'en tanga', 'tuvieja', 'azul', 'hjh213', 're piola', NULL),
-(5, 1, 4, 'fz 2018', 'yamaha', 'azul', 'jey002', 'piolasa', 3);
+INSERT INTO `vehiculo` (`idVehiculo`, `idPropietario`, `cant_asientos`, `modelo`, `marca`, `color`, `patente`, `tipo`, `eliminado`) VALUES
+(1, 1, 3, '2018', 'renault 12', 'marron con verde', 'ac 789 op', 1, 0),
+(2, 1, 5, 'Ka 2006', 'Ford', 'verde', 'jey001', 2, 0),
+(3, 1, 2, '206 2008', 'Peugeot', 'azul', 'hjh212', 3, 0),
+(5, 1, 4, 'fz 2018', 'yamaha', 'gris', 'jey002', 3, 0);
 
 -- --------------------------------------------------------
 

@@ -115,10 +115,6 @@ function render($vars = []){
 		            <label for="exampleInputPassword1">Color</label>
 		            <input type="text" name="color" class="form-control" id="color" placeholder="Ingresa el color">
 		          </div>
-		           <div class="form-group">
-		            <label for="exampleInputPassword1">Estado</label>
-		            <input type="text" name="estado" class="form-control" id="estado" placeholder="Ingresa el estado del vehiculo">
-		          </div>
 		          <div class="container-fluid" style="margin-top:.5rem; padding: 0">
 		            <input type="submit" name="cargaVehiculo" value="Cargar!" class="btn btn-success form-control form-control-lg">
 		          </div>
@@ -156,7 +152,7 @@ function render($vars = []){
 	$consulta = "select *, vehiculo.tipo as 'vehiculotipo'
 							from vehiculo
 							INNER JOIN tipo_vehiculo on vehiculo.tipo=tipo_vehiculo.idTipo
-						  where idPropietario='$_SESSION[userId]'";
+						  where idPropietario='$_SESSION[userId]' and eliminado=0";
 
 	$vehiculos=mysqli_query($conexion, $consulta)
 			or die("error de la consulta:".mysqli_error($conexion));
@@ -199,10 +195,6 @@ function render($vars = []){
 									    <tr>
 									      <th scope="row" style="color:grey">Modelo</th>
 									      <td><?php echo "$vehiculo[marca] $vehiculo[modelo]"; ?></td>
-									    </tr>
-									    <tr>
-									      <th scope="row" style="color:grey">Estado</th>
-									      <td><?php echo $vehiculo['estado']; ?></td>
 									    </tr>
 									    <tr>
 									      <th scope="row" style="color:grey">Color</th>
@@ -282,10 +274,6 @@ function render($vars = []){
 								          <div class="form-group">
 								            <label for="exampleInputPassword1">Color</label>
 								            <input type="text" name="color" class="form-control" id="color" value="<?php echo $vehiculo['color']?>">
-								          </div>
-								           <div class="form-group">
-								            <label for="exampleInputPassword1">Estado</label>
-								            <input type="text" name="estado" class="form-control" id="estado" value="<?php echo $vehiculo['estado']?>">
 								          </div>
 								          <input name="idVehiculo" type="hidden" value="<?php echo $vehiculo['idVehiculo']; ?>">
 								          <div class="container-fluid" style="margin-top:.5rem; padding: 0">

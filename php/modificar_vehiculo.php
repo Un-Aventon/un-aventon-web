@@ -55,23 +55,13 @@
 		 		$ok = false;
 		 	}
 
-		 	$estado = $_POST['estado'];
-		 	if(!preg_match($text_pattern, $estado))
-		 	{
-	                  echo '<div class="alert alert-danger alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    El estado ingresado no es válido.
-              </div>';
-		 		$ok = false;
-		 	}
-
 		 	if($ok)
 		 	{
 
 		 		$consulta = "UPDATE vehiculo
-		 					 SET cant_asientos = '$cant_asientos', marca = '$marca', modelo = '$modelo', color = '$color', estado = '$estado', tipo = '$tipo'
+		 					 SET cant_asientos = '$cant_asientos', marca = '$marca', modelo = '$modelo', color = '$color', tipo = '$tipo'
 		 					 WHERE idVehiculo = '$_POST[idVehiculo]' ";
-		 		mysqli_query($conexion, $consulta) or 
+		 		mysqli_query($conexion, $consulta) or
 		 										   die("error en la modificacion".mysqli_error($conexion));
 
 		 		echo '<div class="alert alert-success" role="alert"> El vehiculo se modifico exitosamente</div>';
@@ -81,6 +71,3 @@
 		 		$file = $r->get_file();
 		 		header('Location: /' . $file);
 		 	}
-
-
-	

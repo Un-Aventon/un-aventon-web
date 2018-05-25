@@ -27,7 +27,7 @@
 
 			}else
 			{
-				mysqli_query($conexion, "DELETE FROM vehiculo where idVehiculo=$id")or die('error '.mysqli_error($conexion));
+				mysqli_query($conexion, "UPDATE vehiculo set eliminado=1 where idVehiculo=$id")or die('error '.mysqli_error($conexion));
 				echo '<div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                     El vehiculo elimino correctamente.
