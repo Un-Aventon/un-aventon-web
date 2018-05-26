@@ -96,10 +96,7 @@ function render($vars = [])
             <label for="exampleInputPassword1">Color</label>
             <input type="text" name="color" class="form-control" id="color" placeholder="Ingresa el color">
           </div>
-          <div class="form-group">
-                <label for="exampleInputPassword1">Estado</label>
-                <input type="text" name="estado" class="form-control" id="estado" placeholder="Ingresa en que estado esta el vehiculo">
-              </div>
+          
           <div class="container-fluid" style="margin-top:.5rem; padding: 0">
             <input type="submit" name="registro" value="Cargar!" class="btn btn-success form-control form-control-lg">
           </div>
