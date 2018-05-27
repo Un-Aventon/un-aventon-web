@@ -96,7 +96,7 @@ function render($vars = [])
             <label for="exampleInputPassword1">Color</label>
             <input type="text" name="color" class="form-control" id="color" placeholder="Ingresa el color">
           </div>
-          
+
           <div class="container-fluid" style="margin-top:.5rem; padding: 0">
             <input type="submit" name="registro" value="Cargar!" class="btn btn-success form-control form-control-lg">
           </div>
@@ -155,7 +155,7 @@ function render($vars = [])
                     <?php echo $viaje['estado']; ?>
                   </button>
               </h5>
-              <small class="card-text">publicado <?php echo dias_transcurridos($viaje['fecha_publicacion']); ?> <br>
+              <small class="card-text">publicado <?php echo dias_transcurridos($viaje['fecha_publicacion'],'publicacion'); ?> <br>
               partida el <?php echo date("d-m-Y", strtotime($viaje['fecha_partida']));?> a las <?php echo date("H:i", strtotime($viaje['fecha_partida']));?> </small>
               <hr>
               <a href="#" class="card-link" onclick="alert('Esta funcion todavia esta en desarrollo')">dar de baja</a>

@@ -15,6 +15,7 @@
     <!-- CSS principal -->
     <link rel="stylesheet" href="/css/stylo.css">
 
+    <!-- css parcheado -  arreglar... talvez -->
     <style media="screen">
       .boton_cambios{
         width: 40px;
@@ -24,6 +25,47 @@
 
       .boton_cambios:hover{
         width: 45px;
+      }
+
+      .strike {
+          display: block;
+          text-align: center;
+          overflow: hidden;
+          white-space: nowrap;
+      }
+
+      .strike > span {
+          position: relative;
+          display: inline-block;
+      }
+
+      .strike > span:before,
+      .strike > span:after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          width: 9999px;
+          height: 1px;
+          background: grey;
+      }
+
+      .strike > span:before {
+          right: 100%;
+          margin-right: 15px;
+      }
+
+      .strike > span:after {
+          left: 100%;
+          margin-left: 15px;
+      }
+
+      .boton_crear{
+          border-radius: 4px;
+          transition: 0.5s
+      }
+
+      .boton_crear:hover{
+          filter: brightness(120%);
       }
     </style>
   </head>

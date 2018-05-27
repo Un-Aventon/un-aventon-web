@@ -3,15 +3,51 @@
 	function render($vars = [])
 	{
 		?>
-		<div class="row">
+
+
+		<div class="row" style="padding:10px 10px;">
+			<div class="col-md-3" style="background-color: #fafafa; padding: 20px 15px; border-radius: 8px">
+				<form class="form-inline my-2 my-lg-0">
+				      <input class="form-control mr-sm-1" type="search" aria-label="Search" placeholder="Quiero viajar a...">
+				      <button class="btn btn-outline-danger my-2 my-sm-0" type="submit"> <img src="https://png.icons8.com/ios-glyphs/2x/search.png" alt="" style="width:20px; margin-top:-3px"> </button>
+				</form>
+				<br>
+				<div class="strike">
+   				<span>filtros</span>
+				</div>
+				<nav class="nav flex-column">
+				  <a class="nav-link active" style="color: #333!important" href="#">viajes menores a 2000 km</a>
+				  <a class="nav-link" href="#" style="color: #333!important">viajes recurrentes</a>
+				  <a class="nav-link" href="#" style="color: #333!important">+ de 1 asientos disponibles</a>
+				</nav>
+				<center><button type="button" class="btn btn-outline-danger" style="width:100%">Aplicar</button></center>
+				<br>
+
+				<div class="strike">
+   				<span>orden</span>
+				</div>
+				<nav class="nav flex-column">
+				  <a class="nav-link active" style="color: #333!important" href="#">mejor puntaje piloto</a>
+				  <a class="nav-link" href="#" style="color: #333!important">menor recorrido</a>
+				  <a class="nav-link" href="#" style="color: #333!important">mayor recorrido</a>
+				</nav>
+				<center><button type="button" class="btn btn-outline-danger" style="width:100%">Aplicar</button></center>
+				<hr>
+
+				<a href="#"><img src="img/boton.jpg" alt="" class="img-fluid boton_crear"></a>
+ 			</div>
+			<div class="col-md-9">
 			<?php
 			// incluyo la conexion.
 			include('php/conexion.php');
 
-			$viajes=mysqli_query($conexion,"select *
+			$viajes=mysqli_query($conexion,"SELECT *, tipo_vehiculo.tipo as tipoVehiculo
 											from viaje
 											inner join usuario on viaje.idPiloto = usuario.idUser
-											where fecha_partida > now() and estado = 1") or
+											inner join vehiculo on viaje.idVehiculo = vehiculo.idVehiculo
+											inner join tipo_vehiculo on vehiculo.tipo = tipo_vehiculo.idTipo
+											where fecha_partida > now() and estado = 1
+											order by fecha_partida") or
 											die("Problemas en el select:".mysqli_error($conexion));
 
 											// to do: meterle un poco de color
@@ -22,36 +58,41 @@
 							        }
 
 						while ($viaje=mysqli_fetch_array($viajes)){
+
+							$contador_participaciones=mysqli_query($conexion,"SELECT *
+																															from participacion
+																															where estado=1 and idViaje=$viaje[idViaje]")
+																															or die ("problemas en el contador de asientos disponibles");
+						  $contador_participaciones = $viaje['asientos_disponibles'] - mysqli_num_rows($contador_participaciones);
 							?>
 
-							<div class="card" style="width: 49%; display: inline-block; margin: auto; margin-bottom: 4px; margin-top:4px">
-  							<img class="card-img-top" src="img/prueba_maps.png" alt="Card image cap">
-  							<div class="card-body">
-									<div class="row">
-										<div class="col-md-6" style="text-align:center">
-											<?php echo $viaje['origen']; ?> <br>
-											a <br>
-											<?php echo $viaje['destino']; ?>
+							<div class="card" style="width: 32%; display: inline-block; margin: 4px 1px; box-shadow: 2px 2px 10px #f0f0f0">
+							  <!--<img class="card-img-top" src="img/prueba_maps.png" alt="Card image cap">-->
+							  <div class="card-body">
+							    <h5 class="card-title"><?php echo $viaje['origen']; ?> <span style="color:grey">a</span> <?php echo $viaje['destino']; ?> <br> <small>en <?php echo $viaje['tipoVehiculo']; ?></small> </h5>
+							    <p class="card-text">
+										<div class="strike">
+
+											<span><h6><?php if ($contador_participaciones > 0) {
+																						echo $contador_participaciones."<small> asientos disponible/s </small>";
+																					}
+																			else{
+																						echo "<small>No quedan asientos</small>";
+																			}
+											?> </h6></span>
 										</div>
-										<div class="col-md-4">
-											<small>
-											<b style="color:grey">Piloto </b> <?php echo $viaje['nombre']." ".$viaje['apellido'] ?> <br>
-											<?php echo $viaje['asientos_disponibles'] ?> asientos disponibles <br>
-											publicado <?php echo dias_transcurridos($viaje['fecha_publicacion']); ?> <br>
-											</small>
-										</div>
-										<div class="col-md-2">
-											<button class="btn btn-danger centrado" type="button" name="button" onclick="alert('Esta funcion todavia esta en desarrollo')">Ver mas!</button>
-										</div>
-									</div>
-  							</div>
+										<h4 style="text-align: center; color: #53b842">$<?php    // parche para la primera demo unicamente
+										 																														if ($viaje['asientos_disponibles'] > 0) {echo $viaje['costo']/$viaje['asientos_disponibles'];}
+										 																														else {echo $viaje['costo'];}?></h4>
+									</p>
+							    <a href="#" class="btn btn-danger">Ver mas</a>  <span><?php echo dias_transcurridos($viaje['fecha_partida'],'partida') ?></span>
+							  </div>
 							</div>
 
-
 				 <?php } ?>
-		</div>
 
-		<br><br><br><br><br><br><br><br><br><br>
+			 </div>
+		</div>
 
 <?php
 	}
