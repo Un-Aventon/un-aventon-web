@@ -20,9 +20,9 @@
       </div>
       <div class="col-md-6">
           <h1><?php echo $viaje['origen'] ?> a <?php echo $viaje['destino']; ?></h1>
-
-        datos del viaje
-
+					<span title="<?php echo $viaje['fecha_publicacion'] ?>">Publicado <?php echo dias_transcurridos($viaje['fecha_publicacion'],'publicacion');?>
+																																	por <a href="#"><?php echo $viaje['nombre']." ".$viaje['apellido']; ?></a> (3.4pts)
+					</span>
         <hr>
         <div class="row">
           <div class="col-md-3">
@@ -37,12 +37,27 @@
 
         <hr>
 
-        piloto: <a href="#"><?php echo $viaje['nombre']." ".$viaje['apellido']; ?></a>
-        <br> + calificacion del piloto general</p>
+				<div class="row">
+					<div class="col-md-6">
+									<h6 class="" style="text-align: center">
+											<small>partida</small> <br>
+											<?php
+														$dias = array("domingo","lunes","martes","miercoles","jueves","viernes","sábado");
+														$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+														$date = date_create($viaje['fecha_partida']);
+														echo $dias[date_format($date, 'N')]." ".date_format($date, 'd')." de ".$meses[date_format($date, 'm')-1] ;
+														echo " - ";
+														echo date_format($date, 'G:ia');
+											?>
+									</h6>
 
-        <hr>
 
-        <h3 style="text-align: center; color: #53b842">$<?php echo $viaje['costo']; ?> <small> / por persona</small> </h3>
+					</div>
+					<div class="col-md-6">
+						<h3 style="text-align: center; color: #53b842">$<?php echo $viaje['costo']; ?> <small> / por persona</small> </h3>
+					</div>
+				</div>
+				<br>
         <button type="button" class="btn btn-outline-danger" style="width:100%">Participar</button>
       </div>
     </div>
