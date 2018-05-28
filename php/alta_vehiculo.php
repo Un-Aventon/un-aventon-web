@@ -16,18 +16,19 @@
 		$ok = true;
 
 		$patente = $_POST['patente'];
+		isset($user)? $u = $user['idUser'] : $u = $_SESSION['userId'];
 
-		 $rec=mysqli_query($conexion,"SELECT * FROM vehiculo WHERE patente='$patente'");
+		$rec=mysqli_query($conexion,"SELECT * FROM vehiculo WHERE patente='$patente' and idPropietario = '$u' and eliminado = 0 ");
 
-		 if(mysqli_fetch_array($rec))
-		 {
+		if(mysqli_fetch_array($rec))
+		{
                   echo '<div class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                    La patente ya se encuentra registrada.
               </div>';
 		 	$ok = false;
-		 }else
-		 {
+		}else
+		{
 		 	$marca = $_POST['marca'];
 		 	if(!preg_match($text_pattern, $marca))
 		 	{
@@ -59,7 +60,7 @@
 		 	}
 
 		 	$tipo = $_POST['tipo'];
-		 	if($tipo > 0)
+		 	if($tipo < 0)
 		 	{
 		 		echo '<div class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -79,11 +80,11 @@
 
 		 	if($ok)
 		 	{
-		 		isset($user)? $u = $user['idUser'] : $u = $_SESSION['userId'];
+
 
 		 		echo $u;
 
-		 		mysqli_query($conexion,"INSERT into vehiculo (idPropietario,cant_asientos,modelo,marca,color,patente,tipo) VALUES ('$u','$cant_asientos','$modelo','$marca','$color','$patente','$tipo' )") or die ('error '.mysqli_error($conexion));
+		 		mysqli_query($conexion,"INSERT into vehiculo (idPropietario,cant_asientos,modelo,marca,color,patente,tipo,eliminado) VALUES ('$u','$cant_asientos','$modelo','$marca','$color','$patente','$tipo' , 0 )") or die ('error '.mysqli_error($conexion));
 
 		 		echo '<div class="alert alert-success" role="alert"> El vehiculo se cargo exitosamente</div>';
 

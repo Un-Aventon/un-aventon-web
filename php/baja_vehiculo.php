@@ -4,7 +4,7 @@
 	if(preg_match('/[0-9]/', $id))
 	{
 
-		$c = mysqli_query($conexion, "SELECT * from vehiculo where idVehiculo = $id");
+		$c = mysqli_query($conexion, "SELECT * from vehiculo where idVehiculo = $id and eliminado = 0");
 		$cant = mysqli_num_rows($c);
 		$c = mysqli_fetch_array($c);
 		if($cant == 0 || $c['idPropietario'] != $_SESSION['userId'])
@@ -17,7 +17,7 @@
 
 		}else
 		{
-			$c = mysqli_query($conexion, "SELECT * from viaje where idVehiculo=$id");
+			$c = mysqli_query($conexion, "SELECT * from viaje where idVehiculo=$id and idPiloto = '$_SESSION[userId]'");
 			if(mysqli_num_rows($c) > 0)
 			{
 				echo '<div class="alert alert-danger alert-dismissable">
