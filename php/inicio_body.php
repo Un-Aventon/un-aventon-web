@@ -5,7 +5,7 @@
     <title>UnAventon</title>
 
     <!-- icon -->
-    <link rel='shortcut icon' type='image/png' href='img/logo.png' />
+    <link rel='shortcut icon' type='/image/png' href='img/logo.png' />
     <!-- responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- CSS de bootstrap -->

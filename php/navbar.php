@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <img src="img/logo.png" alt="logo" style="width: 40px; margin-right: 8px">
+  <img src="/img/logo.png" alt="logo" style="width: 40px; margin-right: 8px">
   <a class="navbar-brand">UnAventon</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

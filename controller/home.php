@@ -85,7 +85,7 @@
 										 																														if ($viaje['asientos_disponibles'] > 0) {echo $viaje['costo']/$viaje['asientos_disponibles'];}
 										 																														else {echo $viaje['costo'];}?></h4>
 									</p>
-							    <a href="#" class="btn btn-danger">Ver mas</a>  <span><?php echo dias_transcurridos($viaje['fecha_partida'],'partida') ?></span>
+							    <a href="/viaje/<?php echo $viaje['idViaje'];?>/<?php echo $viaje['origen']."-".$viaje['destino'];?>" class="btn btn-danger">Ver mas</a>  <span><?php echo dias_transcurridos($viaje['fecha_partida'],'partida') ?></span>
 							  </div>
 							</div>
 
