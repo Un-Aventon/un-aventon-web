@@ -6,7 +6,7 @@ function render($vars = [])
 
   $usuario=mysqli_query($conexion,"SELECT *
                                    FROM Usuario
-                                   WHERE email='$_SESSION[mail]' limit 1")
+                                   WHERE email='$_SESSION[email]' limit 1")
                                    or
                                    die("Problemas en la base de datos:".mysqli_error($conexion));
   $user = mysqli_fetch_array($usuario);
