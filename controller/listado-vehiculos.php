@@ -261,11 +261,11 @@ function render($vars = []){
     																													or
                                    																						die("Problemas en la base de datos:".mysqli_error($conexion));
 						  								   while ($t=mysqli_fetch_array($tipos)){
-																		if($vehiculo['tipo'] == $t['idTipo']){
+																		if($vehiculo['idTipo'] == $t['idTipo']){
 																			echo '<option value="'. $t['idTipo'] .'"  selected>'. $t['tipo'] .' </option>';
 																		}
 																		else{
-                   										echo '<option value="'. $t['idTipo'] .'">'. $t['tipo'] .'</option>';
+                   															echo '<option value="'. $t['idTipo'] .'">'. $t['tipo'] .'</option>';
 																		}
 																 }
 						  							?>
