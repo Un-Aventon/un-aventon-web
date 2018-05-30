@@ -82,7 +82,7 @@
 		 	{
 
 
-		 		echo $u;
+		 		//echo $u;
 
 		 		mysqli_query($conexion,"INSERT into vehiculo (idPropietario,cant_asientos,modelo,marca,color,patente,tipo,eliminado) VALUES ('$u','$cant_asientos','$modelo','$marca','$color','$patente','$tipo' , 0 )") or die ('error '.mysqli_error($conexion));
 
