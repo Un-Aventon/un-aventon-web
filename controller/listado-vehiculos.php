@@ -261,8 +261,13 @@ function render($vars = []){
     																													or
                                    																						die("Problemas en la base de datos:".mysqli_error($conexion));
 						  								   while ($t=mysqli_fetch_array($tipos)){
-                   											  echo '<option value="'. $t['idTipo'] .'">'. $t['tipo'] .'</option>';
-                  										   }
+																		if($vehiculo['tipo'] == $t['idTipo']){
+																			echo '<option value="'. $t['idTipo'] .'"  selected>'. $t['tipo'] .' </option>';
+																		}
+																		else{
+                   										echo '<option value="'. $t['idTipo'] .'">'. $t['tipo'] .'</option>';
+																		}
+																 }
 						  							?>
 												</select>
 											</div>
