@@ -2,6 +2,7 @@
 
 function render($vars = []){
 
+
 	include('php/conexion.php');
 
 	function modificable($id, $numElto){
@@ -34,10 +35,15 @@ function render($vars = []){
  	 !isset($_POST['modificar'])?:include('php/modificar_vehiculo.php');
 	 if(isset($_COOKIE["modifica_vehiculo"]) && $_COOKIE["modifica_vehiculo"])
  	 {
-      echo '<div class="alert alert-success alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    La modificacion del vehiculo se realizó correctamente!
-              </div>';
+		 echo '	<div class="alert alert-success alert-dismissible fade show centrado" role="alert" style="z-index: 99999; box-shadow: 0px 3px 20px rgba(54, 54, 54, 0.5)">
+					 <h4 class="alert-heading">Genial! se modifico tu vehiculo
+							 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									 <span aria-hidden="true">&times;</span>
+							 </button>
+					 </h4>
+					 <hr>
+					 <p class="mb-0">ya podes ver los cambios aplicados</p>
+			 </div>';
       setcookie("modifica_vehiculo",false);
  	 }
 
@@ -58,15 +64,15 @@ function render($vars = []){
 		        </button>
 		      </div>
 		      <div class="modal-body">
-				<div class="alert alert-danger">
+							<div class="alert alert-danger">
 		                 El vehiculo esta siendo utilizado en tus viajes,
 		                 debes cancelar el viaje o modificar el vehiculo
 		                 que usas en el mismo.
-		         </div>
+		         	</div>
 		       </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
-		      </div>
+		       <div class="modal-footer">
+		        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
+		       </div>
 		    </div>
 		  </div>
 		</div>
@@ -148,10 +154,10 @@ function render($vars = []){
 		 <hr>
 	<?php
 
-	$consulta = "select *, vehiculo.tipo as 'vehiculotipo'
-							from vehiculo
-							INNER JOIN tipo_vehiculo on vehiculo.tipo=tipo_vehiculo.idTipo
-						  where idPropietario='$_SESSION[userId]' and eliminado=0";
+	$consulta = "SELECT *, vehiculo.tipo as 'vehiculotipo'
+							 from vehiculo
+							 INNER JOIN tipo_vehiculo on vehiculo.tipo=tipo_vehiculo.idTipo
+						   where idPropietario='$_SESSION[userId]' and eliminado=0";
 
 	$vehiculos=mysqli_query($conexion, $consulta)
 			or die("error de la consulta:".mysqli_error($conexion));
@@ -256,9 +262,10 @@ function render($vars = []){
 												<label for="tipo">Tipo:</label>
 						  						<select class="form-control" name="tipo" id="tipo">
 						  							<?php
-						  								  $tipos=mysqli_query($conexion,"SELECT * FROM `tipo_vehiculo` ")
-    																													or
-                                   																						die("Problemas en la base de datos:".mysqli_error($conexion));
+						  								  $tipos=mysqli_query($conexion,"SELECT *
+																	 														 FROM `tipo_vehiculo` ")
+    																													 or
+                                   														 die("Problemas en la base de datos:".mysqli_error($conexion));
 						  								   while ($t=mysqli_fetch_array($tipos)){
 																		if($vehiculo['idTipo'] == $t['idTipo']){
 																			echo '<option value="'. $t['idTipo'] .'"  selected>'. $t['tipo'] .' </option>';
@@ -272,7 +279,7 @@ function render($vars = []){
 											</div>
 										</br>
 								          <div class="form-group">
-								            <label for="exampleInputPassword1">Cantidad de Asientos (sin contar el del conductor)</label>
+								            <label for="exampleInputPassword1">Cantidad de Asientos</label>
 								            <input type="number" name="cant_asientos" class="form-control" id="cant_asientos" value="<?php echo $vehiculo['cant_asientos']?>">
 								          </div>
 								          <div class="form-group">
