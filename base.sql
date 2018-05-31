@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 25-05-2018 a las 21:56:42
+-- Tiempo de generación: 28-05-2018 a las 15:58:17
 -- Versión del servidor: 5.7.21
 -- Versión de PHP: 5.6.35
 
@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `participacion` (
   `fecha_solicitud` date NOT NULL,
   `estado` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idParticipacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `participacion`
@@ -126,10 +126,11 @@ CREATE TABLE IF NOT EXISTS `participacion` (
 
 INSERT INTO `participacion` (`idParticipacion`, `idUsuario`, `idViaje`, `fecha_solicitud`, `estado`) VALUES
 (1, 1, 1, '2018-05-10', 1),
-(3, 1, 3, '2018-05-10', 2),
+(3, 1, 3, '2018-05-10', 1),
 (4, 1, 4, '2018-05-10', 3),
 (5, 1, 5, '2018-05-10', 5),
-(6, 1, 4, '2018-05-10', 4);
+(6, 1, 4, '2018-05-10', 4),
+(7, 2, 1, '2018-05-10', 1);
 
 -- --------------------------------------------------------
 
@@ -168,10 +169,10 @@ CREATE TABLE IF NOT EXISTS `tipo_vehiculo` (
 --
 
 INSERT INTO `tipo_vehiculo` (`idTipo`, `icono`, `tipo`) VALUES
-(1, 'img/vehiculos/coche.png', 'auto'),
-(2, 'img/vehiculos/camioneta.png', 'camioneta'),
-(3, 'img/vehiculos/moto.png', 'moto'),
-(4, 'img/vehiculos/camion.png', 'camion');
+(1, '/img/vehiculos/coche.png', 'auto'),
+(2, '/img/vehiculos/camioneta.png', 'camioneta'),
+(3, '/img/vehiculos/moto.png', 'moto'),
+(4, '/img/vehiculos/camion.png', 'camion');
 
 -- --------------------------------------------------------
 
@@ -215,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
   `color` varchar(20) NOT NULL,
   `patente` varchar(10) NOT NULL COMMENT 'puede ser patente extrangera',
   `tipo` int(1) DEFAULT NULL,
-  `eliminado` tinyint(1) NOT NULL,
+  `eliminado` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idVehiculo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
@@ -226,8 +227,8 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
 INSERT INTO `vehiculo` (`idVehiculo`, `idPropietario`, `cant_asientos`, `modelo`, `marca`, `color`, `patente`, `tipo`, `eliminado`) VALUES
 (1, 1, 3, '2018', 'renault 12', 'marron con verde', 'ac 789 op', 1, 0),
 (2, 1, 5, 'Ka 2006', 'Ford', 'verde', 'jey001', 2, 0),
-(3, 1, 2, '206 2008', 'Peugeot', 'azul', 'hjh212', 3, 0),
-(5, 1, 4, 'fz 2018', 'yamaha', 'gris', 'jey002', 3, 0);
+(3, 1, 2, '206 2008', 'Peugeot', 'azul', 'hjh212', 1, 0),
+(5, 1, 1, 'fz 2018', 'yamaha', 'gris', 'jey002', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -249,18 +250,29 @@ CREATE TABLE IF NOT EXISTS `viaje` (
   `costo` int(7) NOT NULL,
   `estado` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idViaje`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `viaje`
 --
 
 INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `fecha_partida`, `tipo`, `origen`, `destino`, `asientos_disponibles`, `costo`, `estado`) VALUES
-(1, 1, 1, '2018-05-01 10:18:12', '2018-05-31 07:09:08', 'unico', 'La Plata', 'chapalmalal', 3, 8999, 1),
-(2, 1, 2, '2018-05-10 04:26:19', '2018-05-02 09:10:17', 'recurrente', 'la quiaca', 'buenos aires', 2, 500, 1),
-(3, 1, 1, '2018-05-03 07:10:33', '2018-05-25 10:17:38', 'unico', 'Mendoza', 'La Pampa', 6, 3600, 1),
-(4, 1, 1, '2018-05-03 21:19:10', '2018-05-25 04:35:19', 'unico', 'Mendoza', 'La Pampa', 1, 3600, 1),
-(5, 1, 1, '2018-05-03 07:10:33', '2018-05-25 10:17:38', 'unico', 'Mendoza', 'La Pampa', 6, 3600, 1);
+(1, 1, 1, '2018-05-01 10:18:12', '2018-05-31 07:09:08', 'unico', 'La Plata', 'Chapadmalal', 2, 4000, 1),
+(2, 1, 2, '2018-05-10 04:26:19', '2018-10-13 09:10:17', 'recurrente', 'La Quiaca', 'Buenos Aires', 2, 500, 1),
+(3, 1, 1, '2018-05-03 07:10:33', '2018-05-31 10:17:38', 'unico', 'Mendoza', 'La quiaca', 6, 3600, 1),
+(4, 1, 5, '2018-05-03 21:19:10', '2018-07-20 10:35:19', 'unico', 'Mendoza', 'Ushuaihia', 1, 3600, 1),
+(5, 1, 1, '2018-05-03 07:10:33', '2018-05-31 10:17:38', 'unico', 'Mendoza', 'San Salvador De Misiones', 6, 3600, 1),
+(6, 2, 2, '2018-05-18 07:10:33', '2018-08-16 10:17:38', 'unico', 'Cordoba Capital', 'San Juan', 3, 1500, 1),
+(7, 1, 2, '2018-05-01 04:26:19', '2018-10-26 09:10:17', 'recurrente', 'El Bolson', 'Buenos Aires', 2, 2500, 1),
+(8, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
+(9, 1, 1, '2018-05-03 07:10:33', '2018-05-31 10:17:38', 'unico', 'Rosario, Santa Fe', 'Rawson, Chubut', 6, 3600, 1),
+(10, 1, 2, '2018-05-10 04:26:19', '2018-06-22 09:10:17', 'recurrente', 'Carlos Paz', 'Buenos Aires', 4, 4900, 1),
+(11, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
+(12, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
+(13, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
+(14, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
+(15, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
+(16, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
