@@ -35,12 +35,25 @@
 				<hr>
 
 				<a href="#"><img src="img/boton.jpg" alt="" class="img-fluid boton_crear"></a>
+
+				<hr>
+
+				<h3 style="text-align: center">
+				<?php
+					include('php/conexion.php');
+					$contador=mysqli_query($conexion,"SELECT *
+																						from viaje
+																						where estado=3")
+																						or die ("problmas con el contador");
+					echo mysqli_num_rows($contador);
+					?>
+					<br>
+					<small>viajes exitosos</small>
+					</h3>
+
  			</div>
 			<div class="col-md-9">
 			<?php
-			// incluyo la conexion.
-			include('php/conexion.php');
-
 			$viajes=mysqli_query($conexion,"SELECT *, tipo_vehiculo.tipo as tipoVehiculo
 											from viaje
 											inner join usuario on viaje.idPiloto = usuario.idUser
@@ -66,7 +79,7 @@
 						  $contador_participaciones = $viaje['asientos_disponibles'] - mysqli_num_rows($contador_participaciones);
 							?>
 
-							<div class="card" style="width: 32%; display: inline-block; margin: 4px 1px; box-shadow: 2px 2px 10px #f0f0f0">
+							<div class="card" style="width: 32%; display: inline-block; margin: 4px 1px; box-shadow: 2px 2px 10px #f0f0f0; min-height: 250px">
 							  <!--<img class="card-img-top" src="img/prueba_maps.png" alt="Card image cap">-->
 							  <div class="card-body">
 							    <h5 class="card-title"><?php echo $viaje['origen']; ?> <span style="color:grey">a</span> <?php echo $viaje['destino']; ?> <br> <small>en <?php echo $viaje['tipoVehiculo']; ?></small> </h5>
@@ -82,7 +95,7 @@
 											?> </h6></span>
 										</div>
 										<h4 style="text-align: center; color: #53b842">$<?php    // parche para la primera demo unicamente
-										 																														if ($viaje['asientos_disponibles'] > 0) {echo $viaje['costo']/$viaje['asientos_disponibles'];}
+										 																														if ($viaje['asientos_disponibles'] > 0) {echo round($viaje['costo']/$viaje['asientos_disponibles']);}
 										 																														else {echo $viaje['costo'];}?></h4>
 									</p>
 							    <a href="/viaje/<?php echo $viaje['idViaje'];?>/<?php echo $viaje['origen']."-".$viaje['destino'];?>" class="btn btn-danger">Ver mas</a>  <span><?php echo dias_transcurridos($viaje['fecha_partida'],'partida') ?></span>
