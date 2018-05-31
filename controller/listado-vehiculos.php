@@ -58,8 +58,7 @@ function render($vars = []){
 		        </button>
 		      </div>
 		      <div class="modal-body">
-				<div class="alert alert-danger alert-dismissable">
-		             <button type="button" class="close" data-dismiss="alert">&times;</button>
+				<div class="alert alert-danger">
 		                 El vehiculo esta siendo utilizado en tus viajes,
 		                 debes cancelar el viaje o modificar el vehiculo
 		                 que usas en el mismo.
