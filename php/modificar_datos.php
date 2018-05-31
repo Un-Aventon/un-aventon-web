@@ -20,7 +20,7 @@
                                         or
                                         die("Problemas en la actualizacion:".mysqli_error($conexion));
 
-                                        $_SESSION['email']=$_REQUEST['email'];
+                                        $_SESSION['mail']=$_REQUEST['email'];
                                         $_SESSION['nombre']=$_REQUEST['nombre'];
                                         $_SESSION['apellido']=$_REQUEST['apellido'];
 
