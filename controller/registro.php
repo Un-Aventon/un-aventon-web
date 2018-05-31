@@ -113,7 +113,7 @@ function render($arr = [])
             <input type="text" name="apellido" class="form-control" id="apellido" <?php if(isset($apellido) && preg_match($names_pattern, $apellido)){echo 'value="'. $apellido.'"';}else{echo 'placeholder="Ingrese su apellido"';} ?>>
           </div>
           <div class="form-group">
-            <label>Edad</label>
+            <label>Fecha de nacimiento</label>
             <input type="date" name="edad" class="form-control" id="edad" <?php if(isset($edad)){ echo 'value="' . $edad . '"';}?>>
           </div>
           <div class="form-group">
