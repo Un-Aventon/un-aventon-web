@@ -39,7 +39,7 @@ function calc_edad($fecha) {
 }
 
 function comprobar_string($string){
-	$expresion = '/^[a-zA-Z0-9@-_. ]{5,50}/';
+	$expresion = '/^[a-zA-Z0-9@-_. ]{3,50}/';
 
 	return(preg_match($expresion, $string));
 }
