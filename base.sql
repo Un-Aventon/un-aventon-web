@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 28-05-2018 a las 15:58:17
+-- Tiempo de generación: 31-05-2018 a las 01:51:27
 -- Versión del servidor: 5.7.21
 -- Versión de PHP: 5.6.35
 
@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `participacion` (
 
 INSERT INTO `participacion` (`idParticipacion`, `idUsuario`, `idViaje`, `fecha_solicitud`, `estado`) VALUES
 (1, 1, 1, '2018-05-10', 1),
-(3, 1, 3, '2018-05-10', 1),
+(3, 1, 3, '2018-05-10', 2),
 (4, 1, 4, '2018-05-10', 3),
 (5, 1, 5, '2018-05-10', 5),
 (6, 1, 4, '2018-05-10', 4),
@@ -250,29 +250,31 @@ CREATE TABLE IF NOT EXISTS `viaje` (
   `costo` int(7) NOT NULL,
   `estado` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idViaje`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `viaje`
 --
 
 INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `fecha_partida`, `tipo`, `origen`, `destino`, `asientos_disponibles`, `costo`, `estado`) VALUES
-(1, 1, 1, '2018-05-01 10:18:12', '2018-05-31 07:09:08', 'unico', 'La Plata', 'Chapadmalal', 2, 4000, 1),
+(1, 1, 1, '2018-05-01 10:18:12', '2018-06-01 07:09:08', 'unico', 'La Plata', 'Chapadmalal', 2, 4000, 1),
 (2, 1, 2, '2018-05-10 04:26:19', '2018-10-13 09:10:17', 'recurrente', 'La Quiaca', 'Buenos Aires', 2, 500, 1),
-(3, 1, 1, '2018-05-03 07:10:33', '2018-05-31 10:17:38', 'unico', 'Mendoza', 'La quiaca', 6, 3600, 1),
-(4, 1, 5, '2018-05-03 21:19:10', '2018-07-20 10:35:19', 'unico', 'Mendoza', 'Ushuaihia', 1, 3600, 1),
-(5, 1, 1, '2018-05-03 07:10:33', '2018-05-31 10:17:38', 'unico', 'Mendoza', 'San Salvador De Misiones', 6, 3600, 1),
+(3, 1, 1, '2018-05-03 07:10:33', '2018-06-01 10:17:38', 'unico', 'Mendoza', 'La quiaca', 6, 3600, 1),
+(4, 1, 5, '2018-05-03 21:19:10', '2018-07-20 10:35:19', 'unico', 'Mendoza', 'Ushuaihia, tierra del fuego', 1, 3600, 1),
+(5, 1, 1, '2018-05-03 07:10:33', '2018-06-01 10:17:38', 'unico', 'Mendoza', 'Misiones', 6, 3600, 1),
 (6, 2, 2, '2018-05-18 07:10:33', '2018-08-16 10:17:38', 'unico', 'Cordoba Capital', 'San Juan', 3, 1500, 1),
 (7, 1, 2, '2018-05-01 04:26:19', '2018-10-26 09:10:17', 'recurrente', 'El Bolson', 'Buenos Aires', 2, 2500, 1),
 (8, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
-(9, 1, 1, '2018-05-03 07:10:33', '2018-05-31 10:17:38', 'unico', 'Rosario, Santa Fe', 'Rawson, Chubut', 6, 3600, 1),
+(9, 1, 1, '2018-05-03 07:10:33', '2018-06-07 10:17:38', 'unico', 'Rosario, Santa Fe', 'Rawson, Chubut', 6, 3600, 1),
 (10, 1, 2, '2018-05-10 04:26:19', '2018-06-22 09:10:17', 'recurrente', 'Carlos Paz', 'Buenos Aires', 4, 4900, 1),
 (11, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
 (12, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
 (13, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
 (14, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
 (15, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
-(16, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3);
+(16, 1, 1, '2018-05-01 10:18:12', '2018-10-06 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
+(17, 1, 2, '2018-07-13 04:26:19', '2018-10-26 09:10:17', 'recurrente', 'Moron', 'Chivilcoy', 2, 2000, 1),
+(18, 1, 1, '2018-05-01 10:18:12', '2019-02-07 16:13:33', 'unico', 'Arenasa', 'Araneda', 10, 500, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
