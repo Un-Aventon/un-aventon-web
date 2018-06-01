@@ -20,16 +20,25 @@
 																										or die ("problemas en el contador de asientos disponibles");
 		$contador_participaciones = $viaje['asientos_disponibles'] - mysqli_num_rows($contador_participaciones);
 
+		//parche ARREGLAR
+		if ($_SESSION['userId'] != $viaje['idPiloto']) {
 		!isset($_POST['carga_participacion'])?:include('php/alta_participacion.php');
 		if(isset($_COOKIE["carga_participacion"]) && $_COOKIE["carga_participacion"])
 	  {
 	      setcookie("carga_participacion",false);
 	  }
+	}
 
-		!isset($_POST['idParticipacion'])?:include('php/baja_participacion.php');
+		!isset($_POST['baja_participacion'])?:include('php/baja_participacion.php');
 		if(isset($_COOKIE["baja_participacion"]) && $_COOKIE["baja_participacion"]){
 			setcookie("baja_participacion",false);
 		}
+
+		!isset($_POST['aceptar_postulacion'])?:include('php/aceptar_participacion.php');
+		/*if(isset($_COOKIE["baja_participacion"]) && $_COOKIE["baja_participacion"]){
+			setcookie("baja_participacion",false);
+		}*/
+
     ?>
     <div class="row">
       <div class="col-md-6" style="padding: 5px 5px;">
@@ -37,7 +46,7 @@
       </div>
       <div class="col-md-6">
 				<div class="row">
-					<div class="col-md-10">
+					<div class="col-md-10 col-sm-12">
 						<h1><?php echo $viaje['origen'] ?> a <?php echo $viaje['destino']; ?></h1>
 						<span title="<?php echo $viaje['fecha_publicacion'] ?>">Publicado <?php echo dias_transcurridos($viaje['fecha_publicacion'],'publicacion');?>
 							por <a href="#"><?php echo $viaje['nombre']." ".$viaje['apellido']; ?></a> (3.4pts)
@@ -93,7 +102,7 @@
 				if (!isset($_SESSION['userId'])) {
 					echo '<button type="submit" class="btn btn-outline-secondary" style="width:100%">Tenes que estar logeado para poder participar</button>';
 				}
-				else {
+				elseif ($_SESSION['userId'] != $viaje['idPiloto']) {
 				$participacion=mysqli_query($conexion,"SELECT *
 																							 from participacion
 																							 where idViaje='$viaje[idViaje]' and idUsuario='$_SESSION[userId]'
@@ -140,6 +149,41 @@
 
 						echo '<center><button type="submit" class="btn btn-light btn-sm">Volver a postularme</button></center>';
 						echo '</form>';
+				}
+			}
+			else {
+				$participaciones_copiloto=mysqli_query($conexion,"SELECT *
+																								 from participacion
+																								 inner join usuario on participacion.idUsuario=usuario.idUser
+																								 where idViaje='$viaje[idViaje]'")
+																								 or die ("problemas con el listado de participaciones del piloto");
+				if(mysqli_num_rows($participaciones_copiloto)>0){echo mysqli_num_rows($participaciones_copiloto)." participaciones<hr>";}
+				else {echo "no hay participaciones todavia";}
+				while ($participacion_copiloto=mysqli_fetch_array($participaciones_copiloto)){
+					switch ($participacion_copiloto['estado']) {
+						case 1:
+							echo '<br><br>postulacion pendiente de aprobacion <br>'.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'<br>';
+							echo '<form action="/viaje/'.$vars[0].'" method="post" style="display: inline-block">
+										<input type="hidden" name="idParticipacion" value="'.$participacion_copiloto['idParticipacion'].'">
+										<input type="hidden" name="aceptar_postulacion" value="'.$vars[0].'">
+										<button type="submit" class="btn btn-light btn-sm">aprobar postulacion</button>
+										</form>';
+							//echo ' <a href="">rechazar postulacion</a>';
+							break;
+						case 2:
+						echo 'participacion aprobada <br>'.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"];
+						echo '<br><a href="">rechazar postulacion</a>';
+							break;
+						case 3:
+						echo 'participacion cancelada por <br>'.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"];
+							break;
+						case 4:
+							echo 'participacion cancelada por mi <br>'.$participacion["nombre"].' '.$participacion["apellido"];
+							break;
+						default:
+							echo "default";
+							break;
+						}
 				}
 			}
 			?>
