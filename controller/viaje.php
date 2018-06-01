@@ -11,18 +11,44 @@
                                    inner join tipo_vehiculo on vehiculo.tipo=tipo_vehiculo.idTipo
                                    inner join usuario on viaje.idPiloto=usuario.idUser
                                    where idViaje = $vars[0]")
-                                   or die ("problemas con el select".mysqli_error($conexion));
+                                   or die ("problemas con el selectttt".mysqli_error($conexion));
     $viaje=mysqli_fetch_array($viaje);
+
+		$contador_participaciones=mysqli_query($conexion,"SELECT *
+																										from participacion
+																										where estado=1 and idViaje=$viaje[idViaje]")
+																										or die ("problemas en el contador de asientos disponibles");
+		$contador_participaciones = $viaje['asientos_disponibles'] - mysqli_num_rows($contador_participaciones);
+
+		!isset($_POST['carga_participacion'])?:include('php/alta_participacion.php');
+		if(isset($_COOKIE["carga_participacion"]) && $_COOKIE["carga_participacion"])
+	  {
+	      setcookie("carga_participacion",false);
+	  }
+
+		!isset($_POST['idParticipacion'])?:include('php/baja_participacion.php');
+		if(isset($_COOKIE["baja_participacion"]) && $_COOKIE["baja_participacion"]){
+			setcookie("baja_participacion",false);
+		}
     ?>
     <div class="row">
       <div class="col-md-6" style="padding: 5px 5px;">
         <img src="/img/prueba_maps2.png" alt="mapa" class="img-fluid rounded">
       </div>
       <div class="col-md-6">
-          <h1><?php echo $viaje['origen'] ?> a <?php echo $viaje['destino']; ?></h1>
-					<span title="<?php echo $viaje['fecha_publicacion'] ?>">Publicado <?php echo dias_transcurridos($viaje['fecha_publicacion'],'publicacion');?>
-																																	por <a href="#"><?php echo $viaje['nombre']." ".$viaje['apellido']; ?></a> (3.4pts)
-					</span>
+				<div class="row">
+					<div class="col-md-10">
+						<h1><?php echo $viaje['origen'] ?> a <?php echo $viaje['destino']; ?></h1>
+						<span title="<?php echo $viaje['fecha_publicacion'] ?>">Publicado <?php echo dias_transcurridos($viaje['fecha_publicacion'],'publicacion');?>
+							por <a href="#"><?php echo $viaje['nombre']." ".$viaje['apellido']; ?></a> (3.4pts)
+						</span>
+					</div>
+					<div class="col-md-2">
+						<div class="contenedorUno centrado" style="border: 1px solid #fff; border-radius: 4px; padding: 4px 4px; background-color: #f0f0f0">
+							<h6 class="" style="text-align:center"><?php if($contador_participaciones>0){echo $contador_participaciones;}else{echo "sin";}; ?><br>vacantes</h6>
+						</div>
+					</div>
+				</div>
         <hr>
         <div class="row">
           <div class="col-md-3">
@@ -57,8 +83,67 @@
 						<h3 style="text-align: center; color: #53b842">$<?php echo $viaje['costo']; ?> <small> / por persona</small> </h3>
 					</div>
 				</div>
-				<br>
-        <button type="button" class="btn btn-outline-danger" style="width:100%">Participar</button>
+				<hr>
+				<form action="/viaje/<?php echo $vars[0] ?>" method="post">
+					<input type="hidden" name="carga_participacion" value="<?php echo $vars[0] ?>">
+				<?php
+
+
+
+				if (!isset($_SESSION['userId'])) {
+					echo '<button type="submit" class="btn btn-outline-secondary" style="width:100%">Tenes que estar logeado para poder participar</button>';
+				}
+				else {
+				$participacion=mysqli_query($conexion,"SELECT *
+																							 from participacion
+																							 where idViaje='$viaje[idViaje]' and idUsuario='$_SESSION[userId]'
+																							 order by idParticipacion ASC")
+																							 or die ("error participacion".mysqli_error($conexion));
+				$participacion=mysqli_fetch_array($participacion);
+
+				switch ($participacion['estado']) {
+					case 1:
+						echo '<button type="" class="btn btn-primary" style="width:100%" disabled>Participacion pendiente</button>';
+						break;
+					case 2:
+						echo '<button type="" class="btn btn-success" style="width:100%" disabled>Participacion aprobada</button>';
+						break;
+					case 3:
+						echo '<button type="submit" class="btn btn-warning" style="width:100%" disabled>Cancelaste una postulacion</button>';
+						break;
+					case 4:
+						echo '<button type="" class="btn btn-danger" style="width:100%" disabled>Participacion rechazada</button>';
+						break;
+					default:
+						if ($contador_participaciones>0){echo '<button type="submit" class="btn btn-outline-danger" style="width:100%">Participar</button>';}
+						else {echo '<button type="submit" class="btn btn-outline-secondary" style="width:100%" disabled>No quedan vacantes</button>';}
+						break;
+					}
+
+			?>
+			</form>
+			<?php
+
+				if (($participacion['estado'] == 1) || ($participacion['estado'] == 2)) {
+					echo '<center>
+										<form action="/viaje/'.$vars[0].'" method="post">
+													<input type="hidden" name="idParticipacion" value="'.$participacion['idParticipacion'].'">
+													<input type="hidden" name="baja_participacion" value="'.$vars[0].'">
+													<input type="hidden" name="estado" value="'.$participacion['estado'].'">
+													<button type="submit" class="btn btn-light btn-sm">cancelar postulacion</button>
+										</form>
+								</center>';
+				}
+				elseif ($participacion['estado'] == 3){
+						echo '<form action="/viaje/'.$vars[0].'" method="post">
+												<input type="hidden" name="carga_participacion" value="'.$vars[0].'">';
+
+						echo '<center><button type="submit" class="btn btn-light btn-sm">Volver a postularme</button></center>';
+						echo '</form>';
+				}
+			}
+			?>
+
       </div>
     </div>
 

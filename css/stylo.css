@@ -9,6 +9,7 @@ body{
   left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
+
 }
 
 .cuadro {
@@ -45,6 +46,7 @@ body{
   color: #fff;
   background-color:#f17376;
 }
+
 
 .strike {
 display: block;

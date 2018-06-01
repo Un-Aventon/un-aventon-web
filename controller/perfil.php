@@ -29,10 +29,11 @@ function render($vars = [])
 
   if(isset($_COOKIE["carga_vehiculo"]) && $_COOKIE["carga_vehiculo"])
   {
-      echo '<div class="alert alert-success alert-dismissable">
+      echo '<div class="alert alert-success alert-dismissable centrado" style="z-index: 99999; box-shadow: 0px 3px 20px rgba(54, 54, 54, 0.7)">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                     La carga del vehiculo se realizó correctamente!
               </div>';
+
       setcookie("carga_vehiculo",false);
   }
 
