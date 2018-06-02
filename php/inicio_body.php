@@ -74,6 +74,7 @@
           border-radius: 4px;
           padding: 4px 4px;
           margin-bottom: 3px;
+          margin-top: 3px;
           min-height: 37px;
       }
     </style>

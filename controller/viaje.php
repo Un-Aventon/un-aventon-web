@@ -154,7 +154,7 @@
 						echo '<form action="/viaje/'.$vars[0].'" method="post">
 												<input type="hidden" name="carga_participacion" value="'.$vars[0].'">';
 
-						echo '<center><button type="submit" class="btn btn-light btn-sm">Volver a postularme</button></center>';
+						echo '<center><button type="submit" class="btn btn-light btn-sm" style="margin-top: 5px">Volver a postularme</button></center>';
 						echo '</form>';
 				}
 			}
@@ -168,43 +168,48 @@
   								Postulaciones/Participaciones totales <span class="badge badge-danger">'.mysqli_num_rows($participaciones_copiloto).'</span>
 							</button>';
 				if(mysqli_num_rows($participaciones_copiloto)==0)
-						 {echo " (no hay participaciones todavia)";}
+						 {echo "<br><small>(no hay participaciones todavia)</small>";}
 				while ($participacion_copiloto=mysqli_fetch_array($participaciones_copiloto)){
 					switch ($participacion_copiloto['estado']) {
 						case 1:
 							echo '<div class="postulacion">';
+							echo '<div class="row"><div class="col-md-9">';
 							echo '<img src="/img/sys/hand.png" style="width:20px">';
-							echo '<a href=""> '.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> | Postulacion pendiente de aprobacion';
+							echo '<a href=""> '.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> | Pendiente de aprobacion';
 							echo '<form action="/viaje/'.$vars[0].'" method="post" style="display: inline-block">
 													<input type="hidden" name="idParticipacion" value="'.$participacion_copiloto['idParticipacion'].'">
 													<input type="hidden" name="estado" value="'.$participacion_copiloto['estado'].'">
 													<input type="hidden" name="aceptar_postulacion" value="'.$vars[0].'">
-												<button type="submit" class="btn btn-success btn-sm">aprobar postulacion</button>
+													</div><div class="col-3">
+												<button type="submit" class="btn btn-success btn-sm float-right">aprobar postulacion</button>
+												</div>
 										</form>';
-							echo '</div>';
+							echo '</div></div>';
 							break;
 						case 2:
 						echo '<div class="postulacion">';
+						echo '<div class="row"><div class="col-md-9">';
 						echo '<img src="/img/sys/ok.png" style="width:20px">';
 						echo '<a href=""> '.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> | Participacion aprobada';
 						echo '<form action="/viaje/'.$vars[0].'" method="post" style="display: inline-block">
 													<input type="hidden" name="idParticipacion" value="'.$participacion_copiloto['idParticipacion'].'">
 													<input type="hidden" name="estado" value="'.$participacion_copiloto['estado'].'">
 													<input type="hidden" name="rechazar_postulacion" value="'.$vars[0].'">
+													</div><div class="col-3">
 											<button type="submit" class="btn btn-danger btn-sm float-right">rechazar postulacion</button>
 									</form>';
-						echo '</div>';
+						echo '</div></div></div>';
 							break;
 						case 3:
 							echo '<div class="postulacion">';
 								echo '<img src="/img/sys/private.png" style="width:20px">';
-								echo ' (<a href="">'.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a>) | Participacion cancelada por el copiloto';
+								echo ' <a href="">'.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> | Participacion cancelada por el copiloto';
 							echo '</div>';
 							break;
 						case 4:
 							echo '<div class="postulacion">';
 								echo '<img src="/img/sys/private.png" style="width:20px">';
-								echo ' (<a href="">'.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a>) | Participacion cancelada por mi';
+								echo ' <a href="">'.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> | Participacion cancelada por mi';
 							echo '</div>';
 						break;
 							break;
