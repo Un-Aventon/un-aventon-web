@@ -67,6 +67,15 @@
       .boton_crear:hover{
           filter: brightness(120%);
       }
+
+      .postulacion{
+          width: 100%;
+          background-color: #fafafa;
+          border-radius: 4px;
+          padding: 4px 4px;
+          margin-bottom: 3px;
+          min-height: 37px;
+      }
     </style>
   </head>
   <body>
