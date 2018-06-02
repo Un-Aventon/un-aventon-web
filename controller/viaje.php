@@ -35,9 +35,14 @@
 		}
 
 		!isset($_POST['aceptar_postulacion'])?:include('php/aceptar_participacion.php');
-		/*if(isset($_COOKIE["baja_participacion"]) && $_COOKIE["baja_participacion"]){
-			setcookie("baja_participacion",false);
-		}*/
+		if(isset($_COOKIE["aceptar_postulacion"]) && $_COOKIE["aceptar_postulacion"]){
+			setcookie("aceptar_postulacion",false);
+		}
+
+		!isset($_POST['rechazar_postulacion'])?:include('php/rechazar_participacion.php');
+		if(isset($_COOKIE["rechazar_postulacion"]) && $_COOKIE["rechazar_postulacion"]){
+			setcookie("rechazar_postulacion",false);
+		}
 
     ?>
     <div class="row">
@@ -49,7 +54,7 @@
 					<div class="col-md-10 col-sm-12">
 						<h1><?php echo $viaje['origen'] ?> a <?php echo $viaje['destino']; ?></h1>
 						<span title="<?php echo $viaje['fecha_publicacion'] ?>">Publicado <?php echo dias_transcurridos($viaje['fecha_publicacion'],'publicacion');?>
-							por <a href="#"><?php echo $viaje['nombre']." ".$viaje['apellido']; ?></a> (3.4pts)
+							por <a href="#"><?php echo $viaje['nombre']." ".$viaje['apellido']; ?></a> <small>(<?php echo calificacion($viaje['idPiloto']); ?> pts.)</small>
 						</span>
 					</div>
 					<div class="col-md-2">
@@ -163,22 +168,28 @@
 					switch ($participacion_copiloto['estado']) {
 						case 1:
 							echo '<br><br>postulacion pendiente de aprobacion <br>'.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'<br>';
+							echo '<div class="row"> <div class="col-md-6>"';
 							echo '<form action="/viaje/'.$vars[0].'" method="post" style="display: inline-block">
 										<input type="hidden" name="idParticipacion" value="'.$participacion_copiloto['idParticipacion'].'">
 										<input type="hidden" name="aceptar_postulacion" value="'.$vars[0].'">
 										<button type="submit" class="btn btn-light btn-sm">aprobar postulacion</button>
 										</form>';
-							//echo ' <a href="">rechazar postulacion</a>';
+							echo '</div><div class="col-md-6">';
 							break;
 						case 2:
 						echo 'participacion aprobada <br>'.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"];
-						echo '<br><a href="">rechazar postulacion</a>';
+						echo '<form action="/viaje/'.$vars[0].'" method="post" style="display: inline-block">
+											<input type="hidden" name="idParticipacion" value="'.$participacion_copiloto['idParticipacion'].'">
+											<input type="hidden" name="estado" value="'.$participacion_copiloto['estado'].'">
+											<input type="hidden" name="rechazar_postulacion" value="'.$vars[0].'">
+											<button type="submit" class="btn btn-light btn-sm">rechazar postulacion</button>
+									</form>';
 							break;
 						case 3:
 						echo 'participacion cancelada por <br>'.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"];
 							break;
 						case 4:
-							echo 'participacion cancelada por mi <br>'.$participacion["nombre"].' '.$participacion["apellido"];
+							echo 'participacion cancelada por mi <br>'.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"];
 							break;
 						default:
 							echo "default";

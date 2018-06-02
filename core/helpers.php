@@ -43,3 +43,13 @@ function comprobar_string($string){
 
 	return(preg_match($expresion, $string));
 }
+
+function calificacion($idUser){
+  // incluyo la conexion.
+  include('php/conexion.php');
+  $calificaciones=mysqli_query($conexion,"SELECT SUM(calificacion) as calificacion_final
+                                          from calificacion
+                                          where idCalificado='$idUser'")
+                                          or die ("error calculo calificacion");
+  return(mysqli_fetch_array($calificaciones)['calificacion_final']);
+}
