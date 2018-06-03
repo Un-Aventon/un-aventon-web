@@ -53,3 +53,64 @@ function calificacion($idUser){
                                           or die ("error calculo calificacion");
   return(mysqli_fetch_array($calificaciones)['calificacion_final']);
 }
+
+function calificacion_grafica_simple($idUser){
+  // incluyo la conexion.
+  include('php/conexion.php');
+  $calificaciones_totales=mysqli_query($conexion,"SELECT count(*) as contador
+                                                    from calificacion
+                                                    where idCalificado='$idUser'")
+                                                    or die ("problemas en el contador de calificaciones totales");
+  $calificaciones_totales=mysqli_fetch_array($calificaciones_totales)['contador'];
+
+  $calificaciones_positivas=mysqli_query($conexion,"SELECT count(*) as contador
+                                                    from calificacion
+                                                    where idCalificado='$idUser' and calificacion > 0")
+                                                    or die ("problemas en el contador de calificaciones positivas");
+  $calificaciones_positivas=mysqli_fetch_array($calificaciones_positivas)['contador'];
+
+  $calificaciones_neutras=mysqli_query($conexion,"SELECT count(*) as contador
+                                                    from calificacion
+                                                    where idCalificado='$idUser' and calificacion = 0")
+                                                    or die ("problemas en el contador de calificaciones neutras");
+  $calificaciones_neutras=mysqli_fetch_array($calificaciones_neutras)['contador'];
+
+  $calificaciones_negativas=mysqli_query($conexion,"SELECT count(*) as contador
+                                                    from calificacion
+                                                    where idCalificado='$idUser' and calificacion < 0")
+                                                    or die ("problemas en el contador de calificaciones negativas");
+  $calificaciones_negativas=mysqli_fetch_array($calificaciones_negativas)['contador'];
+
+  if ($calificaciones_positivas > 0) {
+    $porcentaje_pos=round(($calificaciones_positivas/$calificaciones_totales)*100);
+  }
+  else {
+    $porcentaje_pos=0;
+  }
+
+  if ($calificaciones_neutras > 0) {
+    $porcentaje_neu=round(($calificaciones_neutras/$calificaciones_totales)*100);
+  }
+  else {
+    $porcentaje_neu=0;
+  }
+
+  if ($calificaciones_negativas > 0) {
+    $porcentaje_neg=round(($calificaciones_negativas/$calificaciones_totales)*100);
+  }
+  else {
+    $porcentaje_neg=0;
+  }
+
+
+  $calificacion_ple = array(
+    "contador_total" => $calificaciones_totales,
+    "positivas" => $calificaciones_positivas,
+    "neutras" => $calificaciones_neutras,
+    "negativas" => $calificaciones_negativas,
+    "porcentaje_pos" => $porcentaje_pos,
+    "porcentaje_neu" => $porcentaje_neu,
+    "porcentaje_neg" => $porcentaje_neg,
+  );
+  return $calificacion_ple;
+}

@@ -56,7 +56,7 @@
 					<div class="col-md-10 col-sm-12">
 						<h1><?php echo $viaje['origen'] ?> a <?php echo $viaje['destino']; ?></h1>
 						<span title="<?php echo $viaje['fecha_publicacion'] ?>">Publicado <?php echo dias_transcurridos($viaje['fecha_publicacion'],'publicacion');?>
-							por <a href="#"><?php echo $viaje['nombre']." ".$viaje['apellido']; ?></a> <small>(<?php echo calificacion($viaje['idPiloto']); ?> pts.)</small>
+							por <a href="/usuario/<?php echo $viaje['idPiloto'];?>"><?php echo $viaje['nombre']." ".$viaje['apellido']; ?></a> <small>(<?php echo calificacion($viaje['idPiloto']); ?> pts.)</small>
 						</span>
 					</div>
 					<div class="col-md-2">
@@ -175,7 +175,7 @@
 							echo '<div class="postulacion">';
 							echo '<div class="row"><div class="col-md-9">';
 							echo '<img src="/img/sys/hand.png" style="width:20px">';
-							echo '<a href=""> '.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> | Pendiente de aprobacion';
+							echo '<a href="/usuario/'.$participacion_copiloto["idUsuario"].'"> '.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> | Pendiente de aprobacion';
 							echo '<form action="/viaje/'.$vars[0].'" method="post" style="display: inline-block">
 													<input type="hidden" name="idParticipacion" value="'.$participacion_copiloto['idParticipacion'].'">
 													<input type="hidden" name="estado" value="'.$participacion_copiloto['estado'].'">
@@ -190,7 +190,7 @@
 						echo '<div class="postulacion">';
 						echo '<div class="row"><div class="col-md-9">';
 						echo '<img src="/img/sys/ok.png" style="width:20px">';
-						echo '<a href=""> '.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> | Participacion aprobada';
+						echo '<a href="/usuario/'.$participacion_copiloto["idUsuario"].'"> '.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> | Participacion aprobada';
 						echo '<form action="/viaje/'.$vars[0].'" method="post" style="display: inline-block">
 													<input type="hidden" name="idParticipacion" value="'.$participacion_copiloto['idParticipacion'].'">
 													<input type="hidden" name="estado" value="'.$participacion_copiloto['estado'].'">
@@ -203,13 +203,13 @@
 						case 3:
 							echo '<div class="postulacion">';
 								echo '<img src="/img/sys/private.png" style="width:20px">';
-								echo ' <a href="">'.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> | Participacion cancelada por el copiloto';
+								echo ' <a href="/usuario/'.$participacion_copiloto["idUsuario"].'">'.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> | Participacion cancelada por el copiloto';
 							echo '</div>';
 							break;
 						case 4:
 							echo '<div class="postulacion">';
 								echo '<img src="/img/sys/private.png" style="width:20px">';
-								echo ' <a href="">'.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> | Participacion cancelada por mi';
+								echo ' <a href="/usuario/'.$participacion_copiloto["idUsuario"].'">'.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> | Participacion cancelada por mi';
 							echo '</div>';
 						break;
 							break;
