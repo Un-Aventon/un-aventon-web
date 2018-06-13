@@ -49,7 +49,47 @@
     ?>
     <div class="row">
       <div class="col-md-6" style="padding: 5px 5px;">
-        <img src="/img/prueba_maps2.png" alt="mapa" class="img-fluid rounded">
+        <style>
+			#map {
+				width: 100%;
+				height: 400px;
+				background-color: grey;
+			}
+		</style>
+		<div id="map"></div>
+		<script>
+			function initMap() {
+				var directionsService = new google.maps.DirectionsService;
+				var directionsDisplay = new google.maps.DirectionsRenderer;
+		
+
+				var map = new google.maps.Map(document.getElementById('map'), {
+					zoom: 4.5,
+
+				});
+		
+				directionsDisplay.setMap(map);
+		
+		
+				directionsService.route({
+				  origin: '<?php echo $viaje["origen"] ?>',
+				  destination: '<?php echo $viaje["destino"] ?>',
+				  travelMode: 'DRIVING'
+				}, function(response, status) {
+				  if (status === 'OK') {
+				    directionsDisplay.setDirections(response);
+				  } else {
+				    window.alert('Directions request failed due to ' + status);
+				  }
+				});
+		
+		
+			}
+		 </script>
+		
+		<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCmsUIxdjkHChho9s5V1T7Xl4axSmR3-w&callback=initMap">
+		</script>
       </div>
       <div class="col-md-6">
 				<div class="row">
