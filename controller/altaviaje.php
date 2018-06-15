@@ -81,7 +81,7 @@ function render($vars = [])
 					<form action="/altaviaje" method="post">
 						<div class="form-group">
 							<label for="prov_origen">Provincia de Origen</label>
-							<select class="form-control" name="prov_origen" id="prov_origen"> 
+							<select class="form-control" onchange="is_valid_location('localidad_origen','prov_origen')" name="prov_origen" id="prov_origen"> 
 								<?php
 									foreach ($provincias as $each) {
 										echo '<option value="' . $each . '">' . $each . '</option>';
@@ -96,7 +96,7 @@ function render($vars = [])
 						</div>
 						<div class="form-group">
 							<label for="prov_destino">Provincia de Destino</label>
-							<select class="form-control" name="prov_destino" id="prov_destino"> 
+							<select class="form-control" onchange="is_valid_location('localidad_destino','prov_destino')" name="prov_destino" id="prov_destino"> 
 								<?php
 									foreach ($provincias as $each) {
 										echo '<option value="' . $each . '">' . $each . '</option>';
