@@ -52,25 +52,25 @@
         <style>
 			#map {
 				width: 100%;
-				height: 400px;
+				height: 100%;
 				background-color: grey;
 			}
 		</style>
-		<div id="map"></div>
+		<div id="map" style="border-radius: 4px; margin-top: 5px"></div>
 		<script>
 			function initMap() {
 				var directionsService = new google.maps.DirectionsService;
 				var directionsDisplay = new google.maps.DirectionsRenderer;
-		
+
 
 				var map = new google.maps.Map(document.getElementById('map'), {
 					zoom: 4.5,
 
 				});
-		
+
 				directionsDisplay.setMap(map);
-		
-		
+
+
 				directionsService.route({
 				  origin: '<?php echo $viaje["origen"] ?>',
 				  destination: '<?php echo $viaje["destino"] ?>',
@@ -82,17 +82,17 @@
 				    window.alert('Directions request failed due to ' + status);
 				  }
 				});
-		
-		
+
+
 			}
 		 </script>
-		
+
 		<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCmsUIxdjkHChho9s5V1T7Xl4axSmR3-w&callback=initMap">
 		</script>
       </div>
       <div class="col-md-6">
-				<div class="row">
+				<div class="row" style="min-height: 130px">
 					<div class="col-md-10 col-sm-12">
 						<h1><?php echo $viaje['origen'] ?> a <?php echo $viaje['destino']; ?></h1>
 						<span title="<?php echo $viaje['fecha_publicacion'] ?>">Publicado <?php echo dias_transcurridos($viaje['fecha_publicacion'],'publicacion');?>
@@ -100,9 +100,13 @@
 						</span>
 					</div>
 					<div class="col-md-2">
-						<div class="contenedorUno centrado" style="border: 1px solid #fff; border-radius: 4px; padding: 4px 4px; background-color: #f0f0f0">
+						<div class="contenedorUno centrado" style="border: 1px solid #fff; border-radius: 4px; padding: 4px 4px; background-color: #f0f0f0; margin-top: 8px">
+							<?php if ((isset($_SESSION['userId'])) && ($viaje['idPiloto'] == $_SESSION['userId']))
+												{echo "<center> <img src='/img/sys/volante.png' style='width:30px'> <br> <small>soy piloto</small> <hr>";}
+						 	?>
 							<h6 class="" style="text-align:center"><?php if($contador_participaciones>0){echo $contador_participaciones;}else{echo "sin";}; ?><br>vacantes</h6>
 						</div>
+
 					</div>
 				</div>
         <hr>
@@ -150,6 +154,7 @@
 					echo '<button type="submit" class="btn btn-outline-secondary" style="width:100%">Tenes que estar logeado para poder participar</button>';
 				}
 				elseif ($_SESSION['userId'] != $viaje['idPiloto']) {
+				echo '<div class="btn-group" role="group" aria-label="..." style="width: 100%">';
 				$participacion=mysqli_query($conexion,"SELECT *
 																							 from participacion
 																							 where idViaje='$viaje[idViaje]' and idUsuario='$_SESSION[userId]'
@@ -171,8 +176,7 @@
 						echo '<button type="" class="btn btn-danger" style="width:100%" disabled>Participacion rechazada</button>';
 						break;
 					default:
-						if ($contador_participaciones>0){echo '<button type="submit" class="btn btn-outline-danger" style="width:100%">Participar</button>';}
-						else {echo '<button type="submit" class="btn btn-outline-secondary" style="width:100%" disabled>No quedan vacantes</button>';}
+						echo '<button type="submit" class="btn btn-outline-danger" style="width:100%">Participar</button>';
 						break;
 					}
 
@@ -180,13 +184,13 @@
 			</form>
 			<?php
 
-				if ($participacion['estado'] == 2) {
+				if (($participacion['estado'] == 2) || ($participacion['estado']==1)) {
 					echo '<center>
 										<form action="/viaje/'.$vars[0].'" method="post">
 													<input type="hidden" name="idParticipacion" value="'.$participacion['idParticipacion'].'">
 													<input type="hidden" name="baja_participacion" value="'.$vars[0].'">
 													<input type="hidden" name="estado" value="'.$participacion['estado'].'">
-													<button type="submit" class="btn btn-light btn-sm">cancelar participacion</button>
+													<button type="submit" class="btn btn-light">cancelar participacion</button>
 										</form>
 								</center>';
 				}
@@ -194,9 +198,11 @@
 						echo '<form action="/viaje/'.$vars[0].'" method="post">
 												<input type="hidden" name="carga_participacion" value="'.$vars[0].'">';
 
-						echo '<center><button type="submit" class="btn btn-light btn-sm" style="margin-top: 5px">Volver a postularme</button></center>';
+						echo '<center><button type="submit" class="btn btn-light">Volver a postularme</button></center>';
 						echo '</form>';
 				}
+
+				echo "</div>";
 			}
 			else {
 				$participaciones_copiloto=mysqli_query($conexion,"SELECT *
@@ -216,14 +222,29 @@
 							echo '<div class="row"><div class="col-md-9">';
 							echo '<img src="/img/sys/hand.png" style="width:20px">';
 							echo '<a href="/usuario/'.$participacion_copiloto["idUsuario"].'"> '.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> | Pendiente de aprobacion';
+
+
+
 							echo '<form action="/viaje/'.$vars[0].'" method="post" style="display: inline-block">
 													<input type="hidden" name="idParticipacion" value="'.$participacion_copiloto['idParticipacion'].'">
 													<input type="hidden" name="estado" value="'.$participacion_copiloto['estado'].'">
 													<input type="hidden" name="aceptar_postulacion" value="'.$vars[0].'">
-													</div><div class="col-3">
-												<button type="submit" class="btn btn-success btn-sm float-right">aprobar postulacion</button>
-												</div>
+													</div>
+
+													<div class="col-3">
+													<div class="btn-group" role="group" aria-label="..." >
+													<button type="submit" class="btn btn-success btn-sm">aprobar</button>
 										</form>';
+
+										echo '<form action="/viaje/'.$vars[0].'" method="post" style="display: inline-block">
+																	<input type="hidden" name="idParticipacion" value="'.$participacion_copiloto['idParticipacion'].'">
+																	<input type="hidden" name="estado" value="'.$participacion_copiloto['estado'].'">
+																	<input type="hidden" name="rechazar_postulacion" value="'.$vars[0].'">
+
+
+															<button type="submit" class="btn btn-danger btn-sm">rechazar</button>
+													</form></div>
+													</div>';
 							echo '</div></div>';
 							break;
 						case 2:
@@ -261,8 +282,38 @@
 			}
 			?>
 
+			<br>
       </div>
+
     </div>
+		<hr>
+		<div class="row">
+			<div class="col-md-10" style="padding: 0px 13px">
+				<h5>Pregunta! <small>sacate las dudas</small> </h5>
+				<div class="row">
+					<div class="col-md-10">
+						<textarea class="form-control" name="name" cols="80" style="width: 100%; min-height: 50px" placeholder="Ej: puedo llevar a mi perrito?, mate dulce o amargo?"></textarea>
+					</div>
+					<div class="col-md-2">
+						<button type="button" class="btn btn-light" style="width:100%; height: 100%">Enviar</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<img src="/img/publicidad.png" alt="">
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+					<!-- localhost -->
+					<ins class="adsbygoogle"
+     			style="display:block"
+     			data-ad-client="ca-pub-8566326317835277"
+     			data-ad-slot="8699675381"
+     			data-ad-format="auto"></ins>
+					<script>
+						(adsbygoogle = window.adsbygoogle || []).push({});
+					</script>
+			</div>
+		</div>
+		<div class="row" style="height: 10px"></div>
 
 
     <?php

@@ -133,13 +133,13 @@ function render($vars = [])
   <div class="row">
     <div class="col-md-6">
       <h3>Mis ultimos viajes </h3>
+        <div class="" style="max-height: 400px; overflow: auto;">
       <?php
         $viajes=mysqli_query($conexion,"SELECT *, viaje.estado as 'estadodelviaje'
                                        FROM viaje
                                        INNER JOIN estado_viaje on viaje.estado=estado_viaje.idEstado
                                        WHERE idPiloto='$user[idUser]'
-                                       order by idViaje
-                                       limit 5")
+                                       order by idViaje")
                                        or
                                        die("Problemas en la base de datos:".mysqli_error($conexion));
         if (mysqli_num_rows($viajes) == 0){
@@ -166,20 +166,19 @@ function render($vars = [])
           <?php
         }
       ?>
-
-      <center> <a href="#" onclick="alert('Esta funcion todavia esta en desarrollo')">Ver todos los viajes</a> </center>
+      </div>
     </div>
 
     <div class="col-md-6">
       <h3>Mis ultimas postulaciones</h3>
+      <div class="" style="max-height: 400px; overflow: auto;">
       <?php
         $postulaciones=mysqli_query($conexion,"SELECT *, participacion.estado as estado_participacion, viaje.estado as estado_viaje
                                        FROM participacion
                                        inner join viaje on participacion.idViaje=viaje.idViaje
                                        inner join estado_participacion on participacion.estado=estado_participacion.idEstado
                                        WHERE idUsuario='$user[idUser]'
-                                       order by idParticipacion
-                                       limit 10")
+                                       order by idParticipacion")
                                        or
                                        die("Problemas en la base de datos:".mysqli_error($conexion));
         if (mysqli_num_rows($postulaciones) == 0){
@@ -199,7 +198,7 @@ function render($vars = [])
 
         }
       ?>
-        <center><a href="#" onclick="alert('Esta funcion todavia esta en desarrollo')">ver todas las postulaciones</a></center>
+      </div>
     </div>
   </div>
 

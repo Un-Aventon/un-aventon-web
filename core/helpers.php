@@ -114,3 +114,17 @@ function calificacion_grafica_simple($idUser){
   );
   return $calificacion_ple;
 }
+
+function introtext($text) {
+if (strlen($text) > 20) {
+$pos = strpos($text, ' ', "20");
+if ((!$pos) || ($pos > 20)) {
+$pos = 20;
+}
+$text = substr($text, 0, $pos + 1) . " ...";
+return $text;
+
+}else{
+return $text;
+}
+}
