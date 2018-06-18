@@ -8,7 +8,7 @@
 		<div class="row" style="padding:10px 10px;">
 			<div class="col-md-3" style="background-color: #fafafa; padding: 20px 15px; border-radius: 8px">
 				<form class="form-inline my-2 my-lg-0">
-				      <input class="form-control mr-sm-1" type="search" aria-label="Search" placeholder="Quiero viajar a...">
+				      <input class="form-control mr-sm-1" type="search" aria-label="Search" placeholder="Quiero viajar a..." style="width: 75%">
 				      <button class="btn btn-outline-danger my-2 my-sm-0" type="submit"> <img src="https://png.icons8.com/ios-glyphs/2x/search.png" alt="" style="width:20px; margin-top:-3px"> </button>
 				</form>
 				<br>
