@@ -1,4 +1,7 @@
 <?php
+
+date_default_timezone_set("America/Buenos_Aires");
+
 function dias_transcurridos($fecha_alta, $string)
 {
  $fecha_alta = date_create($fecha_alta);
