@@ -1,6 +1,6 @@
 </div>
 	<div class="container h-100">
-		
+
 <?php
 
 function render($vars = [])
@@ -147,7 +147,10 @@ function render($vars = [])
 							<select class="form-control" onchange="is_valid_location('localidad_origen','prov_origen')" name="prov_origen" id="prov_origen"> 
 								<?php
 									foreach ($provincias as $each) {
-										echo '<option value="' . $each . '">' . $each . '</option>';
+									?>
+										<option value="<?php echo $each ?>"<?php if((isset($origen['provincia'])) and ($origen['provincia'] == $each)){ echo 'selected';} ?>> <?php echo $each ?></option>
+								 		
+									<?php
 									}
 								?>
 							</select>
@@ -155,14 +158,18 @@ function render($vars = [])
 						
 						<div class="form-group">
 							<label for="loc_origen">Localidad de Origen</label>
-							<input onchange="is_valid_location('localidad_origen','prov_origen')" type="text" name="localidad_origen" class="form-control" id="localidad_origen" placeholder="Ingrese la localidad de origen" required>
+							<input onchange="is_valid_location('localidad_origen','prov_origen')" <?php if(isset($origen['localidad'])){echo 'value="'.$origen['localidad'].'"';} ?> type="text" name="localidad_origen" class="form-control" id="localidad_origen" placeholder="Ingrese la localidad de origen" required>
 						</div>
 						<div class="form-group">
 							<label for="prov_destino">Provincia de Destino</label>
 							<select class="form-control" onchange="is_valid_location('localidad_destino','prov_destino')" name="prov_destino" id="prov_destino"> 
 								<?php
+
 									foreach ($provincias as $each) {
-										echo '<option value="' . $each . '">' . $each . '</option>';
+									?>
+										<option value="<?php echo $each ?>" <?php if((isset($destino['provincia'])) and ($destino['provincia']) == $each){ echo 'selected';} ?>> <?php echo $each ?></option>
+										
+									<?php
 									}
 								?>
 							</select>
@@ -170,13 +177,18 @@ function render($vars = [])
 						
 						<div class="form-group ">
 							<label for="localidad_destino">Localidad de Destino</label>
-							<input onchange="is_valid_location('localidad_destino','prov_destino')" type="text" name="localidad_destino" class="form-control" id="localidad_destino" placeholder="Ingrese la localidad de origen" required>
+							<input onchange="is_valid_location('localidad_destino','prov_destino')" <?php if(isset($destino['localidad'])){echo 'value="'.$destino['localidad'].'"';} ?> type="text" name="localidad_destino" class="form-control" id="localidad_destino" placeholder="Ingrese la localidad de destino" required>
 						</div>
 
 
 						<div class="form-group">
 							<label>Fecha de salida</label>
-							<input type="date" name="fecha_salida" class="form-control" min="<?php echo date('Y-m-d') ?>" id="fecha_salida" <?php if(isset($fecha_salida)){ echo 'value="' . $fecha_salida . '"';}?> required>
+							<input type="date" name="fecha_salida" class="form-control" id="fecha_salida" <?php if(isset($fecha_salida)){ echo 'value="' . $fecha_salida . '"';}?> required>
+						</div>
+
+						<div class="form-group">
+							<label>Hora de salida</label>
+							<input type="time" name="hora_salida" class="form-control" min="<?php echo date('Y-m-d') ?>" id="hora_salida" <?php if(isset($hora_salida)){ echo 'value="' . $hora_salida . '"';}?> required>
 						</div>
 
 						<div class="checkbox">
@@ -215,13 +227,15 @@ function render($vars = [])
 
 						<div class="form-group ">
 							<label for="precio">Costo total del viaje</label>
-							<input type="number" class="form-control" name="precio" id="precio" placeholder="Ingrese el valor total del viaje" required>
+							<input type="number" class="form-control" name="precio" id="precio" <?php if (isset($costo)): echo 'value="'. $costo .'"'; ?>
+								
+							<?php endif ?> placeholder="Ingrese el valor total del viaje" required>
 							<small id="priceHelp" class="form-text text-muted">El precio ingresado sera repartido en la cantidad de asientos que compartas.</small>
 						</div>
 						
 						<div class="form-group">
-							<label for="tiempo_estimado">Tiempo estimado de viaje (hh:mm)</label>
-							<input type="text" class="form-control" name="tiempo_estimado" id="tiempo_estimado" pattern="[0-9]{2,3}([:]{1}[0-9]{2}){0,1}" placeholder="Ingrese el tiempo estimado de viaje">
+							<label for="tiempo_estimado">Horas estimadas de viaje</label>
+							<input type="number" class="form-control" name="tiempo_estimado" <?php if(isset($tiempo_estimado)){ echo 'value="' . $tiempo_estimado .'"';} ?> id="tiempo_estimado" min="1" placeholder="Ingrese el tiempo estimado de viaje">
 						</div>
 
 						<div class="container-fluid" style="margin-top:.5rem; padding: 0">
