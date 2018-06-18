@@ -46,12 +46,21 @@ if($l != 'OK'){
 
 /** FECHA DE SALIDA **/
 
-$salida = $_POST['fecha_salida'];
+$fecha_salida = $_POST['fecha_salida'];
 
-if(!isset($salida) or ($salida < date("Y-m-d"))){
+if(!(isset($fecha_salida)) or ($fecha_salida < date("Y-m-d"))){
 	echo "FECHA INVALIDA";
 	$ok = false;
 }
+
+/** HORA DE SALIDA **/
+$hora_salida = $_POST['hora_salida'];
+echo date("H:m");
+if(!isset($hora_salida) or (($fecha_salida == date("Y-m-d") and ($hora_salida <= date("H:m")))))
+{
+	echo "nope";
+}
+
 
 /** INTERVALOS **/
 if(isset($_POST['intervalo_rep'])){
@@ -78,11 +87,11 @@ if(!is_numeric($costo) or $costo < 0)
 	$ok = false;
 }
 
+
 /** TIEMPO ESTIMADO DEL VIAJE **/
-$time_pattern = "/[0-9]{2,3}([:]{1}[0-9]{2}){0,1}/";
 
 $tiempo_estimado = $_POST['tiempo_estimado'];
-if(!preg_match($time_pattern, $tiempo_estimado))
+if(!is_numeric($tiempo_estimado) or ($tiempo_estimado < 1))
 {
 	echo 'TIEMPO INGRESADO NO ES VALIDO';
 }
