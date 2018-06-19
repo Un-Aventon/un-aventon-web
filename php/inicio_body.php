@@ -19,6 +19,10 @@
 
     <!-- css parcheado -  arreglar... talvez -->
     <style media="screen">
+      body{
+        background-color: #fff;
+        background: linear-gradient(-90deg, #76ddff, #d8f5ff);
+      }
       .boton_cambios{
         width: 40px;
         margin-top: 20px;
