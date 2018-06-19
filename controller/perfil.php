@@ -133,13 +133,13 @@ function render($vars = [])
   <div class="row">
     <div class="col-md-6">
       <h3>Mis ultimos viajes </h3>
-        <div class="" style="max-height: 400px; overflow: auto;">
+        <div class="mCustomScrollbar" data-mcs-theme="dark-3" style="max-height: 400px; overflow: auto;">
       <?php
         $viajes=mysqli_query($conexion,"SELECT *, viaje.estado as 'estadodelviaje'
                                        FROM viaje
                                        INNER JOIN estado_viaje on viaje.estado=estado_viaje.idEstado
                                        WHERE idPiloto='$user[idUser]'
-                                       order by idViaje")
+                                       order by fecha_publicacion DESC")
                                        or
                                        die("Problemas en la base de datos:".mysqli_error($conexion));
         if (mysqli_num_rows($viajes) == 0){
@@ -171,7 +171,7 @@ function render($vars = [])
 
     <div class="col-md-6">
       <h3>Mis ultimas postulaciones</h3>
-      <div class="" style="max-height: 400px; overflow: auto;">
+      <div class="mCustomScrollbar" data-mcs-theme="dark-3" style="max-height: 400px; overflow: auto;">
       <?php
         $postulaciones=mysqli_query($conexion,"SELECT *, participacion.estado as estado_participacion, viaje.estado as estado_viaje
                                        FROM participacion
@@ -201,6 +201,7 @@ function render($vars = [])
       </div>
     </div>
   </div>
+  <br>
 
 
 
