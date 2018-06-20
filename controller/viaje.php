@@ -212,7 +212,7 @@
 				echo '<button type="button" class="btn btn-light btn-sm" style="margin-bottom: 10px; width: 100%">
   								Postulaciones/Participaciones totales <span class="badge badge-danger">'.mysqli_num_rows($participaciones_copiloto).'</span>
 							</button>';
-				echo '<div class="mCustomScrollbar" data-mcs-theme="minimal-dark" style="max-height: 200px; overflow: auto;">';
+				echo '<div class="mCustomScrollbar" data-mcs-theme="minimal-dark" style="max-height: 300px; overflow: auto;">';
 				if(mysqli_num_rows($participaciones_copiloto)==0)
 						 {echo "<br><small>(no hay participaciones todavia)</small>";}
 				while ($participacion_copiloto=mysqli_fetch_array($participaciones_copiloto)){
@@ -289,8 +289,6 @@
 				echo '</div>';
 			}
 			?>
-
-			<br>
       </div>
 
     </div>
