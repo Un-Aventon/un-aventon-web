@@ -185,7 +185,7 @@ function render($vars = [])
                             // En base a eso, se decide si la baja del viaje se hara con baja de puntos.
                             $contador_participaciones=mysqli_query($conexion,"SELECT *
                                                                               from participacion
-                                                                              where estado=2 and idViaje=$viaje[idViaje]")
+                                                                              where estado=2 and idViaje='$viaje[idViaje]'")
                                                                               or die ("problemas en el contador de participantes del viaje");
 
                             if(mysqli_num_rows($contador_participaciones) > 0)
@@ -225,7 +225,7 @@ function render($vars = [])
                                         <div class="row">
                                             <div class="col col-md-6">
                                                 <form action="/perfil" method="post">
-                                                  <button type="submit" class="btn btn-danger" name="bajaViaje" value="<?php echo "$viaje[idVehiculo]"?>">Eliminar</button>
+                                                  <button type="submit" class="btn btn-danger" name="bajaViaje" value="<?php echo "$viaje[idViaje]"?>">Eliminar</button>
                                                 </form>
                                             </div>
                                             <div class="col col-md-6">
