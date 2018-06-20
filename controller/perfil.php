@@ -49,6 +49,21 @@ function render($vars = [])
       setcookie("modificacion_datos",false);
   }
 
+    // Baja de un viaje.
+  !isset($_POST['bajaViaje'])?:include('php/baja_viaje.php');
+
+  if(isset($_COOKIE["baja_viaje"]) && $_COOKIE["baja_viaje"])
+  {
+      echo '<div class="alert alert-success alert-dismissable centrado" style="z-index: 99999; box-shadow: 0px 3px 20px rgba(54, 54, 54, 0.7)">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    La baja del viaje se realizó correctamente!
+              </div>';
+
+      setcookie("baja_viaje",false);
+  }
+
+  // Fin baja del viaje
+
   $tipos=mysqli_query($conexion,"SELECT * FROM `tipo_vehiculo` ")
                                    or
                                    die("Problemas en la base de datos:".mysqli_error($conexion));
@@ -210,7 +225,7 @@ function render($vars = [])
                                         <div class="row">
                                             <div class="col col-md-6">
                                                 <form action="/perfil" method="post">
-                                                  <button type="submit" class="btn btn-danger" value="<?php echo "$viaje[idVehiculo]"?>">Eliminar</button>
+                                                  <button type="submit" class="btn btn-danger" name="bajaViaje" value="<?php echo "$viaje[idVehiculo]"?>">Eliminar</button>
                                                 </form>
                                             </div>
                                             <div class="col col-md-6">
