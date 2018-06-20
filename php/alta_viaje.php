@@ -31,8 +31,8 @@ $arrContextOptions=array(
 );
 
 $query = http_build_query([
-	'origins' => $origen['localidad'].'|'.$origen['provincia'],
-	'destinations' => $destino['localidad'].'|'.$destino['provincia'],
+	'origins' => $origen['localidad'].'|'.$origen['provincia'].',arentina',
+	'destinations' => $destino['localidad'].'|'.$destino['provincia'].',argentina',
 	'mode' => 'driving',
 	'key' => $GOOGLE_API_KEY 
 ]);
@@ -84,6 +84,7 @@ if(!isset($hora_salida) or (($fecha_salida == date("Y-m-d") and ($hora_salida <=
 /** INTERVALOS **/
 $cant_intervalos = 0;
 $intervalo = 0;
+$tipo = 'unico';
 if(isset($_POST['intervalo_rep'])){
 	$aux_intervalo = $_POST['intervalo_rep'];
 	$aux_cant_intervalos = $_POST['cant_intervalos'];
@@ -91,6 +92,7 @@ if(isset($_POST['intervalo_rep'])){
 	if((is_numeric($aux_cant_intervalos)) and (is_numeric($aux_intervalo))){
 		$cant_intervalos = $aux_cant_intervalos;
 		$intervalo = $aux_intervalo;
+		$tipo = 'recurrente';
 	}
 }
 
@@ -160,7 +162,7 @@ if($ok)
 		if(es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estimado) < 1 )
 		{
 		
-			$carga = mysqli_query($conexion, "INSERT into viaje (idPiloto, idVehiculo, fecha_publicacion, fecha_partida, tiempo_estimado,  origen, destino, asientos_disponibles, costo) values ('$piloto', '$id_vehiculo', now(), '$fecha_partida', '$tiempo_estimado' ,'$c_origen' , '$c_destino', '$cant_asientos', '$costo') ") or die ('nope ' . mysqli_error($conexion));
+			$carga = mysqli_query($conexion, "INSERT into viaje (idPiloto, idVehiculo, fecha_publicacion, fecha_partida, tiempo_estimado,  origen, destino, asientos_disponibles, costo, tipo) values ('$piloto', '$id_vehiculo', now(), '$fecha_partida', '$tiempo_estimado' ,'$c_origen' , '$c_destino', '$cant_asientos', '$costo','$tipo') ") or die ('nope ' . mysqli_error($conexion));
 		
 
 			$last_id = mysqli_query($conexion, "SELECT MAX(idViaje) AS id FROM viaje") or die(mysqli_error($conexion));

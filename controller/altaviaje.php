@@ -68,7 +68,7 @@ function render($vars = [])
 				  	console.log(b);
 				  	if(b == 'OK')
 				  	{
-				  		if(a['rows']['0']['elements']['0']['status'] == 'NOT_FOUND')
+				  		if(a['rows']['1']['elements']['0']['status'] == 'NOT_FOUND')
 				  		{
 				  			return false;
 				  		}
