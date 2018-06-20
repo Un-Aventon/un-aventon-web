@@ -70,7 +70,6 @@
 
 				directionsDisplay.setMap(map);
 
-
 				directionsService.route({
 				  origin: '<?php echo $viaje["origen"] ?>',
 				  destination: '<?php echo $viaje["destino"] ?>',
