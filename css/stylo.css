@@ -1,5 +1,5 @@
 body{
-  background-color: #FFF;
+  background-color: grey;
 }
 
 .centrado {
@@ -27,10 +27,8 @@ body{
 }
 
 .container{
-  margin-top: 10px;
   background-color: #fff;
-  box-shadow: 0px 4px 10px #dadada;
-}
+
 
 .contenedor_viaje{
   width: 100%;

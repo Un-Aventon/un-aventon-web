@@ -1,4 +1,4 @@
-<div class="row" style="background-color: #333; color: #bbb">
+<div class="row" style="background-color: #333; color: #bbb; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; ">
   <div class="col-md-12">
     <small class="float-left">UnAventon © 2018</small>
     <small class="float-right">Desarrollado por <span style="color:#00b3b3">Nitny</span> - Web Design</small>
@@ -6,6 +6,7 @@
   </div>
 </div>
 </div>
+<br>
 
 
 

@@ -149,8 +149,8 @@ function render($vars = [])
         while ($viaje = mysqli_fetch_array($viajes)) {
           ?>
           <div class="card" style="margin-bottom: 7px">
-            <img class="card-img-top" src="img/prueba_maps.png" alt="Card image cap">
-            <div class="card-body">
+            <!-- <img class="card-img-top" src="img/prueba_maps.png" alt="Card image cap"> -->
+            <div class="card-body" style="background-color: #fafafa">
               <h5 class="card-title"><?php echo $viaje['origen']." a ".$viaje['destino'] ?>
                   <button type='button' class='btn btn-<?php echo $viaje['color']; ?> btn-sm float-right ' disabled>
                     <?php echo $viaje['estado']; ?>

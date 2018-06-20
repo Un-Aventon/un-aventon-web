@@ -19,6 +19,10 @@
 
     <!-- css parcheado -  arreglar... talvez -->
     <style media="screen">
+      body{
+        background-color: #fff;
+        background: linear-gradient(-90deg, #76ddff, #d8f5ff);
+      }
       .boton_cambios{
         width: 40px;
         margin-top: 20px;
@@ -85,4 +89,4 @@
     <?php
       include('php/navbar.php');
     ?>
-    <div class="container" style="background-color:; border-radius: 5px">
+    <div class="container" style="border-radius: 5px; box-shadow: 0 0 0 #fff; margin-top: 10px">
