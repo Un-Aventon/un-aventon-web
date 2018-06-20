@@ -14,7 +14,7 @@ switch (mysqli_fetch_array($verificacion_participacion)['estado']) {
 
   mysqli_query($conexion,"INSERT into calificacion (idCalificador,idCalificado,tipo,fecha,calificacion,comentario)
                           values (0,'$_SESSION[userId]',3,now(),-1,'penalizacion por cancelacion de participacion')")
-                          or die ("error en penalizacion");
+                          or die ("error en penalizacion --> ".mysqli_error($conexion));
   break;
   default:
     echo "error :(";

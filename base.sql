@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 20-06-2018 a las 18:23:44
--- Versión del servidor: 5.7.19
--- Versión de PHP: 7.1.9
+-- Tiempo de generación: 20-06-2018 a las 19:27:35
+-- Versión del servidor: 5.7.21
+-- Versión de PHP: 5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -34,12 +34,19 @@ CREATE TABLE IF NOT EXISTS `calificacion` (
   `idCalificador` int(6) NOT NULL,
   `idCalificado` int(6) NOT NULL,
   `tipo` varchar(10) NOT NULL,
-  `fecha` date NOT NULL,
-  `hora` time NOT NULL,
+  `fecha` datetime NOT NULL,
   `calificacion` varchar(6) NOT NULL,
   `comentario` varchar(255) NOT NULL,
   PRIMARY KEY (`idCalificacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `calificacion`
+--
+
+INSERT INTO `calificacion` (`idCalificacion`, `idCalificador`, `idCalificado`, `tipo`, `fecha`, `calificacion`, `comentario`) VALUES
+(1, 0, 2, '3', '2018-06-20 16:24:06', '-1', 'penalizacion por cancelacion de participacion'),
+(2, 0, 2, '3', '2018-06-20 16:25:07', '-1', 'penalizacion por rechazo de postulacion');
 
 -- --------------------------------------------------------
 
@@ -118,16 +125,17 @@ CREATE TABLE IF NOT EXISTS `participacion` (
   `fecha_solicitud` date NOT NULL,
   `estado` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idParticipacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `participacion`
 --
 
 INSERT INTO `participacion` (`idParticipacion`, `idUsuario`, `idViaje`, `fecha_solicitud`, `estado`) VALUES
-(1, 2, 1, '2018-06-20', 1),
-(2, 1, 3, '2018-06-20', 1),
-(3, 1, 4, '2018-06-20', 1);
+(2, 1, 3, '2018-06-20', 4),
+(3, 1, 4, '2018-06-20', 2),
+(6, 1, 7, '2018-06-20', 2),
+(17, 2, 9, '2018-06-20', 3);
 
 -- --------------------------------------------------------
 

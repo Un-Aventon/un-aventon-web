@@ -8,8 +8,8 @@
 
   <ul class="nav navbar-nav navbar-logo mx-auto">
       <li class="nav-item">
-        <img src="/img/logo.png" alt="logo" style="width: 40px; margin-right: 8px">
-        <a class="navbar-brand" href="/">UnAventon</a>
+        <img src="/img/logo.png" alt="logo" style="width: 60px; margin-right: 8px; margin-top: -10px; margin-bottom: -10px">
+        <a class="navbar-brand" href="/" style="margin-top: 0px; margin-bottom: -40px;">UnAventon</a>
       </li>
     </ul>
 
