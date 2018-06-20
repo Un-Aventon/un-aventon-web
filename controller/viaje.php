@@ -47,16 +47,16 @@
 		}
 
     ?>
-    <div class="row">
-      <div class="col-md-6" style="padding: 5px 5px;">
+    <div class="row" style="padding: 5px 0px;">
+      <div class="col-md-6" style="">
         <style>
 			#map {
-				width: 100%;
+				width: 103%;
 				height: 100%;
 				background-color: grey;
 			}
 		</style>
-		<div id="map" style="border-radius: 4px; margin-top: 5px"></div>
+		<div id="map" style="border-radius: 4px; margin-top: 5px; margin-left: -5px"></div>
 		<script>
 			function initMap() {
 				var directionsService = new google.maps.DirectionsService;
