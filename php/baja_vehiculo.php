@@ -12,7 +12,7 @@
 			//no se encontro el vehiculo
 			echo '<div class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    No se encotro el vehiculo.
+                    No se encontro el vehiculo.
               </div>';
 
 		}else
@@ -30,7 +30,7 @@
 				mysqli_query($conexion, "UPDATE vehiculo set eliminado=1 where idVehiculo=$id")or die('error '.mysqli_error($conexion));
 				echo '<div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    El vehiculo elimino correctamente.
+                    El vehiculo se elimino correctamente.
               </div>';
 			}
 
