@@ -131,3 +131,35 @@ function introtext($text) {
     return $text;
   }
 }
+
+
+function es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estimado)
+{
+  $vehiculo = mysqli_query($conexion, "
+    SELECT *
+    from vehiculo v, viaje v2 
+    where v.idVehiculo = '$id_vehiculo'
+    and v.idVehiculo = v2.idVehiculo
+    and(
+      ('$fecha_partida' BETWEEN v2.fecha_partida AND DATE_ADD(v2.fecha_partida, INTERVAL v2.tiempo_estimado HOUR))
+        or (DATE_ADD('$fecha_partida', INTERVAL $tiempo_estimado HOUR) BETWEEN v2.fecha_partida AND DATE_ADD(v2.fecha_partida, INTERVAL v2.tiempo_estimado HOUR))
+        or (v2.fecha_partida BETWEEN 'fecha_partida' AND DATE_ADD('fecha_partida', INTERVAL v2.tiempo_estimado HOUR))
+        or (DATE_ADD(v2.fecha_partida, INTERVAL v2.tiempo_estimado HOUR) BETWEEN 'fecha_partida' AND DATE_ADD('fecha_partida', INTERVAL v2.tiempo_estimado HOUR))
+    )
+  ") or die (mysqli_error($conexion));
+
+  if($v = mysqli_fetch_array($vehiculo))
+  {
+    return 1;
+  }
+  
+    return 0;  
+}
+
+function sum_days($fecha, $cant_dias)
+{
+      $fecha_a = $fecha;
+      $nuevafecha = strtotime ( $cant_dias.' day' , strtotime ( $fecha_a ) ) ;
+      $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+      return $nuevafecha;
+}
