@@ -235,7 +235,7 @@ function render($vars = [])
 							
 							<div class="form-group">
 								<label for="tiempo_estimado">Horas estimadas de viaje</label>
-								<input type="number" class="form-control" name="tiempo_estimado" <?php if(isset($tiempo_estimado)){ echo 'value="' . $tiempo_estimado .'"';} ?> id="	tiempo_estimado" min="1" placeholder="Ingrese el tiempo estimado de viaje">
+								<input type="number" class="form-control" name="tiempo_estimado" <?php if(isset($tiempo_estimado)){ echo 'value="' . $tiempo_estimado .'"';} ?> id="tiempo_estimado" min="1" placeholder="Ingrese el tiempo estimado de viaje" required>
 							</div>
 	
 							<div class="container-fluid" style="margin-top:.5rem; padding: 0">
