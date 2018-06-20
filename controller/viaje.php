@@ -212,7 +212,7 @@
 				echo '<button type="button" class="btn btn-light btn-sm" style="margin-bottom: 10px; width: 100%">
   								Postulaciones/Participaciones totales <span class="badge badge-danger">'.mysqli_num_rows($participaciones_copiloto).'</span>
 							</button>';
-				echo '<div class="mCustomScrollbar" data-mcs-theme="dark-3" style="max-height: 300px; overflow: auto;">';
+				echo '<div class="mCustomScrollbar" data-mcs-theme="minimal-dark" style="max-height: 200px; overflow: auto;">';
 				if(mysqli_num_rows($participaciones_copiloto)==0)
 						 {echo "<br><small>(no hay participaciones todavia)</small>";}
 				while ($participacion_copiloto=mysqli_fetch_array($participaciones_copiloto)){
@@ -309,7 +309,15 @@
 			</div>
 			<div class="col-md-2">
 				<center> <small>publicidad</small> </center>
-				<img src="/img/publicidad.png" class="img-fluid" alt="">
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- localhost2 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:160px;height:160px"
+     data-ad-client="ca-pub-8566326317835277"
+     data-ad-slot="2847958185"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 			</div>
 		</div>

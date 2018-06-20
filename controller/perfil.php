@@ -132,8 +132,6 @@ function render($vars = [])
 
   <div class="row">
     <div class="col-md-6">
-      <h3>Mis ultimos viajes </h3>
-        <div class="mCustomScrollbar" data-mcs-theme="dark-3" style="max-height: 400px; overflow: auto;">
       <?php
         $viajes=mysqli_query($conexion,"SELECT *, viaje.estado as 'estadodelviaje'
                                        FROM viaje
@@ -142,6 +140,10 @@ function render($vars = [])
                                        order by fecha_publicacion DESC")
                                        or
                                        die("Problemas en la base de datos:".mysqli_error($conexion));
+      ?>
+      <h5>Mis ultimos viajes <span class="badge badge-pill badge-secondary"><?php echo mysqli_num_rows($viajes);?></span></h5>
+        <div class="mCustomScrollbar" data-mcs-theme="dark-3" style="max-height: 400px; overflow: auto;">
+      <?php
         if (mysqli_num_rows($viajes) == 0){
              echo "no tenes ningun viaje publicado :( <br>";
              echo "<a href='/publicar'>publicar viaje</a>";
@@ -170,17 +172,18 @@ function render($vars = [])
     </div>
 
     <div class="col-md-6">
-      <h3>Mis ultimas postulaciones</h3>
+      <?php
+      $postulaciones=mysqli_query($conexion,"SELECT *, participacion.estado as estado_participacion, viaje.estado as estado_viaje
+                                     FROM participacion
+                                     inner join viaje on participacion.idViaje=viaje.idViaje
+                                     inner join estado_participacion on participacion.estado=estado_participacion.idEstado
+                                     WHERE idUsuario='$user[idUser]'
+                                     order by idParticipacion")
+                                     or
+                                     die("Problemas en la base de datos:".mysqli_error($conexion));?>
+      <h5>Mis ultimas postulaciones <span class="badge badge-pill badge-secondary"><?php echo mysqli_num_rows($postulaciones);?></span></h5>
       <div class="mCustomScrollbar" data-mcs-theme="dark-3" style="max-height: 400px; overflow: auto;">
       <?php
-        $postulaciones=mysqli_query($conexion,"SELECT *, participacion.estado as estado_participacion, viaje.estado as estado_viaje
-                                       FROM participacion
-                                       inner join viaje on participacion.idViaje=viaje.idViaje
-                                       inner join estado_participacion on participacion.estado=estado_participacion.idEstado
-                                       WHERE idUsuario='$user[idUser]'
-                                       order by idParticipacion")
-                                       or
-                                       die("Problemas en la base de datos:".mysqli_error($conexion));
         if (mysqli_num_rows($postulaciones) == 0){
             echo "no tenes ninguna postulacion :( <br>";
             echo "<a href='/'>ver viajes disponibles</a>";
