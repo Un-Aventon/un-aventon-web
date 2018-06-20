@@ -54,7 +54,7 @@ function calificacion($idUser){
                                           from calificacion
                                           where idCalificado='$idUser'")
                                           or die ("error calculo calificacion");
-  return(mysqli_fetch_array($calificaciones)['calificacion_final']);
+  return(mysqli_fetch_array($calificaciones)['calificacion_final']+0);
 }
 
 function calificacion_grafica_simple($idUser){
