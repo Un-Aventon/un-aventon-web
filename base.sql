@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 31-05-2018 a las 01:51:27
--- Versión del servidor: 5.7.21
--- Versión de PHP: 5.6.35
+-- Tiempo de generación: 20-06-2018 a las 18:23:44
+-- Versión del servidor: 5.7.19
+-- Versión de PHP: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -118,19 +118,16 @@ CREATE TABLE IF NOT EXISTS `participacion` (
   `fecha_solicitud` date NOT NULL,
   `estado` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idParticipacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `participacion`
 --
 
 INSERT INTO `participacion` (`idParticipacion`, `idUsuario`, `idViaje`, `fecha_solicitud`, `estado`) VALUES
-(1, 1, 1, '2018-05-10', 1),
-(3, 1, 3, '2018-05-10', 2),
-(4, 1, 4, '2018-05-10', 3),
-(5, 1, 5, '2018-05-10', 5),
-(6, 1, 4, '2018-05-10', 4),
-(7, 2, 1, '2018-05-10', 1);
+(1, 2, 1, '2018-06-20', 1),
+(2, 1, 3, '2018-06-20', 1),
+(3, 1, 4, '2018-06-20', 1);
 
 -- --------------------------------------------------------
 
@@ -196,9 +193,9 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 INSERT INTO `usuario` (`idUser`, `email`, `clave`, `nombre`, `apellido`, `admin`) VALUES
-(1, 'koumsky@gmail.com', '12345', 'Juancho', 'Rumero', 1),
-(2, '1234@gmail.com', '12345', 'Frederico', 'Garquez', 1),
-(3, 'kaksk@gmail.com', 'fdgfdgf', 'dsafds', 'sdfds', 0);
+(1, 'koumsky@gmail.com', '12345', 'Juan', 'cho', 1),
+(2, 'fede@mail.com', '12345', 'Frederico', 'Gasquez', 1),
+(3, 'mariano@mail.com', '12345', 'Mariano', 'Martina', 0);
 
 -- --------------------------------------------------------
 
@@ -218,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
   `tipo` int(1) DEFAULT NULL,
   `eliminado` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idVehiculo`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `vehiculo`
@@ -227,8 +224,8 @@ CREATE TABLE IF NOT EXISTS `vehiculo` (
 INSERT INTO `vehiculo` (`idVehiculo`, `idPropietario`, `cant_asientos`, `modelo`, `marca`, `color`, `patente`, `tipo`, `eliminado`) VALUES
 (1, 1, 3, '2018', 'renault 12', 'marron con verde', 'ac 789 op', 1, 0),
 (2, 1, 5, 'Ka 2006', 'Ford', 'verde', 'jey001', 2, 0),
-(3, 1, 2, '206 2008', 'Peugeot', 'azul', 'hjh212', 1, 0),
-(5, 1, 1, 'fz 2018', 'yamaha', 'gris', 'jey002', 3, 0);
+(3, 1, 4, '206 2008', 'Peugeot', 'azul', 'hjh212', 2, 1),
+(12, 2, 4, 'Stylo', 'Fiat', 'Gris', 'ASD321', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -243,38 +240,30 @@ CREATE TABLE IF NOT EXISTS `viaje` (
   `idVehiculo` int(6) NOT NULL,
   `fecha_publicacion` datetime NOT NULL,
   `fecha_partida` datetime NOT NULL,
-  `tipo` varchar(30) NOT NULL,
-  `origen` varchar(60) NOT NULL,
-  `destino` varchar(60) NOT NULL,
+  `tiempo_estimado` int(11) NOT NULL DEFAULT '30',
+  `origen` varchar(60) CHARACTER SET utf8 NOT NULL,
+  `destino` varchar(60) CHARACTER SET utf8 NOT NULL,
   `asientos_disponibles` int(2) NOT NULL,
   `costo` int(7) NOT NULL,
   `estado` int(1) NOT NULL DEFAULT '1',
+  `tipo` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT 'unico',
   PRIMARY KEY (`idViaje`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `viaje`
 --
 
-INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `fecha_partida`, `tipo`, `origen`, `destino`, `asientos_disponibles`, `costo`, `estado`) VALUES
-(1, 1, 1, '2018-05-01 10:18:12', '2018-06-01 07:09:08', 'unico', 'La Plata', 'Chapadmalal', 2, 4000, 1),
-(2, 1, 2, '2018-05-10 04:26:19', '2018-10-13 09:10:17', 'recurrente', 'La Quiaca', 'Buenos Aires', 2, 500, 1),
-(3, 1, 1, '2018-05-03 07:10:33', '2018-06-01 10:17:38', 'unico', 'Mendoza', 'La quiaca', 6, 3600, 1),
-(4, 1, 5, '2018-05-03 21:19:10', '2018-07-20 10:35:19', 'unico', 'Mendoza', 'Ushuaihia, tierra del fuego', 1, 3600, 1),
-(5, 1, 1, '2018-05-03 07:10:33', '2018-06-01 10:17:38', 'unico', 'Mendoza', 'Misiones', 6, 3600, 1),
-(6, 2, 2, '2018-05-18 07:10:33', '2018-08-16 10:17:38', 'unico', 'Cordoba Capital', 'San Juan', 3, 1500, 1),
-(7, 1, 2, '2018-05-01 04:26:19', '2018-10-26 09:10:17', 'recurrente', 'El Bolson', 'Buenos Aires', 2, 2500, 1),
-(8, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
-(9, 1, 1, '2018-05-03 07:10:33', '2018-06-07 10:17:38', 'unico', 'Rosario, Santa Fe', 'Rawson, Chubut', 6, 3600, 1),
-(10, 1, 2, '2018-05-10 04:26:19', '2018-06-22 09:10:17', 'recurrente', 'Carlos Paz', 'Buenos Aires', 4, 4900, 1),
-(11, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
-(12, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
-(13, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
-(14, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
-(15, 1, 1, '2018-05-01 10:18:12', '2019-03-16 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
-(16, 1, 1, '2018-05-01 10:18:12', '2018-10-06 16:13:33', 'unico', 'Santa Fe', 'Buenos Aires Capital', 4, 2000, 3),
-(17, 1, 2, '2018-07-13 04:26:19', '2018-10-26 09:10:17', 'recurrente', 'Moron', 'Chivilcoy', 2, 2000, 1),
-(18, 1, 1, '2018-05-01 10:18:12', '2019-02-07 16:13:33', 'unico', 'Arenasa', 'Araneda', 10, 500, 1);
+INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `fecha_partida`, `tiempo_estimado`, `origen`, `destino`, `asientos_disponibles`, `costo`, `estado`, `tipo`) VALUES
+(1, 1, 1, '2018-06-20 14:58:40', '2018-07-20 06:00:00', 72, 'usuahia,Tierra del Fuego', 'la quiaca,Jujuy', 3, 10000, 1, 'unico'),
+(2, 2, 12, '2018-06-20 15:02:52', '2018-09-22 10:30:00', 24, 'La Plata,Buenos Aires', 'El Bolson,RÃ­o Negro', 4, 5450, 1, 'unico'),
+(3, 2, 12, '2018-06-20 15:06:04', '2018-08-08 13:43:00', 16, 'Cordoba,CÃ³rdoba', 'salta,Salta', 3, 12000, 1, 'unico'),
+(4, 2, 12, '2018-06-20 15:08:42', '2018-11-05 08:00:00', 1, 'la plata,Buenos Aires', 'buenos aires,Buenos Aires', 4, 500, 1, 'recurrente'),
+(5, 2, 12, '2018-06-20 15:08:42', '2018-11-12 08:00:00', 1, 'la plata,Buenos Aires', 'buenos aires,Buenos Aires', 4, 500, 1, 'recurrente'),
+(6, 2, 12, '2018-06-20 15:08:42', '2018-11-19 08:00:00', 1, 'la plata,Buenos Aires', 'buenos aires,Buenos Aires', 4, 500, 1, 'recurrente'),
+(7, 2, 12, '2018-06-20 15:08:42', '2018-11-26 08:00:00', 1, 'la plata,Buenos Aires', 'buenos aires,Buenos Aires', 4, 500, 1, 'recurrente'),
+(8, 1, 2, '2018-06-20 15:12:31', '2018-07-20 12:00:00', 16, 'la plata,Buenos Aires', 'Puerto Iguazu,Misiones', 5, 10000, 1, 'unico'),
+(9, 1, 1, '2018-06-20 15:18:36', '2018-08-30 09:33:00', 8, 'rawson,Chubut', 'el bolson,RÃ­o Negro', 3, 9658, 1, 'unico');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
