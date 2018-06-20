@@ -161,10 +161,66 @@ function render($vars = [])
               <small class="card-text">publicado <?php echo dias_transcurridos($viaje['fecha_publicacion'],'publicacion'); ?> <br>
               partida el <?php echo date("d-m-Y", strtotime($viaje['fecha_partida']));?> a las <?php echo date("H:i", strtotime($viaje['fecha_partida']));?> </small>
               <hr>
-              <a href="#" class="card-link" onclick="alert('Esta funcion todavia esta en desarrollo')">dar de baja</a>
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="<?php echo "#EliminarViaje$viaje[idViaje]"?>">Eliminar</button>
               <a href="#" class="card-link" onclick="alert('Esta funcion todavia esta en desarrollo')">ver postulantes</a>
             </div>
           </div>
+           <?php         
+                            // Se lleva a cabo la cuenta de la cantidad de participantes
+                            // En base a eso, se decide si la baja del viaje se hara con baja de puntos.
+                            $contador_participaciones=mysqli_query($conexion,"SELECT *
+                                                                              from participacion
+                                                                              where estado=2 and idViaje=$viaje[idViaje]")
+                                                                              or die ("problemas en el contador de participantes del viaje");
+
+                            if(mysqli_num_rows($contador_participaciones) > 0)
+                                $hayParticipaciones = true;
+                            else
+                                $hayParticipaciones = false;
+                        
+               ?>
+
+          <div class="modal fade" id="<?php echo "EliminarViaje$viaje[idViaje]"?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Cancelar Viaje</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <?php if(!$hayParticipaciones){
+                          ?>
+                            <div class="alert alert-warning" role="alert">
+                            ¿Estas Completamente seguro de que deseas eliminar el viaje? Esta accion será irreversible.
+                        </div>
+                      <?php
+                             }
+                             else{
+                            ?>
+                            <div class="alert alert-danger" role="alert">
+                            Ya aceptaste a copilotos para este viaje, la cancelacion de este viaje provocará que se te resten 2 puntos de tu calificación general, ¿Estas Completamente seguro de que deseas eliminar el viaje?
+                        </div>
+                        <?php
+                          }
+                          ?>
+                      </div>
+                      <div class="modal-footer">
+                                        <div class="row">
+                                            <div class="col col-md-6">
+                                                <form action="/perfil" method="post">
+                                                  <button type="submit" class="btn btn-danger" value="<?php echo "$viaje[idVehiculo]"?>">Eliminar</button>
+                                                </form>
+                                            </div>
+                                            <div class="col col-md-6">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
           <?php
         }
       ?>
