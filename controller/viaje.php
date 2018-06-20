@@ -220,9 +220,9 @@
 					echo '<a href="/usuario/'.$participacion_copiloto["idUsuario"].'"> '.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> <small>| '.calificacion($participacion_copiloto['idUsuario']).' puntos</small><br>';
 					$calificaciones = calificacion_grafica_simple($participacion_copiloto['idUser']);
 					echo "<div class='progress' style='height: 2px; width: 50%'>
-									<div class='progress-bar bg-success' role='progressbar' style='width: ".$calificaciones['porcentaje_pos']."%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
-									<div class='progress-bar bg-warning' role='progressbar' style='width: ".$calificaciones['porcentaje_neu']."%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
-									<div class='progress-bar bg-danger' role='progressbar' style='width: ".$calificaciones['porcentaje_neg']."%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
+									<div class='progress-bar bg-success' role='progressbar' style='width: ".$calificaciones['porcentaje_pos']."%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
+									<div class='progress-bar bg-warning' role='progressbar' style='width: ".$calificaciones['porcentaje_neu']."%; background-color: #ffd000!important' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
+									<div class='progress-bar bg-danger' role='progressbar' style='width: ".$calificaciones['porcentaje_neg']."%; background-color: #ff8080!important' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
 								</div>";
 					switch ($participacion_copiloto['estado']) {
 						case 1:
