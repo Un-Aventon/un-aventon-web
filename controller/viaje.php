@@ -151,7 +151,7 @@
 
 
 				if (!isset($_SESSION['userId'])) {
-					echo '<button type="submit" class="btn btn-outline-secondary" style="width:100%">Tenes que estar logeado para poder participar</button>';
+					echo '<a class="btn btn-outline-secondary" href="../../login" style="width:100%">Tenes que estar logeado para poder participar</a>';
 				}
 				elseif ($_SESSION['userId'] != $viaje['idPiloto']) {
 				echo '<div class="btn-group" role="group" aria-label="..." style="width: 100%">';
@@ -300,17 +300,9 @@
 				</div>
 			</div>
 			<div class="col-md-2">
-				<img src="/img/publicidad.png" alt="">
-				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-					<!-- localhost -->
-					<ins class="adsbygoogle"
-     			style="display:block"
-     			data-ad-client="ca-pub-8566326317835277"
-     			data-ad-slot="8699675381"
-     			data-ad-format="auto"></ins>
-					<script>
-						(adsbygoogle = window.adsbygoogle || []).push({});
-					</script>
+				<center> <small>publicidad</small> </center>
+				<img src="/img/publicidad.png" class="img-fluid" alt="">
+
 			</div>
 		</div>
 		<div class="row" style="height: 10px"></div>
