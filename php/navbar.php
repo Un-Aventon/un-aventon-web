@@ -19,15 +19,6 @@
     </ul>
 
       <?php
-        if ($file!='home'){
-          ?>
-          <ul class='navbar-nav float-right'>
-            <li class="nav-item active">
-            <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
-          </li>
-          </ul>
-          <?php
-        }
       if(isset($_SESSION['nombre'])){
         ?>
         <ul class='navbar-nav float-right'>

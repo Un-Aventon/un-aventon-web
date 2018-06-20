@@ -83,6 +83,32 @@
           margin-top: 3px;
           min-height: 37px;
       }
+
+      .buttonText{
+        display: inline-block;
+        background: none;
+        border: none;
+        margin: 0 3px;
+        padding: 0;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .buttonTextVerde{
+        color: #00994d;
+        border-bottom: 1px solid #00994d;
+      }
+      .buttonTextVerde:hover{
+        color: green;
+      }
+
+      .buttonTextRojo{
+        color: #ff4d4d;
+        border-bottom: 1px solid #ff4d4d;
+      }
+      .buttonTextRojo:hover{
+        color: red;
+      }
     </style>
   </head>
   <body>
