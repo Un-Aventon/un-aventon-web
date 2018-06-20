@@ -82,7 +82,7 @@
 							<div class="card" style="width: 32%; display: inline-block; margin: 4px 1px; box-shadow: 2px 2px 10px #f0f0f0; min-height: 250px">
 							  <!--<img class="card-img-top" src="img/prueba_maps.png" alt="Card image cap">-->
 							  <div class="card-body">
-							    <h5 class="card-title"> <span title="<?php echo $viaje['origen'];?>"><?php echo introtext($viaje['origen']); ?></span> <br> <small style="color:grey">a</small>  <span title="<?php echo $viaje['destino']; ?>"><?php echo introtext($viaje['destino']); ?></span> <br> <small>en <?php echo $viaje['tipoVehiculo']; ?></small> </h5>
+							    <h5 class="card-title"> <span title="<?php echo $viaje['origen'];?>"><?php echo introtext($viaje['origen']); ?></span> <br> <small style="color:grey">a</small> <br> <span title="<?php echo $viaje['destino']; ?>"><?php echo introtext($viaje['destino']); ?></span> <br> <small>en <?php echo $viaje['tipoVehiculo']; ?></small> </h5>
 							    <p class="card-text">
 										<div class="strike">
 

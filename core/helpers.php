@@ -119,14 +119,14 @@ function calificacion_grafica_simple($idUser){
 }
 
 function introtext($text) {
-  if (strlen($text) > 20) {
-      $pos = strpos($text, ' ', "20");
-      if ((!$pos) || ($pos > 20)) {
-         $pos = 20;
+  if (strlen($text) > 18) {
+      $pos = strpos($text, ' ', "18");
+      if ((!$pos) || ($pos > 18)) {
+         $pos = 18;
       }
       $text = substr($text, 0, $pos + 1) . " ...";
       return $text;
-  
+
   }else{
     return $text;
   }
@@ -137,7 +137,7 @@ function es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estima
 {
   $vehiculo = mysqli_query($conexion, "
     SELECT *
-    from vehiculo v, viaje v2 
+    from vehiculo v, viaje v2
     where v.idVehiculo = '$id_vehiculo'
     and v.idVehiculo = v2.idVehiculo
     and(
@@ -152,8 +152,8 @@ function es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estima
   {
     return 1;
   }
-  
-    return 0;  
+
+    return 0;
 }
 
 function sum_days($fecha, $cant_dias)
