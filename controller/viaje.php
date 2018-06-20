@@ -217,7 +217,13 @@
 						 {echo "<br><small>(no hay participaciones todavia)</small>";}
 				while ($participacion_copiloto=mysqli_fetch_array($participaciones_copiloto)){
 					echo '<div class="postulacion">';
-					echo '<a href="/usuario/'.$participacion_copiloto["idUsuario"].'"> '.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a><br>';
+					echo '<a href="/usuario/'.$participacion_copiloto["idUsuario"].'"> '.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> <small>| '.calificacion($participacion_copiloto['idUsuario']).' puntos</small><br>';
+					$calificaciones = calificacion_grafica_simple($participacion_copiloto['idUser']);
+					echo "<div class='progress' style='height: 2px; width: 50%'>
+									<div class='progress-bar bg-success' role='progressbar' style='width: ".$calificaciones['porcentaje_pos']."%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
+									<div class='progress-bar bg-warning' role='progressbar' style='width: ".$calificaciones['porcentaje_neu']."%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
+									<div class='progress-bar bg-danger' role='progressbar' style='width: ".$calificaciones['porcentaje_neg']."%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
+								</div>";
 					switch ($participacion_copiloto['estado']) {
 						case 1:
 							echo '<div class="row"><div class="col-md-9">';
@@ -233,8 +239,8 @@
 													</div>
 
 													<div class="col-3">
-													<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-  														<div class="btn-group" role="group" aria-label="First group">
+													<div class="btn-toolbar" role="toolbar" aria-label="">
+  														<div class="btn-group" role="group" aria-label="group">
 													<button type="submit" class="buttonText buttonTextVerde">aprobar</button>
 										</form>';
 										// boton rechazar
@@ -251,28 +257,27 @@
 							echo '</div>';
 							break;
 						case 2:
-						echo '<div class="postulacion">';
-						echo '<div class="row"><div class="col-md-9">';
+						echo '<div class="row"><div class="col-md-8">';
 						echo '<img src="/img/sys/ok.png" style="width:20px">';
 						echo ' | Participacion aprobada';
 						echo '<form action="/viaje/'.$vars[0].'" method="post" style="display: inline-block">
 													<input type="hidden" name="idParticipacion" value="'.$participacion_copiloto['idParticipacion'].'">
 													<input type="hidden" name="estado" value="'.$participacion_copiloto['estado'].'">
 													<input type="hidden" name="rechazar_postulacion" value="'.$vars[0].'">
-													</div><div class="col-3">
+													</div><div class="col-4">
 											<button type="submit" class="buttonText buttonTextRojo float-right">rechazar participacion</button>
 									</form>';
-						echo '</div></div></div>';
+						echo '</div></div>';
 							break;
 						case 3:
 
 								echo '<img src="/img/sys/private.png" style="width:20px">';
-								echo '  | Participacion cancelada por el copiloto';
+								echo ' Participacion cancelada por el copiloto';
 
 							break;
 						case 4:
 								echo '<img src="/img/sys/private.png" style="width:20px">';
-								echo ' | Participacion cancelada por mi';
+								echo ' Participacion cancelada por mi';
 						break;
 							break;
 						default:
