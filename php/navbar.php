@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container" style="background-color:rgba(0, 0, 0, 0.0); margin-top: -3px; padding: 0 0">
+  <div class="container" style="background-color:rgba(0, 0, 0, 0.0); margin-top: -3px; padding: 0 0; box-shadow: 0 0 0 #fff">
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

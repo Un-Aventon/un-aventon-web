@@ -89,4 +89,4 @@
     <?php
       include('php/navbar.php');
     ?>
-    <div class="container" style="background-color:; border-radius: 5px">
+    <div class="container" style="border-radius: 5px; box-shadow: 0 0 0 #fff; margin-top: 10px">
