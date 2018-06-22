@@ -169,30 +169,43 @@ function render($vars = [])
             <!-- <img class="card-img-top" src="img/prueba_maps.png" alt="Card image cap"> -->
             <div class="card-body" style="background-color: #fafafa">
               <h5 class="card-title"><?php echo $viaje['origen']." a ".$viaje['destino'] ?>
-                  <button type='button' class='btn btn-<?php echo $viaje['color']; ?> btn-sm float-right ' disabled>
-                    <?php echo $viaje['estado']; ?>
-                  </button>
               </h5>
               <small class="card-text">publicado <?php echo dias_transcurridos($viaje['fecha_publicacion'],'publicacion'); ?> <br>
               partida el <?php echo date("d-m-Y", strtotime($viaje['fecha_partida']));?> a las <?php echo date("H:i", strtotime($viaje['fecha_partida']));?> </small>
               <hr>
-              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="<?php echo "#EliminarViaje$viaje[idViaje]"?>">Eliminar</button>
-              <a href="#" class="card-link" onclick="alert('Esta funcion todavia esta en desarrollo')">ver postulantes</a>
+              <?php
+                if ($viaje['estadodelviaje']==1){
+                  echo "<button type='button' class='btn btn-danger btn-sm' data-toggle='modal' data-target='#EliminarViaje".$viaje['idViaje']."'>Cancelar</button>
+                <a href='/viaje/".$viaje['idViaje']."'><button type='button'class='btn btn-info btn-sm'>Ver detalles</button></a>";
+                }
+              ?>
+
+              <button type='button' class='btn btn-<?php echo $viaje['color']; ?> btn-sm float-right ' disabled>
+                <?php echo "viaje ".$viaje['estado']; ?>
+              </button>
             </div>
           </div>
-           <?php         
+           <?php
                             // Se lleva a cabo la cuenta de la cantidad de participantes
                             // En base a eso, se decide si la baja del viaje se hara con baja de puntos.
                             $contador_participaciones=mysqli_query($conexion,"SELECT *
                                                                               from participacion
                                                                               where estado=2 and idViaje='$viaje[idViaje]'")
                                                                               or die ("problemas en el contador de participantes del viaje");
-
                             if(mysqli_num_rows($contador_participaciones) > 0)
                                 $hayParticipaciones = true;
                             else
                                 $hayParticipaciones = false;
-                        
+
+                            if($viaje['tipo'] == "recurrente"){
+                              $viajes_recurrentes=mysqli_query($conexion,"SELECT *
+                                                                          from viaje
+                                                                          where tipo='recurrente' and idPiloto='$viaje[idPiloto]'
+                                                                          and origen='$viaje[origen]' and destino='$viaje[destino]'
+                                                                          and fecha_partida > '$viaje[fecha_partida]'
+                                                                          and HOUR(fecha_partida) = HOUR('$viaje[fecha_partida]')")
+                                                                          or die ("problemas en el select de viaje recurrentes");
+                            }
                ?>
 
           <div class="modal fade" id="<?php echo "EliminarViaje$viaje[idViaje]"?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -205,17 +218,35 @@ function render($vars = [])
                         </button>
                       </div>
                       <div class="modal-body">
+                        <?php
+                          if ($viaje['tipo']== "recurrente"){
+                            echo "<div class='alert alert-warning' role='alert'>
+                                  <h4 class='alert-heading'>Este es un viaje recurrente!</h4>";
+                            echo "estos son otros viajes que podrias querer borrar<br>";
+                            echo "<div class='input-group mb-3'>
+                                    <div class='input-group-prepend'>
+                                      <label class='input-group-text' for='viajes_recurrentes'>Viajes</label>
+                                    </div>
+                                    <select multiple class='custom-select' id='viajes_recurrentes' name='viajes_recurrentes'>";
+                            while ($viaje_recurrente=mysqli_fetch_array($viajes_recurrentes)){
+                              echo "<option value='".$viaje_recurrente['idViaje']."'>".$viaje_recurrente['fecha_partida']."</option>";
+                            }
+                            echo "</select></div>";
+                            echo "<small style='margin-top: -20px'> Podes seleccionar mas de uno con (Ctrl + click) </small></div>";
+                          }
+
+                        ?>
                         <?php if(!$hayParticipaciones){
                           ?>
-                            <div class="alert alert-warning" role="alert">
-                            ¿Estas Completamente seguro de que deseas eliminar el viaje? Esta accion será irreversible.
+                            <div class="alert alert-danger" role="alert">
+                            ¿Estas Completamente seguro de que deseas cancelar el viaje? <b>Esta accion será irreversible.</b>
                         </div>
                       <?php
                              }
                              else{
                             ?>
                             <div class="alert alert-danger" role="alert">
-                            Ya aceptaste a copilotos para este viaje, la cancelacion de este viaje provocará que se te resten 2 puntos de tu calificación general, ¿Estas Completamente seguro de que deseas eliminar el viaje?
+                            Ya aceptaste a copilotos para este viaje, la cancelacion de este viaje provocará que se te resten 2 puntos de tu calificación general, <b>¿Estas Completamente seguro de que deseas Cancelar el viaje?</b>
                         </div>
                         <?php
                           }
@@ -225,7 +256,7 @@ function render($vars = [])
                                         <div class="row">
                                             <div class="col col-md-6">
                                                 <form action="/perfil" method="post">
-                                                  <button type="submit" class="btn btn-danger" name="bajaViaje" value="<?php echo "$viaje[idViaje]"?>">Eliminar</button>
+                                                  <button type="submit" class="btn btn-danger" name="bajaViaje" value="<?php echo "$viaje[idViaje]"?>">Si, Cancelar</button>
                                                 </form>
                                             </div>
                                             <div class="col col-md-6">
