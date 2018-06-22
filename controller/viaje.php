@@ -127,7 +127,7 @@
 									<h6 class="" style="text-align: center">
 											<small>partida</small> <br>
 											<?php
-														$dias = array("domingo","lunes","martes","miercoles","jueves","viernes","sábado");
+														$dias = array("...","lunes","martes","miercoles","jueves","viernes","sábado","domingo");
 														$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 														$date = date_create($viaje['fecha_partida']);
 														echo $dias[date_format($date, 'N')]." ".date_format($date, 'd')." de ".$meses[date_format($date, 'm')-1] ;
