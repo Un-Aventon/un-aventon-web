@@ -280,7 +280,7 @@ function render($vars = [])
                                      inner join viaje on participacion.idViaje=viaje.idViaje
                                      inner join estado_participacion on participacion.estado=estado_participacion.idEstado
                                      WHERE idUsuario='$user[idUser]'
-                                     order by idParticipacion")
+                                     order by fecha_publicacion and idParticipacion")
                                      or
                                      die("Problemas en la base de datos:".mysqli_error($conexion));?>
       <h5>Mis ultimas postulaciones <span class="badge badge-pill badge-secondary"><?php echo mysqli_num_rows($postulaciones);?></span></h5>

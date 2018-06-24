@@ -139,7 +139,17 @@
 
 					</div>
 					<div class="col-md-6">
-						<h3 style="text-align: center; color: #53b842">$<?php echo $viaje['costo']; ?> <small> / por persona</small> </h3>
+						<h3 style="text-align: center; color: #53b842">$<?php echo $viaje['costo']/($viaje['asientos_disponibles']+1); ?> <small> / por persona</small></h3>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-6" style="text-align: center">
+						<h6><?php echo "$".$viaje['costo']?></h6>
+						<small> costo total del viaje</small>
+					</div>
+					<div class="col-md-6">
+							<button type="button" class="btn btn-dark centrado" title="Una vez que el viaje termine podras pagarlo" disabled>Pago pendiente</button>
 					</div>
 				</div>
 				<hr>
@@ -294,7 +304,7 @@
     </div>
 		<hr>
 		<div class="row">
-			<div class="col-md-10" style="padding: 0px 13px">
+			<div class="col-md-12" style="padding: 0px 13px">
 				<h5>Pregunta! <small>sacate las dudas</small> </h5>
 				<div class="row">
 					<div class="col-md-10">
@@ -305,21 +315,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2">
-				<center> <small>publicidad</small> </center>
-				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- localhost2 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:160px;height:160px"
-     data-ad-client="ca-pub-8566326317835277"
-     data-ad-slot="2847958185"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
-			</div>
 		</div>
-		<div class="row" style="height: 10px"></div>
+		<div class="row" style="height: 10px">
+		</div>
 
 
     <?php
