@@ -56,7 +56,6 @@ function render($vars = [])
 				let loc_dest = document.getElementById('localidad_destino').value;
 				let prov_dest = document.getElementById('prov_destino').value;
 	
-				//document.getElementById('tiempo_estimado').placeholder = 'TEST';
 				let service = new google.maps.DistanceMatrixService();
 				service.getDistanceMatrix(
 				  {
@@ -107,7 +106,7 @@ function render($vars = [])
 			function mod_asientos()
 			{
 				var id_v = document.getElementById('vehiculo').value;
-				document.getElementById('asientos').max = aux[id_v];
+				document.getElementById('asientos').max = --aux[id_v];
 				console.log('id -> ' + id_v);
 				console.log('asientos -> ' + aux[id_v]);
 			}
@@ -121,15 +120,17 @@ function render($vars = [])
 				if(elem.hidden)
 				{
 					elem.hidden = false;
-					intervalo.value="";
-					intervalo.required="true";
-					repeticiones.value="";
-					repeticiones.required="true";
+					intervalo.value = 1;
+					intervalo.required = "true";
+					repeticiones.value = 0;
+					repeticiones.required = "true";
 					return 0
 				}
 				elem.hidden = true;
-				intervalo.required="";
-				repeticiones.required="";
+				intervalo.required = "";
+				intervalo.value = "";
+				repeticiones.value = "";
+				repeticiones.required = "";
 				return 1
 			}
 	
@@ -154,6 +155,7 @@ function render($vars = [])
 								</select>
 							</div>
 							
+
 							<div class="form-group">
 								<label for="loc_origen">Localidad de Origen</label>
 								<input onchange="is_valid_location('localidad_origen','prov_origen')" <?php if(isset($origen['localidad'])){echo 'value="'.$origen['localidad'].'"';} 	?> type="text" name="localidad_origen" class="form-control" id="localidad_origen" placeholder="Ingrese la localidad de origen" required>
@@ -181,7 +183,7 @@ function render($vars = [])
 	
 							<div class="form-group">
 								<label>Fecha de salida</label>
-								<input type="date" name="fecha_salida" class="form-control" id="fecha_salida" <?php if(isset($fecha_salida)){ echo 'value="' . $fecha_salida . '"';}?>	 required>
+								<input type="date" name="fecha_salida" class="form-control" min="<?php echo date('Y-m-d'); ?>" id="fecha_salida" <?php if(isset($fecha_salida)){ echo 'value="' . $fecha_salida . '"';}?>	 required>
 							</div>
 	
 							<div class="form-group">
@@ -194,8 +196,26 @@ function render($vars = [])
 							</div>
 	
 							<div class="form-group" id="interval_div" hidden="">
-								<label for="intervalo_rep" >Cada cuantos días?</label>
-								<input type="number" id="intervalo_rep" name="intervalo_rep" class="form-control" placeholder="Ingrese de cuantos días será el intervalo" value="0" min="0" >
+								<label for="dias">Qué días de la semana se repetirá?</label>
+								<div id="dias" name="dias">
+									<label for="lun">Lun</label>
+									<input type="checkbox" value="" name="lun" id="lun">
+									<label for="mar" value="">Mar</label>
+									<input type="checkbox" name="mar" id="mar">
+									<label for="mie" value="">Mie</label>
+									<input type="checkbox" name="mie" id="mie">
+									<label for="jue" value="">Jue</label>
+									<input type="checkbox" name="jue" id="jue">
+									<label for="vie" value="">Vie</label>
+									<input type="checkbox" name="vie" id="vie">
+									<label for="sab" value="">Sab</label>
+									<input type="checkbox" name="sab" id="sab">
+									<label for="dom" value="">Dom</label>
+									<input type="checkbox" name="dom" id="dom">
+								</div>
+
+								<label for="intervalo_rep" >Cada cuántas semanas?</label>
+								<input type="number" id="intervalo_rep" name="intervalo_rep" class="form-control" placeholder="Ingrese de cuantos días será el intervalo" min="1" >
 								<label for="cant_intervalos">Cuantas veces se repetirá?</label>
 								<input type="number" name="cant_intervalos" id="cant_intervalos" class="form-control" min="0" placeholder="Ingrese la cantidad de veces que se 	repetira el viaje">
 							</div>
