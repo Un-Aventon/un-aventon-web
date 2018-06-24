@@ -11,8 +11,25 @@
                                    inner join tipo_vehiculo on vehiculo.tipo=tipo_vehiculo.idTipo
                                    inner join usuario on viaje.idPiloto=usuario.idUser
                                    where idViaje = $vars[0]")
-                                   or die ("problemas con el selectttt".mysqli_error($conexion));
+                                   or die ("problemas con el select de viaje".mysqli_error($conexion));
     $viaje=mysqli_fetch_array($viaje);
+
+		// verifica que el viaje este activo o no
+		if ($viaje['estado'] !=1 ){
+			?>
+				<center>
+				<h1><?php echo $viaje['origen']; ?> ----> <?php echo $viaje['destino']; ?><br>
+				<small><?php echo $viaje['fecha_partida']; ?></small></h1>
+				</center>
+			<?php
+		}
+		if ($viaje['estado'] == 2){
+			echo "<center> <b> este viaje fue cancelado por su piloto </b> </center>";
+		}
+		elseif ($viaje['estado'] == 3){
+			echo "<center> <b> este viaje ya termino </b> </center>";
+		}
+		else{
 
 		$contador_participaciones=mysqli_query($conexion,"SELECT *
 																										from participacion
@@ -126,14 +143,7 @@
 					<div class="col-md-6">
 									<h6 class="" style="text-align: center">
 											<small>partida</small> <br>
-											<?php
-														$dias = array("...","lunes","martes","miercoles","jueves","viernes","sábado","domingo");
-														$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-														$date = date_create($viaje['fecha_partida']);
-														echo $dias[date_format($date, 'N')]." ".date_format($date, 'd')." de ".$meses[date_format($date, 'm')-1] ;
-														echo " - ";
-														echo date_format($date, 'G:ia');
-											?>
+											<?php echo date_toString($viaje['fecha_partida'],"n");?>
 									</h6>
 
 
@@ -143,6 +153,8 @@
 					</div>
 				</div>
 				<hr>
+				<?php if($viaje['idPiloto'] == $_SESSION['userId']) {
+					?>
 				<div class="row">
 					<div class="col-md-6" style="text-align: center">
 						<h6><?php echo "$".$viaje['costo']?></h6>
@@ -153,6 +165,7 @@
 					</div>
 				</div>
 				<hr>
+			<?php } ?>
 				<form action="/viaje/<?php echo $vars[0] ?>" method="post">
 					<input type="hidden" name="carga_participacion" value="<?php echo $vars[0] ?>">
 				<?php
@@ -321,4 +334,5 @@
 
 
     <?php
+		}
   }

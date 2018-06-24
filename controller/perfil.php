@@ -171,7 +171,7 @@ function render($vars = [])
               <h5 class="card-title"><?php echo $viaje['origen']." a ".$viaje['destino'] ?>
               </h5>
               <small class="card-text">publicado <?php echo dias_transcurridos($viaje['fecha_publicacion'],'publicacion'); ?> <br>
-              partida el <?php echo date("d-m-Y", strtotime($viaje['fecha_partida']));?> a las <?php echo date("H:i", strtotime($viaje['fecha_partida']));?> </small>
+              partida el <?php echo date_toString($viaje['fecha_partida'],"y");?> </small>
               <hr>
               <?php
                 if ($viaje['estadodelviaje']==1){
@@ -205,6 +205,9 @@ function render($vars = [])
                                                                           and fecha_partida > '$viaje[fecha_partida]'
                                                                           and HOUR(fecha_partida) = HOUR('$viaje[fecha_partida]')")
                                                                           or die ("problemas en el select de viaje recurrentes");
+                              if (mysqli_num_rows($viajes_recurrentes)==0){
+                                $viaje['tipo'] = "unico";
+                              }
                             }
                ?>
 
@@ -227,9 +230,9 @@ function render($vars = [])
                                     <div class='input-group-prepend'>
                                       <label class='input-group-text' for='viajes_recurrentes'>Viajes</label>
                                     </div>
-                                    <select multiple class='custom-select' id='viajes_recurrentes' name='viajes_recurrentes'>";
+                                    <select multiple class='custom-select' id='viajes_recurrentes' name='viajes_recurrentes' style='height: 200px; max-height: 800px' data-mcs-theme='dark-3'>";
                             while ($viaje_recurrente=mysqli_fetch_array($viajes_recurrentes)){
-                              echo "<option value='".$viaje_recurrente['idViaje']."'>".$viaje_recurrente['fecha_partida']."</option>";
+                              echo "<option value='".$viaje_recurrente['idViaje']."'>".date_toString($viaje_recurrente['fecha_partida'],"y")."</option>";
                             }
                             echo "</select></div>";
                             echo "<small style='margin-top: -20px'> Podes seleccionar mas de uno con (Ctrl + click) </small></div>";

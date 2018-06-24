@@ -163,3 +163,17 @@ function sum_days($fecha, $cant_dias)
       $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
       return $nuevafecha;
 }
+
+function date_toString($fecha,$opc){
+  $dias = array("...","lunes","martes","miercoles","jueves","viernes","sábado","domingo");
+  $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+  $date = date_create($fecha);
+  $string = $dias[date_format($date, 'N')]." ".date_format($date, 'd')." de ".$meses[date_format($date, 'm')-1] ;
+  if ($opc =="y"){
+    $string .= " ".date_format($date, 'Y');
+  }
+  $string .= " - ";
+  $string .= date_format($date, 'G:ia');
+
+  return $string;
+}
