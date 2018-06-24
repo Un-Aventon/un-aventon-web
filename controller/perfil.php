@@ -152,7 +152,7 @@ function render($vars = [])
                                        FROM viaje
                                        INNER JOIN estado_viaje on viaje.estado=estado_viaje.idEstado
                                        WHERE idPiloto='$user[idUser]'
-                                       order by fecha_publicacion DESC")
+                                       order by fecha_publicacion DESC, fecha_partida ASC")
                                        or
                                        die("Problemas en la base de datos:".mysqli_error($conexion));
       ?>
