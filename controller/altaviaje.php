@@ -22,7 +22,7 @@ function render($vars = [])
 	$calificaciones_p = mysqli_query($conexion, 
 	"SELECT * from calificacion 
 		where idCalificador = '$_SESSION[userId]' 
-		AND calificacion = ''
+		AND calificacion is null
 	") or die (mysqli_error($conexion));
 	
 	if(mysqli_fetch_array($calificaciones_p) > 0)
