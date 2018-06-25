@@ -24,4 +24,4 @@ switch (mysqli_fetch_array($verificacion_participacion)['estado']) {
   setcookie("baja_participacion",true);
   $r = new Router;
   $file = $r->get_file();
-  header('Location: /' . $file . '/' . $_POST['baja_participacion']);
+  header('Location: /' . $file);

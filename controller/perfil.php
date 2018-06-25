@@ -63,6 +63,13 @@ function render($vars = [])
 
   // Fin baja del viaje
 
+  // Baja de la participacion
+  !isset($_POST['baja_participacion'])?:include('php/baja_participacion.php');
+  if(isset($_COOKIE["baja_participacion"]) && $_COOKIE["baja_participacion"]){
+    setcookie("baja_participacion",false);
+  }
+  // Fin baja de la participacion
+
   $tipos=mysqli_query($conexion,"SELECT * FROM `tipo_vehiculo` ")
                                    or
                                    die("Problemas en la base de datos:".mysqli_error($conexion));
@@ -297,7 +304,73 @@ function render($vars = [])
                   participacion ".$postulacion['estado'];
 
           if ($postulacion['estado_participacion'] < 3){
-            echo "<span class='float-right'><a href='#'"; ?> onclick="alert('Esta funcion todavia esta en desarrollo')"> <?php echo "cancelar postulacion </a> </span>";
+            $baja_participacion = "true";
+                          
+
+													if ($postulacion['estado'] == 2){
+                          ?>
+                            <span class="float-right"><a href="#" data-toggle="modal" data-target="#modalAlertRechazarPostulacion<?php echo $postulacion['idParticipacion']?> ">cancelar postulacion </a> </span>;
+                          <?php
+                          echo '<center>
+                          <form action="/perfil" method="post">
+                                            <input type="hidden" name="idParticipacion" value="'.$postulacion['idParticipacion'].'">
+                                            <input type="hidden" name="estado" value="'.$postulacion['estado'].'">
+                                            <input type="hidden" name="baja_participacion" value="'.$baja_participacion.'">';
+
+													echo '<div class="modal fade" id="modalAlertRechazarPostulacion'.$postulacion['idParticipacion'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+													  <div class="modal-dialog modal-dialog-centered" role="document">
+													    <div class="modal-content">
+													      <div class="modal-header">
+													        <h5 class="modal-title" id="exampleModalCenterTitle">Cuidado</h5>
+													        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													          <span aria-hidden="true">&times;</span>
+													        </button>
+													      </div>
+													      <div class="modal-body">
+																	Tu postulacion ya fue aprobada, si solicitas la baja de este viaje se restara 1 punto de tu calificacion.<br> Estas seguro de querer cancelar tu postulacion?
+													      </div>
+													      <div class="modal-footer">
+													        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Volver atras</button>
+													        <button type="submit" class="btn btn-warning btn-sm">Si, cancelar</button>
+													      </div>
+													    </div>
+													  </div>
+													</div>';
+													}
+													else{
+
+                            ?>
+                            <span class="float-right"><a href="#" data-toggle="modal" data-target="#modalAlertRechazarPostulacion<?php echo $postulacion['idParticipacion']?>">Cancelar Postulacion </a> </span>
+                          <?php
+                        echo '<center>
+                        <form action="/perfil" method="post">
+                                            <input type="hidden" name="idParticipacion" value="'.$postulacion['idParticipacion'].'">
+                                            <input type="hidden" name="estado" value="'.$postulacion['estado'].'">
+                                            <input type="hidden" name="baja_participacion" value="'.$baja_participacion.'">';
+
+													echo'<div class="modal fade" id="modalAlertRechazarPostulacion'.$postulacion['idParticipacion'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+													    <div class="modal-dialog modal-dialog-centered" role="document">
+													    <div class="modal-content">
+													      <div class="modal-header">
+													        <h5 class="modal-title" id="exampleModalCenterTitle">Cuidado</h5>
+													        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													          <span aria-hidden="true">&times;</span>
+													        </button>
+													      </div>
+													      <div class="modal-body">
+																	Estas seguro de querer cancelar tu postulacion?
+													      </div>
+													      <div class="modal-footer">
+													        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Volver atras</button>
+													        <button type="submit" class="btn btn-warning btn-sm">Si, cancelar</button>
+													      </div>
+													    </div>
+													  </div>
+													</div>';
+													}
+
+									echo '</form>
+								</center>';     
           }
 
           echo "<br><b> ".$postulacion['origen']." a ".$postulacion['destino']." </b> <a href='#' class='float'"; ?> onclick="alert('Esta funcion todavia esta en desarrollo')"> <?php echo " ver detalles </a>
