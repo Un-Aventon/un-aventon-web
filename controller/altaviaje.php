@@ -7,13 +7,54 @@ function render($vars = [])
 {
 	include('php/conexion.php');
 
-	//Si el usuario no esta logeado, no le permite ingresar.
-	isset($_SESSION['userId'])?: header('Location: /login');
-
+	//parchaso
+	echo "<br/>";
 
 	//Cuando recive el formulario cargado
 	$rep = false;
 	$form = true;
+
+	//Si el usuario no esta logeado, no le permite ingresar.
+	isset($_SESSION['userId'])?: header('Location: /login');
+
+	//verifico que el usuario no adeude pagos ni le falte calificar
+
+	$calificaciones_p = mysqli_query($conexion, 
+	"SELECT * from calificacion 
+		where idCalificador = '$_SESSION[userId]' 
+		AND calificacion = ''
+	") or die (mysqli_error($conexion));
+	
+	if(mysqli_fetch_array($calificaciones_p) > 0)
+	{	
+		echo '	<div class="alert alert-danger" role="alert">
+						<p>Tienes calificaciones pendientes de realizar.</p>
+							<hr>
+							<p class="mb-0">
+						</p>
+					<a href="/perfil"> Ir a calificar </a>
+				</div>';
+		$form = false;
+	}
+
+	$pagos_p = mysqli_query($conexion, 
+	"SELECT * from viaje v
+		WHERE v.idPiloto = 2
+		and (DATE_ADD(v.fecha_partida, INTERVAL v.tiempo_estimado HOUR) < now())
+		and not EXISTS ( SELECT null from pago where idViaje = v.idViaje )
+	") or die (mysqli_error($conexion));
+
+	if($form and (mysqli_fetch_array($pagos_p) > 0))
+	{
+		echo '	<div class="alert alert-danger" role="alert">
+				<p>Tienes pagos pendientes de realizar.</p>
+					<hr>
+					<p class="mb-0">
+				</p>
+			<a href="#"> Pagar </a>
+		</div>';
+		$form = false;
+	}
 
 	!isset($_POST['localidad_origen'])?:include('php/alta_viaje.php');
 
