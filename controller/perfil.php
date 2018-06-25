@@ -54,10 +54,8 @@ function render($vars = [])
 
   if(isset($_COOKIE["baja_viaje"]) && $_COOKIE["baja_viaje"])
   {
-      echo '<div class="alert alert-success alert-dismissable centrado" style="z-index: 99999; box-shadow: 0px 3px 20px rgba(54, 54, 54, 0.7)">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    La baja del viaje se realizó correctamente!
-              </div>';
+      //mensaje exito
+      echo '';
 
       setcookie("baja_viaje",false);
   }

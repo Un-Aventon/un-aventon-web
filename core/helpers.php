@@ -172,7 +172,12 @@ function date_toString($fecha,$opc){
   if ($opc =="y"){
     $string .= " ".date_format($date, 'Y');
   }
-  $string .= " - ";
+  if ($opc =="br"){
+    $string .= "<br>";
+  }
+  else{
+    $string .= " - ";
+  }
   $string .= date_format($date, 'G:ia');
 
   return $string;

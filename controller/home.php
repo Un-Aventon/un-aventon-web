@@ -79,11 +79,16 @@
 						  $contador_participaciones = $viaje['asientos_disponibles'] - mysqli_num_rows($contador_participaciones);
 							?>
 
-							<div class="card" style="width: 32%; display: inline-block; margin: 4px 1px; box-shadow: 2px 2px 10px #f0f0f0; min-height: 250px">
+							<div class="card" style="width: 32%; display: inline-block; margin: 4px 1px; box-shadow: 0px 2px 2px #efefef; min-height: 250px">
 							  <!--<img class="card-img-top" src="img/prueba_maps.png" alt="Card image cap">-->
 							  <div class="card-body">
 							    <h5 class="card-title"> <span title="<?php echo $viaje['origen'];?>"><?php echo introtext($viaje['origen']); ?></span> <br> <small style="color:grey">a</small> <br> <span title="<?php echo $viaje['destino']; ?>"><?php echo introtext($viaje['destino']); ?></span> <br> <small>en <?php echo $viaje['tipoVehiculo']; ?></small> </h5>
-							    <p class="card-text">
+									<div class="row fluid" style="background-color: #EFEFEF; width: 118%; margin-left: -20px">
+										<div class="col-md-12">
+											<center><?php echo date_toString($viaje['fecha_partida'],"br"); ?></center>
+										</div>
+									</div>
+									<p class="card-text">
 										<div class="strike">
 
 											<span><h6><?php if ($contador_participaciones > 0) {
@@ -98,7 +103,7 @@
 										 																														if ($viaje['asientos_disponibles'] > 0) {echo round($viaje['costo']/$viaje['asientos_disponibles']);}
 										 																														else {echo $viaje['costo'];}?></h4>
 									</p>
-							    <a href="/viaje/<?php echo $viaje['idViaje'];?>/<?php echo $viaje['origen']."-".$viaje['destino'];?>" class="btn btn-danger">Ver mas</a>  <span><?php echo dias_transcurridos($viaje['fecha_partida'],'partida') ?></span>
+							    <a href="/viaje/<?php echo $viaje['idViaje'];?>/<?php echo $viaje['origen']."-".$viaje['destino'];?>" class="btn btn-danger" style="width: 100%">Ver mas</a>  <span><?php //echo dias_transcurridos($viaje['fecha_partida'],'partida') ?></span>
 							  </div>
 							</div>
 

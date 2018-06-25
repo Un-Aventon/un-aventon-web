@@ -149,7 +149,7 @@
 
 					</div>
 					<div class="col-md-6">
-						<h3 style="text-align: center; color: #53b842">$<?php echo $viaje['costo']/($viaje['asientos_disponibles']+1); ?> <small> / por persona</small></h3>
+						<h3 style="text-align: center; color: #53b842">$<?php echo round($viaje['costo']/($viaje['asientos_disponibles']+1)); ?> <small> / por persona</small></h3>
 					</div>
 				</div>
 				<hr>
@@ -158,7 +158,7 @@
 				<div class="row">
 					<div class="col-md-6" style="text-align: center">
 						<h6><?php echo "$".$viaje['costo']?></h6>
-						<small> costo total del viaje</small>
+						<small> costo total del viaje a pagar por mi</small>
 					</div>
 					<div class="col-md-6">
 							<button type="button" class="btn btn-dark centrado" title="Una vez que el viaje termine podras pagarlo" disabled>Pago pendiente</button>
@@ -198,7 +198,31 @@
 						echo '<button type="" class="btn btn-danger" style="width:100%" disabled>Participacion rechazada</button>';
 						break;
 					default:
-						echo '<button type="submit" class="btn btn-outline-danger" style="width:100%">Participar</button>';
+						$pagos_noRealizados=mysqli_query($conexion,"SELECT * from viaje
+																												where idPiloto = '$_SESSION[userId]'
+																												AND idViaje NOT IN (SELECT idViaje from pago)")
+																												or die ("error consulta pagos --> ".mysqli_error($conexion));
+						$pagosOk = mysqli_num_rows($pagos_noRealizados) == 0;
+
+						$calificaciones_pendientes=mysqli_query($conexion,"SELECT * from calificacion
+																															 where idCalificador = '$_SESSION[userId]'
+																															 and calificacion IS null
+																															 and fecha < date_sub(NOW(), INTERVAL 30 DAY)")
+																															 or die ("error consula calificaciones pendientes --> ".mysqli_error($conexion));
+						$calificacionesOk = mysqli_num_rows($calificaciones_pendientes) == 0;
+
+						if (!$pagosOk && !$calificacionesOk){
+							echo '<button type="" class="btn btn-outline-secondary" style="width:100%" disabled>Tenes pagos y calificaciones pendientes</button>';
+						}
+						elseif(!$pagosOk) {
+							echo '<button type="" class="btn btn-outline-secondary" style="width:100%" disabled>Tenes pagos pendientes</button>';
+						}
+						elseif(!$calificacionesOk) {
+							echo '<button type="" class="btn btn-outline-secondary" style="width:100%" disabled>Tenes calificaciones pendientes</button>';
+						}
+						else{
+							echo '<button type="submit" class="btn btn-outline-danger" style="width:100%">Participar</button>';
+						}
 						break;
 					}
 
@@ -211,9 +235,38 @@
 										<form action="/viaje/'.$vars[0].'" method="post">
 													<input type="hidden" name="idParticipacion" value="'.$participacion['idParticipacion'].'">
 													<input type="hidden" name="baja_participacion" value="'.$vars[0].'">
-													<input type="hidden" name="estado" value="'.$participacion['estado'].'">
-													<button type="submit" class="btn btn-light">cancelar participacion</button>
-										</form>
+													<input type="hidden" name="estado" value="'.$participacion['estado'].'">';
+
+													if ($participacion['estado'] == 2){
+
+													echo '<!-- Modal Alert cancelar participacion -->
+													<button type="button" class="btn btn-light"  data-toggle="modal" data-target="#modalAlertCancelarPostulacion">cancelar participacion</button>
+
+													<div class="modal fade" id="modalAlertCancelarPostulacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+													  <div class="modal-dialog modal-dialog-centered" role="document">
+													    <div class="modal-content">
+													      <div class="modal-header">
+													        <h5 class="modal-title" id="exampleModalCenterTitle">Cuidado</h5>
+													        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													          <span aria-hidden="true">&times;</span>
+													        </button>
+													      </div>
+													      <div class="modal-body">
+																	Tu postulacion ya fue aprobada, si solicitas la baja de este viaje se restara 1 punto de tu calificacion.<br> Estas seguro de querer cancelar tu postulacion?
+													      </div>
+													      <div class="modal-footer">
+													        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Volver atras</button>
+													        <button type="submit" class="btn btn-warning btn-sm">Si, cancelar</button>
+													      </div>
+													    </div>
+													  </div>
+													</div>';
+													}
+													else{
+														echo '<button type="submit" class="btn btn-light"  data-dismiss="modalAlertCancelarPostulacion" aria-label="cancelar postulacion">cancelar participacion</button>';
+													}
+
+									echo '</form>
 								</center>';
 				}
 				elseif ($participacion['estado'] == 3){
@@ -235,9 +288,9 @@
 				echo '<button type="button" class="btn btn-light btn-sm" style="margin-bottom: 10px; width: 100%">
   								Postulaciones/Participaciones totales <span class="badge badge-danger">'.mysqli_num_rows($participaciones_copiloto).'</span>
 							</button>';
+							if(mysqli_num_rows($participaciones_copiloto)==0)
+							{echo "<center><small>~ no hay participaciones todavia ~</small></center>";}
 				echo '<div class="mCustomScrollbar" data-mcs-theme="minimal-dark" style="max-height: 300px; overflow: auto;">';
-				if(mysqli_num_rows($participaciones_copiloto)==0)
-						 {echo "<br><small>(no hay participaciones todavia)</small>";}
 				while ($participacion_copiloto=mysqli_fetch_array($participaciones_copiloto)){
 					echo '<div class="postulacion">';
 					echo '<a href="/usuario/'.$participacion_copiloto["idUsuario"].'"> '.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].'</a> <small>| '.calificacion($participacion_copiloto['idUsuario']).' puntos</small><br>';
@@ -288,8 +341,31 @@
 													<input type="hidden" name="estado" value="'.$participacion_copiloto['estado'].'">
 													<input type="hidden" name="rechazar_postulacion" value="'.$vars[0].'">
 													</div><div class="col-4">
-											<button type="submit" class="buttonText buttonTextRojo float-right">rechazar participacion</button>
-									</form>';
+											<button type="button" class="buttonText buttonTextRojo float-right" data-toggle="modal" data-target="#modalAlertRechazarPostulacion'.$participacion_copiloto['idParticipacion'].'">rechazar participacion</button>';
+
+						echo '<!-- Modal Alert rechazar participacion -->
+											<div class="modal fade" id="modalAlertRechazarPostulacion'.$participacion_copiloto['idParticipacion'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalCenterTitle">Cuidado</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															La participacion de '.$participacion_copiloto["nombre"].' '.$participacion_copiloto["apellido"].' ya fue aprobada, si queres rechazarla se restara un punto de tu calificacion. <br>
+															Estas seguro de querer rechazarla?
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Volver atras</button>
+															<button type="submit" class="btn btn-warning btn-sm">Si, rechazar participacion</button>
+														</div>
+													</div>
+												</div>
+											</div>';
+
+						echo '</form>';
 						echo '</div></div>';
 							break;
 						case 3:
