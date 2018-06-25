@@ -43,7 +43,7 @@ $distance = json_decode($json_distance, true);
 //echo ($json_distance);
 
 
-echo "<br/>";
+
 $l = $distance['rows']['1']['elements']['0']['status'];
 if($l == 'OK'){
 	$aux_origin = [
