@@ -39,7 +39,7 @@ function render($vars = [])
 
 	$pagos_p = mysqli_query($conexion, 
 	"SELECT * from viaje v
-		WHERE v.idPiloto = 2
+		WHERE v.idPiloto = '$_SESSION[userId]'
 		and (DATE_ADD(v.fecha_partida, INTERVAL v.tiempo_estimado HOUR) < now())
 		and not EXISTS ( SELECT null from pago where idViaje = v.idViaje )
 	") or die (mysqli_error($conexion));
