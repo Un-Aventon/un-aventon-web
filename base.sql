@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 20-06-2018 a las 19:27:35
+-- Tiempo de generación: 25-06-2018 a las 01:30:08
 -- Versión del servidor: 5.7.21
 -- Versión de PHP: 5.6.35
 
@@ -35,18 +35,32 @@ CREATE TABLE IF NOT EXISTS `calificacion` (
   `idCalificado` int(6) NOT NULL,
   `tipo` varchar(10) NOT NULL,
   `fecha` datetime NOT NULL,
-  `calificacion` varchar(6) NOT NULL,
+  `calificacion` varchar(6) DEFAULT NULL,
   `comentario` varchar(255) NOT NULL,
   PRIMARY KEY (`idCalificacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `calificacion`
 --
 
 INSERT INTO `calificacion` (`idCalificacion`, `idCalificador`, `idCalificado`, `tipo`, `fecha`, `calificacion`, `comentario`) VALUES
-(1, 0, 2, '3', '2018-06-20 16:24:06', '-1', 'penalizacion por cancelacion de participacion'),
-(2, 0, 2, '3', '2018-06-20 16:25:07', '-1', 'penalizacion por rechazo de postulacion');
+(1, 2, 1, '3', '2017-04-05 16:24:06', '0', 'penalizacion por cancelacion de participacion'),
+(2, 0, 2, '3', '2018-06-20 16:25:07', '-1', 'penalizacion por rechazo de postulacion'),
+(3, 0, 2, '3', '2018-06-24 18:40:11', '-2', 'penalizacion por baja de viaje'),
+(4, 0, 2, '3', '2018-06-24 18:40:59', '-2', 'penalizacion por baja de viaje'),
+(5, 0, 1, '3', '2018-06-24 18:42:36', '-1', 'penalizacion por cancelacion de participacion'),
+(6, 0, 1, '3', '2018-06-24 18:55:40', '-1', 'penalizacion por cancelacion de participacion'),
+(7, 0, 2, '3', '2018-06-24 18:56:25', '-2', 'penalizacion por baja de viaje'),
+(8, 0, 2, '3', '2018-06-24 18:58:34', '-2', 'penalizacion por baja de viaje'),
+(9, 0, 2, '3', '2018-06-24 19:00:54', '-2', 'penalizacion por baja de viaje'),
+(10, 0, 2, '3', '2018-06-24 19:03:24', '-2', 'penalizacion por baja de viaje'),
+(11, 0, 2, '3', '2018-06-24 19:07:41', '-2', 'penalizacion por baja de viaje'),
+(12, 0, 2, '3', '2018-06-24 19:10:31', '-2', 'penalizacion por baja de viaje'),
+(13, 0, 1, '3', '2018-06-24 21:05:58', '-1', 'penalizacion por cancelacion de participacion'),
+(14, 0, 1, '3', '2018-06-24 21:13:34', '-1', 'penalizacion por cancelacion de participacion'),
+(15, 0, 1, '3', '2018-06-24 21:23:45', '-1', 'penalizacion por rechazo de postulacion'),
+(16, 0, 1, '3', '2018-06-24 22:24:41', '-2', 'penalizacion por baja de viaje');
 
 -- --------------------------------------------------------
 
@@ -109,7 +123,14 @@ CREATE TABLE IF NOT EXISTS `pago` (
   `fecha` date NOT NULL,
   `hora` time NOT NULL,
   PRIMARY KEY (`idPago`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `pago`
+--
+
+INSERT INTO `pago` (`idPago`, `idViaje`, `fecha`, `hora`) VALUES
+(1, 1, '2018-06-20', '00:20:06');
 
 -- --------------------------------------------------------
 
@@ -122,20 +143,20 @@ CREATE TABLE IF NOT EXISTS `participacion` (
   `idParticipacion` int(6) NOT NULL AUTO_INCREMENT,
   `idUsuario` int(6) NOT NULL,
   `idViaje` int(6) NOT NULL,
-  `fecha_solicitud` date NOT NULL,
+  `fecha_solicitud` datetime NOT NULL,
   `estado` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idParticipacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `participacion`
 --
 
 INSERT INTO `participacion` (`idParticipacion`, `idUsuario`, `idViaje`, `fecha_solicitud`, `estado`) VALUES
-(2, 1, 3, '2018-06-20', 4),
-(3, 1, 4, '2018-06-20', 2),
-(6, 1, 7, '2018-06-20', 2),
-(17, 2, 9, '2018-06-20', 3);
+(26, 1, 20, '2018-06-24 19:09:59', 4),
+(31, 1, 21, '2018-06-24 21:13:41', 4),
+(32, 2, 24, '2018-06-24 21:14:02', 4),
+(37, 2, 45, '2018-06-24 22:23:53', 4);
 
 -- --------------------------------------------------------
 
@@ -256,22 +277,15 @@ CREATE TABLE IF NOT EXISTS `viaje` (
   `estado` int(1) NOT NULL DEFAULT '1',
   `tipo` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT 'unico',
   PRIMARY KEY (`idViaje`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `viaje`
 --
 
 INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `fecha_partida`, `tiempo_estimado`, `origen`, `destino`, `asientos_disponibles`, `costo`, `estado`, `tipo`) VALUES
-(1, 1, 1, '2018-06-20 14:58:40', '2018-07-20 06:00:00', 72, 'usuahia,Tierra del Fuego', 'la quiaca,Jujuy', 3, 10000, 1, 'unico'),
-(2, 2, 12, '2018-06-20 15:02:52', '2018-09-22 10:30:00', 24, 'La Plata,Buenos Aires', 'El Bolson,RÃ­o Negro', 4, 5450, 1, 'unico'),
-(3, 2, 12, '2018-06-20 15:06:04', '2018-08-08 13:43:00', 16, 'Cordoba,CÃ³rdoba', 'salta,Salta', 3, 12000, 1, 'unico'),
-(4, 2, 12, '2018-06-20 15:08:42', '2018-11-05 08:00:00', 1, 'la plata,Buenos Aires', 'buenos aires,Buenos Aires', 4, 500, 1, 'recurrente'),
-(5, 2, 12, '2018-06-20 15:08:42', '2018-11-12 08:00:00', 1, 'la plata,Buenos Aires', 'buenos aires,Buenos Aires', 4, 500, 1, 'recurrente'),
-(6, 2, 12, '2018-06-20 15:08:42', '2018-11-19 08:00:00', 1, 'la plata,Buenos Aires', 'buenos aires,Buenos Aires', 4, 500, 1, 'recurrente'),
-(7, 2, 12, '2018-06-20 15:08:42', '2018-11-26 08:00:00', 1, 'la plata,Buenos Aires', 'buenos aires,Buenos Aires', 4, 500, 1, 'recurrente'),
-(8, 1, 2, '2018-06-20 15:12:31', '2018-07-20 12:00:00', 16, 'la plata,Buenos Aires', 'Puerto Iguazu,Misiones', 5, 10000, 1, 'unico'),
-(9, 1, 1, '2018-06-20 15:18:36', '2018-08-30 09:33:00', 8, 'rawson,Chubut', 'el bolson,RÃ­o Negro', 3, 9658, 1, 'unico');
+(45, 1, 1, '2018-06-24 22:22:41', '2020-03-01 00:00:00', 6, 'la plata,Buenos Aires', 'necochea,Buenos Aires', 2, 2, 2, 'unico'),
+(46, 1, 1, '2018-06-24 22:25:49', '2019-04-02 01:01:00', 7, 'la plata,Buenos Aires', 'buenos aires,Buenos Aires', 3, 4, 2, 'unico');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
