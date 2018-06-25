@@ -20,7 +20,8 @@ function render($vars = [])
 
   $contador_vehiculos=mysqli_query($conexion,"SELECT count(*) as cont
                                     FROM vehiculo
-                                    where idPropietario='$user[idUser]'")
+                                    where idPropietario='$user[idUser]'
+                                    and eliminado = 0")
                                     or
                                     die ("problemas con el contador");
   $contador_vehiculos=mysqli_fetch_array($contador_vehiculos);
