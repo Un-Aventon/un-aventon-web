@@ -5,6 +5,8 @@
     // incluyo la conexion.
     include('php/conexion.php');
 
+    !isset($_POST['localidad_origen'])?:include 'php/modificar_viaje_control.php';
+
     $viaje=mysqli_query($conexion,"SELECT *
                                    from viaje
                                    inner join vehiculo on viaje.idVehiculo=vehiculo.idVehiculo
@@ -73,6 +75,7 @@
 				background-color: grey;
 			}
 		</style>
+
 		<div id="map" style="border-radius: 4px; margin-top: 5px; margin-left: -5px"></div>
 		<script>
 			function initMap() {
@@ -107,6 +110,7 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCmsUIxdjkHChho9s5V1T7Xl4axSmR3-w&callback=initMap">
 		</script>
       </div>
+
       <div class="col-md-6">
 				<div class="row" style="min-height: 130px">
 					<div class="col-md-10 col-sm-12">
@@ -114,6 +118,15 @@
 						<span title="<?php echo $viaje['fecha_publicacion'] ?>">Publicado <?php echo dias_transcurridos($viaje['fecha_publicacion'],'publicacion');?>
 							por <a href="/usuario/<?php echo $viaje['idPiloto'];?>"><?php echo $viaje['nombre']." ".$viaje['apellido']; ?></a> <small>(<?php echo calificacion($viaje['idPiloto']); ?> pts.)</small>
 						</span>
+						<br/>
+						<?php 
+							//Traigo el modal de modificacion de viaje
+							if((isset($_SESSION['userId'])) and ($viaje['idPiloto'] == $_SESSION['userId']))
+							{
+								include 'php/modificar_viaje_vista.php';
+								echo '<a href="" data-toggle="modal" data-target="#ModViaje">Modificar el Viaje</a>';
+							}
+						?>
 					</div>
 					<div class="col-md-2">
 						<div class="contenedorUno centrado" style="border: 1px solid #fff; border-radius: 4px; padding: 4px 4px; background-color: #f0f0f0; margin-top: 8px">
@@ -153,7 +166,7 @@
 					</div>
 				</div>
 				<hr>
-				<?php if($viaje['idPiloto'] == $_SESSION['userId']) {
+				<?php if(isset($_SESSION['userId']) and $viaje['idPiloto'] == $_SESSION['userId']) {
 					?>
 				<div class="row">
 					<div class="col-md-6" style="text-align: center">
