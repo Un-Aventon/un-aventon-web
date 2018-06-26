@@ -370,10 +370,13 @@ function render($vars = [])
 
 									echo '</form>
 								</center>';     
+                echo "<br><b> ".$postulacion['origen']." a ".$postulacion['destino']." </b> <a href='/viaje/".$postulacion['idViaje']."' class='float'> Ver detalles </a>
+                </div>";
           }
-
-          echo "<br><b> ".$postulacion['origen']." a ".$postulacion['destino']." </b> <a href='#' class='float'"; ?> onclick="alert('Esta funcion todavia esta en desarrollo')"> <?php echo " ver detalles </a>
-                  </div>";
+          else{
+                     echo "<br><b> ".$postulacion['origen']." a ".$postulacion['destino']." </b>
+                     </div>";
+          }
 
         }
       ?>
