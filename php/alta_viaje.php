@@ -21,7 +21,7 @@ if(!($origen['localidad']) || !($origen['provincia']) || !($destino['localidad']
 
 
 /** GOOGLE API **/
-$GOOGLE_API_KEY = 'AIzaSyBCmsUIxdjkHChho9s5V1T7Xl4axSmR3-w';
+$GOOGLE_API_KEY = 'AIzaSyD8A8hlojftFLpwPtwrcFQ5LtSl-o_s2OU';
 
 $arrContextOptions=array(
 	"ssl"=>array(
@@ -219,6 +219,7 @@ if($ok)
 						$cargados++;
 					}else
 					{
+						
 						$errores++;
 						array_push($fechas_erroneas, $aux_fecha);
 					}
