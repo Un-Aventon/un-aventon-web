@@ -12,5 +12,5 @@ else{
   setcookie("carga_participacion",true);
   $r = new Router;
   $file = $r->get_file();
-  header('Location: /' . $file . '/' . $_POST['carga_participacion']);
+  header('Location: /' . $file . "/$vars[0]/$vars[1]");
   }

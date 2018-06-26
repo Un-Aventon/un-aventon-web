@@ -179,7 +179,7 @@
 				</div>
 				<hr>
 			<?php } ?>
-				<form action="/viaje/<?php echo $vars[0] ?>" method="post">
+				<form action="/viaje/<?php echo "$vars[0]/$vars[1]" ?>" method="post">
 					<input type="hidden" name="carga_participacion" value="<?php echo $vars[0] ?>">
 				<?php
 
@@ -245,7 +245,7 @@
 
 				if (($participacion['estado'] == 2) || ($participacion['estado']==1)) {
 					echo '<center>
-										<form action="/viaje/'.$vars[0].'" method="post">
+										<form action="/viaje/'.$vars[0].'/'.$vars[1] . '" method="post">
 													<input type="hidden" name="idParticipacion" value="'.$participacion['idParticipacion'].'">
 													<input type="hidden" name="baja_participacion" value="'.$vars[0].'">
 													<input type="hidden" name="estado" value="'.$participacion['estado'].'">';
