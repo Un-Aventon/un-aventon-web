@@ -39,6 +39,7 @@
 		'Tucumán'	
 	];
 
+	$a_postulacion = mysqli_query($conexion, "SELECT * FROM participacion where idViaje = '$vars[0]' and estado = '2' ") or die (mysqly_error($conexion));
 ?>
 <script src="/js/verificadores_viaje.js"></script>
 <!-- Modal Mod Viaje -->
@@ -52,6 +53,16 @@
 				</button>
 			</div>
 			<div class="modal-body">
+			<?php
+			if(mysqli_fetch_array($a_postulacion))
+			{
+				echo '
+				<div class="alert alert-danger">
+					Este viaje posee copilotos aceptados, para modifcar los datos debes quitar a los copilotos. 
+				</div>';
+			}else
+			{
+			?>
 				<form action="" method="post">
 					<div class="form-group">
 						<label for="prov_origen">Provincia de Origen</label>
@@ -137,18 +148,21 @@
 						<input type="submit" name="registro" value="Cargar!" class="btn btn-success form-control form-control-lg">
 					</div>
 				</form>
+				<script type="text/javascript">
+						var aux = [];
+						<?php
+							foreach ($asientos as $key => $value)
+							{
+								echo "aux['". $key ."'] = '" . $value ."';" ;
+							}
+						?>
+				
+						mod_asientos();
+				</script>
+			<?php
+		}
+			?>
 			</div>
-			<script type="text/javascript">
-					var aux = [];
-					<?php
-						foreach ($asientos as $key => $value)
-						{
-							echo "aux['". $key ."'] = '" . $value ."';" ;
-						}
-					?>
-			
-					mod_asientos();
-			</script>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 			</div>
