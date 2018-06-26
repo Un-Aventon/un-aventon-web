@@ -307,17 +307,16 @@ function render($vars = [])
             $baja_participacion = "true";
                           
 
-													if ($postulacion['estado'] == 2){
+													if ($postulacion['estado_participacion'] == 2){
                           ?>
-                            <span class="float-right"><a href="#" data-toggle="modal" data-target="#modalAlertRechazarPostulacion<?php echo $postulacion['idParticipacion']?> ">cancelar postulacion </a> </span>;
+                            <span class="float-right"><a href="#" data-toggle="modal" data-target="#modalAlertRechazarPostulacion<?php echo $postulacion['idParticipacion']?>">cancelar postulacion </a> </span>;
                           <?php
                           echo '<center>
                           <form action="/perfil" method="post">
                                             <input type="hidden" name="idParticipacion" value="'.$postulacion['idParticipacion'].'">
                                             <input type="hidden" name="estado" value="'.$postulacion['estado'].'">
-                                            <input type="hidden" name="baja_participacion" value="'.$baja_participacion.'">';
-
-													echo '<div class="modal fade" id="modalAlertRechazarPostulacion'.$postulacion['idParticipacion'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <input type="hidden" name="baja_participacion" value="'.$baja_participacion.'">
+													<div class="modal fade" id="modalAlertRechazarPostulacion'.$postulacion['idParticipacion'].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 													  <div class="modal-dialog modal-dialog-centered" role="document">
 													    <div class="modal-content">
 													      <div class="modal-header">
