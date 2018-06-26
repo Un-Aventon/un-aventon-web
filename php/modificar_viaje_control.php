@@ -21,7 +21,7 @@ if(!($origen['localidad']) || !($origen['provincia']) || !($destino['localidad']
 
 
 /** GOOGLE API **/
-$GOOGLE_API_KEY = 'AIzaSyBCmsUIxdjkHChho9s5V1T7Xl4axSmR3-w';
+$GOOGLE_API_KEY = 'AIzaSyD8A8hlojftFLpwPtwrcFQ5LtSl-o_s2OU';
 
 $arrContextOptions=array(
 	"ssl"=>array(
@@ -170,7 +170,7 @@ if($ok)
 	 )
 	{
 
-		if($fecha_partida == $viaje['fecha_partida'] or (es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estimado) < 1 ))
+		if($fecha_partida == $viaje['fecha_partida'] or (es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estimado, $vars[0]) < 1 ))
 		{
 			mysqli_query($conexion, 
 				"UPDATE viaje 

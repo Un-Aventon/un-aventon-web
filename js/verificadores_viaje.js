@@ -32,7 +32,7 @@ function is_valid_location(loc,prov)
 		let localidad = document.getElementById(loc).value;
 		let provincia = document.getElementById(prov).value;
 		return(
-			fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+localidad+','+provincia+',+AR&key=AIzaSyBCmsUIxdjkHChho9s5V1T7Xl4axSmR3-w',{method: 'GET'})
+			fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+localidad+','+provincia+',+AR&key=AIzaSyD8A8hlojftFLpwPtwrcFQ5LtSl-o_s2OU',{method: 'GET'})
 				.then(function(response) {
 				//console.log(response);
 				response.json().then(function(data){

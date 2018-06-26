@@ -133,13 +133,14 @@ function introtext($text) {
 }
 
 
-function es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estimado)
+function es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estimado, $id = NULL)
 {
   $vehiculo = mysqli_query($conexion, "
     SELECT *
     from vehiculo v, viaje v2
     where v.idVehiculo = '$id_vehiculo'
     and v.idVehiculo = v2.idVehiculo
+    and v2.idViaje != '$id'
     and(
       ('$fecha_partida' BETWEEN v2.fecha_partida AND DATE_ADD(v2.fecha_partida, INTERVAL v2.tiempo_estimado HOUR))
         or (DATE_ADD('$fecha_partida', INTERVAL $tiempo_estimado HOUR) BETWEEN v2.fecha_partida AND DATE_ADD(v2.fecha_partida, INTERVAL v2.tiempo_estimado HOUR))

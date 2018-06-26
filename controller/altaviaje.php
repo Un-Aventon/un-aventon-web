@@ -210,7 +210,7 @@ function render($vars = [])
 							
 							<div class="form-group">
 								<label for="tiempo_estimado">Horas estimadas de viaje</label>
-								<input type="number" class="form-control" name="tiempo_estimado" <?php if(isset($tiempo_estimado)){ echo 'value="' . $tiempo_estimado .'"';} ?> id="tiempo_estimado" min="1" placeholder="Ingrese el tiempo estimado de viaje" required>
+								<input type="number" class="form-control" name="tiempo_estimado" <?php if(isset($tiempo_estimado)){ echo 'value="' . $tiempo_estimado .'"';} ?>  id="tiempo_estimado" min="1" placeholder="Ingrese el tiempo estimado de viaje" required>
 							</div>
 	
 							<div class="container-fluid" style="margin-top:.5rem; padding: 0">
@@ -236,7 +236,7 @@ function render($vars = [])
 			mod_asientos();
 	</script>
 	<script async defer
-	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCmsUIxdjkHChho9s5V1T7Xl4axSmR3-w">
+	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8A8hlojftFLpwPtwrcFQ5LtSl-o_s2OU">
 	    </script>
 <?php		
 		}		
