@@ -196,15 +196,16 @@ if($ok)
 	if($recurrente)
 	{
 
+		$aux_fecha = $fecha_partida; 
 		foreach ($semana as $key) {
-			$aux_fecha = $fecha_partida; 
 			if(in_array($key, $dias_interv))
 			{
 				for ($i=0; $i < $cant_intervalos+1; $i++) 
 				{ 
 					
-					if(es_fecha_valida($conexion, $id_vehiculo, $aux_fecha, $tiempo_estimado) < 1 )
+					if(es_fecha_valida($conexion, $id_vehiculo, $aux_fecha, $tiempo_estimado, $_SESSION['userId']) < 1 )
 					{
+
 						$carga = mysqli_query($conexion, "INSERT into viaje (idPiloto, idVehiculo, fecha_publicacion, fecha_partida, tiempo_estimado,  origen, destino, asientos_disponibles, costo, tipo) values ('$piloto', '$id_vehiculo', now(), '$aux_fecha', '$tiempo_estimado' ,'$c_origen' , '$c_destino', '$cant_asientos', '$costo','$tipo') ") or die ('nope ' . mysqli_error($conexion));
 	
 
@@ -221,7 +222,10 @@ if($ok)
 					{
 						
 						$errores++;
-						array_push($fechas_erroneas, $aux_fecha);
+						array_push($fechas_erroneas, array(
+							'fecha' => $aux_fecha,
+							'error' => es_fecha_valida($conexion, $id_vehiculo, $aux_fecha, $tiempo_estimado, $_SESSION['userId'])
+							));
 					}
 					
 					$aux_fecha = date(sum_days($aux_fecha, '+7') . " " . $hora_salida . ':00');
@@ -234,9 +238,8 @@ if($ok)
 	}else
 	{
 		
-		if(es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estimado) < 1 )
+		if(es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estimado, $_SESSION['userId']) < 1 )
 		{
-		
 			$carga = mysqli_query($conexion, "INSERT into viaje (idPiloto, idVehiculo, fecha_publicacion, fecha_partida, tiempo_estimado,  origen, destino, asientos_disponibles, costo, tipo) values ('$piloto', '$id_vehiculo', now(), '$fecha_partida', '$tiempo_estimado' ,'$c_origen' , '$c_destino', '$cant_asientos', '$costo','$tipo') ") or die ('nope ' . mysqli_error($conexion));
 		
 
@@ -245,14 +248,18 @@ if($ok)
 
 			array_push($fechas_cargadas, array(
 				'fecha' => $fecha_partida,
-				'id' => $l_id['id']
+				'id' => $l_id['id'],
 			));
 			$cargados++;
 		}
 		else
 		{
 			$errores++;
-			array_push($fechas_erroneas, $fecha_partida);
+			array_push($fechas_erroneas, array(
+				'fecha' => $fecha_partida,
+				'error' => es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estimado, $_SESSION['userId'])
+				)
+			);
 		}
 
 	}
@@ -278,11 +285,19 @@ if($ok)
 			if($cargados > 1)
 			{
 				echo '	<div class="alert alert-danger" role="alert">
-							<p>Los siguientes viajes no pudieron ser cargados por que el vehiculo se encuentra postulado a otro viaje en esas fechas.</p>
+							<p>Los siguientes viajes no pudieron ser cargados.</p>
 							<hr>
 							<p class="mb-0">';
 				 			 	foreach ($fechas_erroneas as $key) {
-							 		echo $key . '<br/>';
+							 		echo $key['fecha'];
+							 		if($key['error'] == 1)
+							 		{
+							 			echo " -> El vehiculo se encuentra posulado a otro viaje";
+							 		}else
+							 		{
+							 			echo " -> El piloto se encuentra vinculado a otro viaje";
+							 		}
+							 		echo '<br/>';
 							 	}
 				echo '		</p>
 							<a href="/altaviaje"> Cargar en otra fecha </a>
@@ -290,10 +305,20 @@ if($ok)
 			}
 			else
 			{
-				echo '<div class="alert alert-danger alert-dismissable">
+				if($fechas_erroneas[0]['error'] == 1)
+				{
+					echo '<div class="alert alert-danger alert-dismissable">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+								El vehiculo se encuentra postulado en otro viaje para esas fechas.
+						</div>';
+				}
+				else
+				{
+					echo '<div class="alert alert-danger alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
-							El vehiculo se encuentra postulado en otro viaje para esas fechas.
+							El piloto se encuentra vinculado en otro viaje para esas fechas.
 					</div>';
+				}
 			}
 		};
 	if($cargados > 0)
