@@ -9,13 +9,25 @@ function render($vars = [])
 
 	//parchaso
 	echo "<br/>";
+	
+	//Si el usuario no esta logeado, no le permite ingresar.
+	isset($_SESSION['userId'])?: header('Location: /login');
+
+	//El usuario tiene vehiculos
+
+	$tiene_ve = mysqli_query($conexion, "SELECT * from vehiculo where idPropietario = $_SESSION[userId]") or die(mysqli_error($conexion));
+	if(!mysqli_fetch_array($tiene_ve))
+	{
+		echo '<div class="alert alert-danger alert-dismissable"><h2> Para postular un viaje, primero debe cargar un vehiculo. </h3><br/>';
+		echo "<h4><a href='/perfil'> Ir al perfil </a></h4> </div>";
+		return 0;
+	}
+
 
 	//Cuando recive el formulario cargado
 	$rep = false;
 	$form = true;
 
-	//Si el usuario no esta logeado, no le permite ingresar.
-	isset($_SESSION['userId'])?: header('Location: /login');
 
 	//verifico que el usuario no adeude pagos ni le falte calificar
 
