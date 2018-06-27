@@ -66,18 +66,6 @@ if($l != 'OK' or (($aux_origin['loc'] == $aux_destination['loc']) and ($aux_orig
 	$ok = false;
 }
 
-/** FECHA DE SALIDA **/
-
-$fecha_salida = $_POST['fecha_salida'];
-
-if(!(isset($fecha_salida)) or ($fecha_salida <= date("Y-m-d"))){
-	echo '<div class="alert alert-danger alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
-				La fecha ingresada no es válida.
-		</div>';
-	$ok = false;
-}
-
 /** HORA DE SALIDA **/
 $hora_salida = $_POST['hora_salida'];
 if(!isset($hora_salida) or (($fecha_salida == date("Y-m-d") and ($hora_salida <= date("H:m")))))
@@ -89,9 +77,21 @@ if(!isset($hora_salida) or (($fecha_salida == date("Y-m-d") and ($hora_salida <=
 	$ok = false;
 }else
 {
-	$fecha_partida = date($fecha_salida . ' ' . $hora_salida . ':00');
 }
 
+
+/** FECHA DE SALIDA **/
+
+$fecha_salida = $_POST['fecha_salida'];
+$fecha_partida = date($fecha_salida . ' ' . $hora_salida . ':00');
+
+if(!(isset($fecha_salida)) or ($fecha_partida <= date("Y-m-d"))){
+	echo '<div class="alert alert-danger alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+				La fecha ingresada no es válida.
+		</div>';
+	$ok = false;
+}
 
 /** INTERVALOS **/
 $semana = array('lun', 'mar', 'mie', 'jue', 'vie', 'sab', 'dom');
