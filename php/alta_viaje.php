@@ -272,7 +272,7 @@ if($ok)
 					<hr>
 					<p class="mb-0">';
 		 			 	foreach ($fechas_cargadas as $key) {
-					 		echo '<a href="/viaje/' . $key['id'] . '">' . $key['fecha'] . '</a><br/>';
+					 		echo '<a href="/viaje/' . $key['id'] . '/'. $c_origen . '-'.$c_destino .'">' . $key['fecha'] . '</a><br/>';
 					 	}
 		echo '		</p>
 				</div>';
