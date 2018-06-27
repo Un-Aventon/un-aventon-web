@@ -213,6 +213,7 @@
 					default:
 						$pagos_noRealizados=mysqli_query($conexion,"SELECT * from viaje
 																												where idPiloto = '$_SESSION[userId]'
+																												and estado = 3
 																												AND idViaje NOT IN (SELECT idViaje from pago)")
 																												or die ("error consulta pagos --> ".mysqli_error($conexion));
 						$pagosOk = mysqli_num_rows($pagos_noRealizados) == 0;
