@@ -133,14 +133,15 @@ function introtext($text) {
 }
 
 
-function es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estimado, $id = NULL)
+function es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estimado, $id_piloto = NULL, $id_viaje = NULL)
 {
+
   $vehiculo = mysqli_query($conexion, "
     SELECT *
     from vehiculo v, viaje v2
     where v.idVehiculo = '$id_vehiculo'
     and v.idVehiculo = v2.idVehiculo
-    and v2.idViaje != '$id'
+    and v2.idViaje != '$id_viaje'
     and(
       ('$fecha_partida' BETWEEN v2.fecha_partida AND DATE_ADD(v2.fecha_partida, INTERVAL v2.tiempo_estimado HOUR))
         or (DATE_ADD('$fecha_partida', INTERVAL $tiempo_estimado HOUR) BETWEEN v2.fecha_partida AND DATE_ADD(v2.fecha_partida, INTERVAL v2.tiempo_estimado HOUR))
@@ -149,9 +150,29 @@ function es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estima
     )
   ") or die (mysqli_error($conexion));
 
+  $piloto = mysqli_query($conexion, "
+    SELECT * 
+      from viaje v, participacion p
+      where p.idUsuario = '$id_piloto'
+      and v.idViaje = p.idViaje
+      and(
+        ('$fecha_partida' BETWEEN v.fecha_partida AND DATE_ADD(v.fecha_partida, INTERVAL v.tiempo_estimado HOUR))
+          or (DATE_ADD('$fecha_partida', INTERVAL 12 HOUR) BETWEEN v.fecha_partida AND DATE_ADD(v.fecha_partida, INTERVAL v.tiempo_estimado HOUR))
+          or (v.fecha_partida BETWEEN '$fecha_partida' AND DATE_ADD('$fecha_partida', INTERVAL v.tiempo_estimado HOUR))
+          or (DATE_ADD(v.fecha_partida, INTERVAL v.tiempo_estimado HOUR) BETWEEN '$fecha_partida' AND DATE_ADD('$fecha_partida', INTERVAL v.tiempo_estimado HOUR))
+      )
+      ") or die(mysqli_error($conexion));
+
   if($v = mysqli_fetch_array($vehiculo))
   {
+
     return 1;
+  }
+
+  if($p = mysqli_fetch_array($piloto))
+  {
+
+    return 2;
   }
 
     return 0;
