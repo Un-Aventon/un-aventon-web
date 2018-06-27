@@ -115,18 +115,25 @@
 				<div class="row" style="min-height: 130px">
 					<div class="col-md-10 col-sm-12">
 						<h1><?php echo $viaje['origen'] ?> a <?php echo $viaje['destino']; ?></h1>
-						<span title="<?php echo $viaje['fecha_publicacion'] ?>">Publicado <?php echo dias_transcurridos($viaje['fecha_publicacion'],'publicacion');?>
-							por <a href="/usuario/<?php echo $viaje['idPiloto'];?>"><?php echo $viaje['nombre']." ".$viaje['apellido']; ?></a> <small>(<?php echo calificacion($viaje['idPiloto']); ?> pts.)</small>
-						</span>
-						<br/>
-						<?php 
+						<?php
 							//Traigo el modal de modificacion de viaje
 							if((isset($_SESSION['userId'])) and ($viaje['idPiloto'] == $_SESSION['userId']))
 							{
 								include 'php/modificar_viaje_vista.php';
 								echo '<a href="" data-toggle="modal" data-target="#ModViaje">Modificar el Viaje</a>';
 							}
+							else{
+								echo '<a href="/usuario/'.$viaje['idPiloto'].'"> '.$viaje["nombre"].' '.$viaje["apellido"].'</a> <small>| '.calificacion($viaje['idPiloto']).' puntos</small> <i style="color: grey" class="float-right">piloto</i>';
+								$calificaciones = calificacion_grafica_simple($viaje['idPiloto']);
+								echo "<div class='progress' style='height: 2px; width: 100%; margin-bottom: 10px'>
+												<div class='progress-bar bg-success' role='progressbar' style='width: ".$calificaciones['porcentaje_pos']."%;' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
+												<div class='progress-bar bg-warning' role='progressbar' style='width: ".$calificaciones['porcentaje_neu']."%; background-color: #ffd000!important' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
+												<div class='progress-bar bg-danger' role='progressbar' style='width: ".$calificaciones['porcentaje_neg']."%; background-color: #ff8080!important' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div>
+											</div>";
+							}
 						?>
+						<span class="float-right" title="<?php echo $viaje['fecha_publicacion'] ?>">Publicado <?php echo dias_transcurridos($viaje['fecha_publicacion'],'publicacion');?>
+						</span>
 					</div>
 					<div class="col-md-2">
 						<div class="contenedorUno centrado" style="border: 1px solid #fff; border-radius: 4px; padding: 4px 4px; background-color: #f0f0f0; margin-top: 8px">
