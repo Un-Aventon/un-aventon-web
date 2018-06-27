@@ -167,7 +167,7 @@ function render($vars = [])
       <?php
         if (mysqli_num_rows($viajes) == 0){
              echo "no tenes ningun viaje publicado :( <br>";
-             echo "<a href='/publicar'>publicar viaje</a>";
+             echo "<a href='/altaviaje'>publicar viaje</a>";
         }
         while ($viaje = mysqli_fetch_array($viajes)) {
           ?>
@@ -305,7 +305,7 @@ function render($vars = [])
 
           if ($postulacion['estado_participacion'] < 3){
             $baja_participacion = "true";
-                          
+
 
 													if ($postulacion['estado_participacion'] == 2){
                           ?>
@@ -369,7 +369,7 @@ function render($vars = [])
 													}
 
 									echo '</form>
-								</center>';     
+								</center>';
                 echo "<br><b> ".$postulacion['origen']." a ".$postulacion['destino']." </b> <a href='/viaje/".$postulacion['idViaje']."' class='float'> Ver detalles </a>
                 </div>";
           }

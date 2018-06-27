@@ -115,4 +115,4 @@
     <?php
       include('php/navbar.php');
     ?>
-    <div class="container" style="border-radius: 5px; box-shadow: 0 0 0 #fff; margin-top: 10px">
+    <div class="container" id="container" style="border-radius: 5px; box-shadow: 0 0 0 #fff; margin-top: 10px;">

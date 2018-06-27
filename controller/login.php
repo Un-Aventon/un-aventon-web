@@ -54,7 +54,7 @@
 	<!-- parche = cierro container superior -->
 	</div>
 
-	<div class="container h-100">
+	<div class="container h-100" style="background-image: url('/img/sys/cover-login.jpg'); background-repeat:no-repeat; background-size: cover; border-top-left-radius: 5px; border-top-right-radius: 5px;">
   	<div class="row h-100 justify-content-center align-items-center">
 			<div class="card bg-white" style="max-width: 600px; height: 400px; margin-top: 20px; margin-bottom: 20px">
   			<div class="card-header"><h2 class="text-center">Iniciar Sesión</h2></div>
@@ -90,7 +90,7 @@
 </div>
 
 <!-- fin parche = abro container -->
-<div class="container">
+<div class="container" style="border-radius: 5px">
 
 		<?php
 	}
