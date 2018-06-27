@@ -9,7 +9,7 @@ function render($vars = [])
 
 	//parchaso
 	echo "<br/>";
-	
+
 	//Si el usuario no esta logeado, no le permite ingresar.
 	isset($_SESSION['userId'])?: header('Location: /login');
 
@@ -52,7 +52,7 @@ function render($vars = [])
 	$pagos_p = mysqli_query($conexion, 
 	"SELECT * from viaje v
 		WHERE v.idPiloto = '$_SESSION[userId]'
-		and (DATE_ADD(v.fecha_partida, INTERVAL v.tiempo_estimado HOUR) < now())
+		and v.estado = '3'
 		and not EXISTS ( SELECT null from pago where idViaje = v.idViaje )
 	") or die (mysqli_error($conexion));
 
