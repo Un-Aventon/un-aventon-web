@@ -169,8 +169,7 @@ if($ok)
 		or 	$costo != $viaje['costo']
 	 )
 	{
-
-		if($fecha_partida == $viaje['fecha_partida'] or (es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estimado, $vars[0]) < 1 ))
+		if($fecha_partida == $viaje['fecha_partida'] or (es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estimado, $_SESSION['userId'] , $vars[0]) < 1 ))
 		{
 			mysqli_query($conexion, 
 				"UPDATE viaje 
