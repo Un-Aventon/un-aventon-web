@@ -52,7 +52,7 @@ function render($vars = [])
 	$pagos_p = mysqli_query($conexion, 
 	"SELECT * from viaje v
 		WHERE v.idPiloto = '$_SESSION[userId]'
-		and v.estado = '3'
+		and v.estado = 3
 		and not EXISTS ( SELECT null from pago where idViaje = v.idViaje )
 	") or die (mysqli_error($conexion));
 
