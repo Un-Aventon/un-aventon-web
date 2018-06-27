@@ -282,7 +282,7 @@ if($ok)
 
 		if($errores > 0)
 		{	
-			if($cargados > 1)
+			if($cargados > 0)
 			{
 				echo '	<div class="alert alert-danger" role="alert">
 							<p>Los siguientes viajes no pudieron ser cargados.</p>
@@ -309,14 +309,14 @@ if($ok)
 				{
 					echo '<div class="alert alert-danger alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert">&times;</button>
-								El vehiculo se encuentra postulado en otro viaje para esas fechas.
+								El vehiculo se encuentra postulado en otro viaje/s para esas fecha/s.
 						</div>';
 				}
 				else
 				{
 					echo '<div class="alert alert-danger alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
-							El piloto se encuentra vinculado en otro viaje para esas fechas.
+							El piloto se encuentra vinculado en otro viaje/s para esas fecha/s.
 					</div>';
 				}
 			}
