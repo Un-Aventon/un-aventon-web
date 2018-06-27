@@ -15,6 +15,6 @@ or die ("error en la actualizacion de estado");
 setcookie("rechazar_postulacion",true);
 $r = new Router;
 $file = $r->get_file();
-header('Location: /' . $file . '/' . $_POST['rechazar_postulacion']);
+header('Location: /' . $file . '/' . "$vars[0]/$vars[1]");
 
  ?>

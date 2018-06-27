@@ -291,7 +291,7 @@
 								</center>';
 				}
 				elseif ($participacion['estado'] == 3){
-						echo '<form action="/viaje/'.$vars[0].'" method="post">
+						echo '<form action="/viaje/'.$vars[0].'/'.$vars[1] .'" method="post">
 												<input type="hidden" name="carga_participacion" value="'.$vars[0].'">';
 
 						echo '<center><button type="submit" class="btn btn-light">Volver a postularme</button></center>';
@@ -329,7 +329,7 @@
 
 
 							// boton aceptar
-							echo '<form action="/viaje/'.$vars[0].'" method="post" style="display: inline-block">
+							echo '<form action="/viaje/'.$vars[0].'/'.$vars[1].'" method="post" style="display: inline-block">
 													<input type="hidden" name="idParticipacion" value="'.$participacion_copiloto['idParticipacion'].'">
 													<input type="hidden" name="estado" value="'.$participacion_copiloto['estado'].'">
 													<input type="hidden" name="aceptar_postulacion" value="'.$vars[0].'">
@@ -341,7 +341,7 @@
 													<button type="submit" class="buttonText buttonTextVerde">aprobar</button>
 										</form>';
 										// boton rechazar
-										echo '<form action="/viaje/'.$vars[0].'" method="post" style="display: inline-block">
+										echo '<form action="/viaje/'.$vars[0].'/'.$vars[1].'" method="post" style="display: inline-block">
 																	<input type="hidden" name="idParticipacion" value="'.$participacion_copiloto['idParticipacion'].'">
 																	<input type="hidden" name="estado" value="'.$participacion_copiloto['estado'].'">
 																	<input type="hidden" name="rechazar_postulacion" value="'.$vars[0].'">
@@ -357,7 +357,7 @@
 						echo '<div class="row"><div class="col-md-8">';
 						echo '<img src="/img/sys/ok.png" style="width:20px">';
 						echo ' | Participacion aprobada';
-						echo '<form action="/viaje/'.$vars[0].'" method="post" style="display: inline-block">
+						echo '<form action="/viaje/'.$vars[0].'/'.$vars[1].'" method="post" style="display: inline-block">
 													<input type="hidden" name="idParticipacion" value="'.$participacion_copiloto['idParticipacion'].'">
 													<input type="hidden" name="estado" value="'.$participacion_copiloto['estado'].'">
 													<input type="hidden" name="rechazar_postulacion" value="'.$vars[0].'">
