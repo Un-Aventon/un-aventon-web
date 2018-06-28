@@ -106,7 +106,7 @@
 	
 					<div class="form-group">
 						<label>Hora de salida</label>
-						<input type="time" name="hora_salida" class="form-control" min="<?php echo date('Y-m-d') ?>" id="hora_salida" value="<?php echo $fecha[1] ?>" required>
+						<input type="time" name="hora_salida" class="form-control" id="hora_salida" value="<?php echo $fecha[1] ?>" required>
 					</div>
 
 					<?php
