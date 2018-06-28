@@ -428,22 +428,71 @@
 
     </div>
 		<hr>
+
 		<div class="row">
+			<?php
+			$preguntas = mysqli_query($conexion,"SELECT *
+																						from pregunta
+																						inner join usuario on pregunta.idPreguntante=usuario.idUser
+																						where idViaje = '$viaje[idViaje]'");
+			 ?>
 			<div class="col-md-12" style="padding: 0px 13px">
-				<h5>Pregunta! <small>sacate las dudas</small> </h5>
-				<div class="row">
-					<div class="col-md-10">
-						<textarea class="form-control" name="name" cols="80" style="width: 100%; min-height: 50px" placeholder="Ej: puedo llevar a mi perrito?, mate dulce o amargo?"></textarea>
-					</div>
-					<div class="col-md-2">
-						<button type="button" class="btn btn-light" style="width:100%; height: 100%">Enviar</button>
-					</div>
-				</div>
+				<center><span id="botonPreguntas" style="cursor: pointer"> ~ Preguntas <span id="detallePreguntas">(<?php echo mysqli_num_rows($preguntas); ?>)</span> ~ </span></center>
+				<div class="" id="preguntas" style="display: none">
+
+				<?php
+					while ($pregunta=mysqli_fetch_array($preguntas)){
+						?>
+						<small style="color: grey"><?php echo date_toString($pregunta['fecha'],"n"); ?></small>
+						<div class="contenedorPyR">
+							<?php echo $pregunta['nombre']." ".$pregunta['apellido'].": ".$pregunta['pregunta'];?>
+						</div>
+
+						<?php if ($pregunta['respuesta'] != ''){?>
+						<div class="contenedorPyR float-right" style="background-color: #eccbdc">
+							<?php echo "Piloto: ".$pregunta['respuesta'] ?>
+						</div>
+						<?php }
+						elseif($viaje['idPiloto']==$_SESSION['userId']){
+							echo '<div class="form-group float-right" style="widht: 49%">
+    									<textarea class="form-control" id="" rows="1" cols="70" placeholder="responde a '.$pregunta['nombre'].'" style="display: inline-block"></textarea>
+  									</div>';
+						} ?>
+
+						<br>
+						<br>
+
+						<?php
+					}
+				 ?>
+			 	</div>
+
+					<?php if ($viaje['idPiloto']!=$_SESSION['userId']){?>
+				 <hr>
+				 <h5>Pregunta! <small>sacate las dudas</small> </h5>
+ 				<div class="row">
+ 					<div class="col-md-10">
+ 						<textarea class="form-control" name="name" cols="80" style="width: 100%; min-height: 50px" placeholder="Ej: puedo llevar a mi perrito?, mate dulce o amargo?"></textarea>
+ 					</div>
+ 					<div class="col-md-2">
+ 						<button type="button" class="btn btn-light" style="width:100%; height: 100%">Enviar</button>
+ 					</div>
+ 				</div>
+			<?php } ?>
 			</div>
 		</div>
 		<div class="row" style="height: 10px">
 		</div>
 
+		<script type="text/javascript">
+		$(document).ready(function() {
+				$('#botonPreguntas').click(function(){
+					$('#preguntas').toggle();
+					$('#detallePreguntas').toggle();
+				});
+
+			});
+		</script>
 
     <?php
 		}

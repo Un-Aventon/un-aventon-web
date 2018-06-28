@@ -16,6 +16,8 @@
     <link rel="stylesheet" type="text/css" href="/css/estilo-listado-vehiculos.css">
     <!-- CSS principal -->
     <link rel="stylesheet" href="/css/stylo.css">
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+
 
     <!-- css parcheado -  arreglar... talvez -->
     <style media="screen">
@@ -108,6 +110,14 @@
       }
       .buttonTextRojo:hover{
         color: red;
+      }
+
+      .contenedorPyR{
+        background-color: #f1f1f1;
+        display: block;
+        border-radius: 5px;
+        width: 49%;
+        padding: 5px 15px;
       }
     </style>
   </head>
