@@ -68,7 +68,7 @@ if($l != 'OK' or (($aux_origin['loc'] == $aux_destination['loc']) and ($aux_orig
 
 /** HORA DE SALIDA **/
 $hora_salida = $_POST['hora_salida'];
-if(!isset($hora_salida) or (($hora_salida <= date("H:m"))))
+if(!isset($hora_salida))
 {
 	echo '<div class="alert alert-danger alert-dismissable">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
