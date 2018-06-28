@@ -445,7 +445,7 @@
 			$preguntas = mysqli_query($conexion,"SELECT *
 																						from pregunta
 																						inner join usuario on pregunta.idPreguntante=usuario.idUser
-																						where idViaje = '$viaje[idViaje]'");
+																						where idViaje = '$viaje[idViaje]' order by fecha DESC");
 			 ?>
 			<div class="col-md-12" style="padding: 0px 13px">
 				<center><span id="botonPreguntas" style="cursor: pointer"> ~ Preguntas <span id="detallePreguntas">(<?php echo mysqli_num_rows($preguntas); ?>)</span> ~ </span></center>
