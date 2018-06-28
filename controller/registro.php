@@ -7,7 +7,7 @@ function render($arr = [])
   include('php/conexion.php');
 
     if(isset($_POST['registro']))
-    {    
+    {
         $simple_pattern ='/^[a-zA-Z0-9\-_.,! ]{5,50}$/';
         $names_pattern ='/^[a-zA-Z ]{3,50}$/';
         $email_patter = '/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/';
@@ -34,7 +34,7 @@ function render($arr = [])
                     El E-Mail ingresado no es válido.
               </div>';
            $form = true;
-          } 
+          }
 
           $edad = $_POST['edad'];
           if(calc_edad($edad) < 16)
@@ -93,7 +93,7 @@ function render($arr = [])
 
   </div>
 
-  <div class="container h-100">
+  <div class="container h-100" style="background-image: url('/img/sys/cover-registro.jpg'); background-repeat:no-repeat; background-size: contain; border-top-left-radius: 5px; border-top-right-radius: 5px;">
     <div class="row h-100 justify-content-center align-items-center">
       <div class="card bg-white" style="max-width: 600px; margin-top: 20px; margin-bottom: 20px">
         <div class="card-header"><h2 class="text-center">Registro</h2></div>
@@ -120,7 +120,7 @@ function render($arr = [])
             <label>Contraseña</label>
             <input type="password" name="pass" class="form-control" id="pass" pattern="{5,50}" placeholder="Ingresa una contraseña">
           </div>
-          
+
           <div class="container-fluid" style="margin-top:.5rem; padding: 0">
             <input type="submit" name="registro" value="Registrarse!" class="btn btn-success form-control form-control-lg">
           </div>
@@ -131,7 +131,7 @@ function render($arr = [])
 </div>
 
 <!-- fin parche = abro container -->
-<div class="container">
+<div class="container" style="border-radius: 5px">
 
   <?php
 
