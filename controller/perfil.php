@@ -111,7 +111,7 @@ function render($vars = [])
             </select>
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Cantidad de Asientos (sin contar el del conductor)</label>
+            <label for="exampleInputPassword1">Cantidad de Asientos</label>
             <input type="number" name="cant_asientos" class="form-control" id="cant_asientos" placeholder="Ingrese la cantidad de asientos">
           </div>
           <div class="form-group">
