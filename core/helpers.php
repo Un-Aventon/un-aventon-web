@@ -153,8 +153,10 @@ function es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estima
   $piloto = mysqli_query($conexion, "
     SELECT * 
       from viaje v, participacion p
-      where p.idUsuario = '$id_piloto'
+      where 
+      p.idUsuario = '$id_piloto'
       and v.idViaje = p.idViaje
+      or v.idPiloto = '$id_piloto'
       and(
         ('$fecha_partida' BETWEEN v.fecha_partida AND DATE_ADD(v.fecha_partida, INTERVAL v.tiempo_estimado HOUR))
           or (DATE_ADD('$fecha_partida', INTERVAL 12 HOUR) BETWEEN v.fecha_partida AND DATE_ADD(v.fecha_partida, INTERVAL v.tiempo_estimado HOUR))
