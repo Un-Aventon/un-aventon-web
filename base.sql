@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 28-06-2018 a las 03:19:17
+-- Tiempo de generación: 28-06-2018 a las 14:23:10
 -- Versión del servidor: 5.7.21
 -- Versión de PHP: 5.6.35
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `calificacion` (
   `calificacion` varchar(6) DEFAULT NULL,
   `comentario` varchar(255) NOT NULL,
   PRIMARY KEY (`idCalificacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `calificacion`
@@ -49,7 +49,23 @@ INSERT INTO `calificacion` (`idCalificacion`, `idCalificador`, `idCalificado`, `
 (19, 0, 2, '3', '2018-06-27 17:16:39', '-1', 'penalizacion por rechazo de postulacion'),
 (20, 5, 1, '1', '2018-06-27 00:00:00', NULL, ''),
 (21, 0, 7, '3', '2018-06-27 22:34:39', '-1', 'penalizacion por rechazo de postulacion'),
-(22, 0, 7, '3', '2018-06-27 22:42:37', '-1', 'penalizacion por rechazo de postulacion');
+(22, 0, 7, '3', '2018-06-27 22:42:37', '-1', 'penalizacion por rechazo de postulacion'),
+(23, 0, 7, '3', '2018-06-27 22:42:37', '0', 'harcodeada'),
+(25, 0, 7, '3', '2018-06-27 22:42:37', '0', 'harcodeada'),
+(26, 0, 7, '3', '2018-06-27 22:42:37', '0', 'harcodeada'),
+(27, 0, 7, '3', '2018-06-27 22:42:37', '1', 'harcodeada'),
+(28, 0, 7, '3', '2018-06-27 22:42:37', '1', 'harcodeada'),
+(29, 0, 7, '3', '2018-06-27 22:42:37', '1', 'harcodeada'),
+(30, 0, 7, '3', '2018-06-27 22:42:37', '1', 'harcodeada'),
+(31, 0, 7, '3', '2018-06-27 22:42:37', '1', 'harcodeada'),
+(32, 0, 6, '3', '2018-06-27 22:42:37', '1', 'harcodeada'),
+(33, 0, 6, '3', '2018-06-27 22:42:37', '1', 'harcodeada'),
+(34, 0, 6, '3', '2018-06-27 22:42:37', '1', 'harcodeada'),
+(35, 0, 6, '3', '2018-06-27 22:42:37', '0', 'harcodeada'),
+(36, 0, 4, '3', '2018-06-27 22:42:37', '-1', 'harcodeada'),
+(37, 0, 4, '3', '2018-06-27 22:42:37', '-1', 'harcodeada'),
+(38, 0, 7, '3', '2018-06-28 11:02:12', '-1', 'penalizacion por rechazo de postulacion'),
+(39, 0, 7, '3', '2018-06-28 11:05:22', '-1', 'penalizacion por rechazo de postulacion');
 
 -- --------------------------------------------------------
 
@@ -135,17 +151,19 @@ CREATE TABLE IF NOT EXISTS `participacion` (
   `fecha_solicitud` datetime NOT NULL,
   `estado` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idParticipacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `participacion`
 --
 
 INSERT INTO `participacion` (`idParticipacion`, `idUsuario`, `idViaje`, `fecha_solicitud`, `estado`) VALUES
-(43, 1, 46, '2018-06-27 17:11:29', 4),
-(44, 1, 45, '2018-06-27 17:15:31', 4),
-(45, 6, 50, '2018-06-27 22:24:52', 4),
-(46, 4, 50, '2018-06-27 22:25:22', 1);
+(43, 1, 46, '2018-06-27 17:11:29', 1),
+(44, 1, 45, '2018-06-27 17:15:31', 1),
+(45, 6, 50, '2018-06-27 22:24:52', 1),
+(46, 4, 50, '2018-06-27 22:25:22', 1),
+(47, 6, 51, '2018-06-28 11:00:03', 1),
+(48, 6, 52, '2018-06-28 11:04:07', 2);
 
 -- --------------------------------------------------------
 
@@ -274,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `viaje` (
   `estado` int(1) NOT NULL DEFAULT '1',
   `tipo` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT 'unico',
   PRIMARY KEY (`idViaje`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `viaje`
@@ -285,7 +303,8 @@ INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `
 (48, 5, 13, '2018-06-27 17:33:49', '2018-12-31 23:59:00', 1, 'la plata,Buenos Aires', 'buenos aires,Buenos Aires', 1, 100, 2, 'unico'),
 (49, 7, 15, '2018-06-27 21:27:40', '2018-06-27 23:30:00', 1, 'la plata,Buenos Aires', 'buenos aires,Buenos Aires', 3, 200, 2, 'unico'),
 (50, 7, 15, '2018-06-27 22:05:04', '2018-06-30 13:00:00', 2, 'chascomus,Buenos Aires', 'la plata,Buenos Aires', 1, 500, 1, 'unico'),
-(51, 7, 15, '2018-06-27 22:05:04', '2018-07-07 13:00:00', 2, 'chascomus,Buenos Aires', 'la plata,Buenos Aires', 3, 500, 1, 'recurrente');
+(51, 7, 15, '2018-06-27 22:05:04', '2018-07-07 13:00:00', 2, 'chascomus,Buenos Aires', 'la plata,Buenos Aires', 3, 500, 1, 'recurrente'),
+(52, 7, 15, '2018-06-28 11:03:03', '2018-07-05 14:00:00', 7, 'nequen,NeuquÃ©n', 'el bolson,RÃ­o Negro', 1, 1200, 1, 'unico');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

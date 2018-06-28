@@ -93,7 +93,7 @@ function render($arr = [])
 
   </div>
 
-  <div class="container h-100" style="background-image: url('/img/sys/cover-registro.jpg'); background-repeat:no-repeat; background-size: contain; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+  <div class="container h-100" style="background-image: url('/img/sys/cover-registro.jpg'); background-repeat:no-repeat; background-size: cover; border-top-left-radius: 5px; border-top-right-radius: 5px;">
     <div class="row h-100 justify-content-center align-items-center">
       <div class="card bg-white" style="max-width: 600px; margin-top: 20px; margin-bottom: 20px">
         <div class="card-header"><h2 class="text-center">Registro</h2></div>

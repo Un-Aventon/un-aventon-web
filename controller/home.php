@@ -19,6 +19,7 @@
 				  <a class="nav-link active" style="color: #333!important" href="#">viajes menores a 2000 km</a>
 				  <a class="nav-link" href="#" style="color: #333!important">viajes recurrentes</a>
 				  <a class="nav-link" href="#" style="color: #333!important">+ de 1 asientos disponibles</a>
+					<a class="nav-link" href="#" style="color: #333!important">viajes en mi localidad</a>
 				</nav>
 				<center><button type="button" class="btn btn-outline-danger" style="width:100%">Aplicar</button></center>
 				<br>
@@ -74,7 +75,7 @@
 
 							$contador_participaciones=mysqli_query($conexion,"SELECT *
 																															from participacion
-																															where estado=1 and idViaje=$viaje[idViaje]")
+																															where estado=2 and idViaje=$viaje[idViaje]")
 																															or die ("problemas en el contador de asientos disponibles");
 						  $contador_participaciones = $viaje['asientos_disponibles'] - mysqli_num_rows($contador_participaciones);
 							?>

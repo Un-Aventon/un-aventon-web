@@ -455,12 +455,12 @@
 					while ($pregunta=mysqli_fetch_array($preguntas)){
 						?>
 						<small style="color: grey"><?php echo date_toString($pregunta['fecha'],"n"); ?></small>
-						<div class="contenedorPyR">
+						<div class="contenedorPyR" style="background-color: #deffff">
 							<?php echo $pregunta['nombre']." ".$pregunta['apellido'].": ".$pregunta['pregunta'];?>
 						</div>
 
 						<?php if ($pregunta['respuesta'] != ''){?>
-						<div class="contenedorPyR float-right" style="background-color: #eccbdc">
+						<div class="contenedorPyR float-right" style="background-color: #ffdede">
 							<?php echo "Piloto: ".$pregunta['respuesta'] ?>
 						</div>
 						<?php }
@@ -484,7 +484,7 @@
 				 ?>
 			 	</div>
 
-					<?php 
+					<?php
 					if(isset($_SESSION['userId'])){
 						if ($viaje['idPiloto']!=$_SESSION['userId']){?>
 				 <hr>
@@ -499,7 +499,7 @@
  					</div>
  				</div>
 				 </form>
-			<?php }	
+			<?php }
 			} ?>
 			</div>
 		</div>
