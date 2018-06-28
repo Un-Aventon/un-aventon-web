@@ -2,6 +2,9 @@
 
 	function render($vars = [])
 	{
+		if (!isset($vars[1])){
+			$vars[1] = "coso";
+		}
     // incluyo la conexion.
     include('php/conexion.php');
 
@@ -337,8 +340,20 @@
 
 													<div class="col-3">
 													<div class="btn-toolbar" role="toolbar" aria-label="">
-  														<div class="btn-group" role="group" aria-label="group">
-													<button type="submit" class="buttonText buttonTextVerde">aprobar</button>
+  														<div class="btn-group" role="group" aria-label="group">';
+
+													$participaciones_aprobadas=mysqli_query($conexion,"SELECT *
+																																			 from participacion
+																																			 where idViaje='$viaje[idViaje]'
+																																			 and estado = 2")
+																																			 or die ("problemas con el listado de participaciones del piloto");
+													if (mysqli_num_rows($participaciones_aprobadas) == $viaje['asientos_disponibles']){
+														echo "<button type='button' class='buttonText' title='no hay vacantes disponibles'>aprobar</button>";
+													}
+													else{
+														echo "<button type='submit' class='buttonText buttonTextVerde'>aprobar</button>";
+													}
+													echo '
 										</form>';
 										// boton rechazar
 										echo '<form action="/viaje/'.$vars[0].'/'.$vars[1].'" method="post" style="display: inline-block">

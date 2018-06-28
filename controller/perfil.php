@@ -138,10 +138,10 @@ function render($vars = [])
       <img src="img/user.png" alt="imagen de usuario" style="width: 150px; margin-top: 15px">
     </div>
     <div class="col-md-8">
-      <h1 class="display-4"><?php echo $user['nombre']." ".$user['apellido']; ?></h1>
-      <span><?php echo $user['email']; ?></span><br>
+      <h1 class="display-4" style="margin-bottom: -6px"><?php echo $user['nombre']." ".$user['apellido']; ?></h1>
+      <span style="margin-bottom: 10px; display: block"><?php echo $user['email']; ?></span>
+      <span><?php echo calificacion($user['idUser']) ?> puntos</span> | <a href="#">ver calificaciones</a> <br>
       <span><?php echo $contador_vehiculos['cont']; ?> vehiculos</span> | <a href="#" data-toggle="modal" data-target="#CargarAuto">agregar un vehiculo</a> | <a href="/listado-vehiculos">ver vehiculos</a> <br>
-      <span><?php echo $contador['cont']; ?> viajes totales</span>
     </div>
     <div class="col-md-1">
       <img src="img/cambio.png" class="boton_cambios" alt="boton cambios" title="Cambiar datos personales" data-toggle="modal" data-target="#modalCambioDatos">
@@ -182,7 +182,7 @@ function render($vars = [])
               <?php
                 if ($viaje['estadodelviaje']==1){
                   echo "<button type='button' class='btn btn-danger btn-sm' data-toggle='modal' data-target='#EliminarViaje".$viaje['idViaje']."'>Cancelar</button>
-                <a href='/viaje/".$viaje['idViaje']."'><button type='button'class='btn btn-info btn-sm'>Ver detalles</button></a>";
+                <a href='/viaje/".$viaje['idViaje']."/".$viaje['origen']."/".$viaje['destino']."'><button type='button'class='btn btn-info btn-sm'>Ver detalles</button></a>";
                 }
               ?>
 
