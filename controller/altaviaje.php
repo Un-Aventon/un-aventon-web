@@ -102,7 +102,17 @@ function render($vars = [])
 	if ($form) {
 ?>
 			<script type="text/javascript" src="js/verificadores_viaje.js"></script>
+			<script type="text/javascript">
 
+				var daysKey = [ "lun", "mar", "mie", "jue", "vie", "sab", "dom"];
+				function initRec()
+				{
+					let dia = new Date(document.getElementById('fecha_salida').value)
+					document.getElementById(daysKey[dia.getDay()]).checked = true
+					console.log(daysKey[dia.getDay()])
+				}
+
+			</script>
 			<div class="row h-100 justify-content-center align-items-center">
 				<div class="card bg-white" style="max-width: 600px; margin-top: 20px; margin-bottom: 20px">
 					<div class="card-header"><h2 class="text-center">Nuevo Viaje!</h2></div>
@@ -150,7 +160,7 @@ function render($vars = [])
 
 							<div class="form-group">
 								<label>Fecha de salida</label>
-								<input type="date" name="fecha_salida" class="form-control" min="<?php echo date('Y-m-d'); ?>" id="fecha_salida" <?php if(isset($fecha_salida)){ echo 'value="' . $fecha_salida . '"';}?>	 required>
+								<input type="date" name="fecha_salida" class="form-control" min="<?php echo date('Y-m-d'); ?>" id="fecha_salida" <?php if(isset($fecha_salida)){ echo 'value="' . $fecha_salida . '"';}?> onchange="initRec()" required>
 							</div>
 
 							<div class="form-group">
@@ -181,10 +191,26 @@ function render($vars = [])
 									<input type="checkbox" name="dom" id="dom">
 								</div>
 
-								<label for="intervalo_rep" >Cada cuántas semanas?</label>
-								<input type="number" id="intervalo_rep" name="intervalo_rep" class="form-control" placeholder="Ingrese de cuantos días será el intervalo" min="1" >
-								<label for="cant_intervalos">Cuantas veces se repetirá?</label>
-								<input type="number" name="cant_intervalos" id="cant_intervalos" class="form-control" min="0" placeholder="Ingrese la cantidad de veces que se 	repetira el viaje">
+								<div class="input-group mb-3">
+								  <div class="input-group-prepend">
+								    <span class="input-group-text">Se hará cada</span>
+								  </div>
+								 	<input type="number" id="intervalo_rep" name="intervalo_rep" class="form-control" placeholder="Ingrese de cuantos días será el intervalo" min="1" >
+								  <div class="input-group-append">
+								    <span class="input-group-text">semanas</span>
+								  </div>
+								</div>
+								<div class="input-group mb-3">
+								  <div class="input-group-prepend">
+								    <span class="input-group-text">Se repetira</span>
+								  </div>
+								  <input type="number" name="cant_intervalos" id="cant_intervalos" class="form-control" min="0" placeholder="Ingrese la cantidad de veces que se 	repetira el viaje">
+								  <div class="input-group-append">
+								    <span class="input-group-text">veces</span>
+								  </div>
+								</div>
+								
+
 							</div>
 
 

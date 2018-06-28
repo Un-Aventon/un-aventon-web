@@ -114,20 +114,28 @@ if(isset($_POST['recurrente'])){
 
 	$aux_intervalo = $_POST['intervalo_rep'];
 	$aux_cant_intervalos = $_POST['cant_intervalos'];
-
-	if((is_numeric($aux_cant_intervalos)) and (is_numeric($aux_intervalo) and $aux_intervalo > 0))
-	{
-		$cant_intervalos = $aux_cant_intervalos;
-		$intervalo = $aux_intervalo;
-		$tipo = 'recurrente';
-		$recurrente = true;
+	if(!empty($dias_interv)){
+		if((is_numeric($aux_cant_intervalos)) and (is_numeric($aux_intervalo) and $aux_intervalo > 0))
+		{
+			$cant_intervalos = $aux_cant_intervalos;
+			$intervalo = '+'.$aux_intervalo*7;
+			$tipo = 'recurrente';
+			$recurrente = true;
+		}else
+		{
+			echo '<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+					El viaje se debe repetir almenos cada una semana.
+			</div>';
+			$ok = false;
+		}
 	}else
 	{
 		echo '<div class="alert alert-danger alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert">&times;</button>
-				El viaje se debe repetir almenos cada una semana.
-		</div>';
-		$ok = false;
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+					Debe seleccionar almenos un día.
+			</div>';
+			$ok = false;
 	}
 }
 
@@ -182,6 +190,7 @@ if(!is_numeric($costo) or $costo < 1)
 	$ok = false;
 }
 
+
 if($ok)
 {
 
@@ -228,7 +237,7 @@ if($ok)
 							));
 					}
 					//semana siguiente
-					$aux_fecha = date(sum_days($aux_fecha, '+7') . " " . $hora_salida . ':00');
+					$aux_fecha = date(sum_days($aux_fecha, $intervalo) . " " . $hora_salida . ':00');
 					
 
 
