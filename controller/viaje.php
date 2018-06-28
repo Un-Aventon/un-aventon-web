@@ -466,11 +466,11 @@
 						<?php }
 						elseif(isset($_SESSION['userId'])){
 							if($viaje['idPiloto']==$_SESSION['userId']){
-							echo '<div class="form-group float-right" style="widht: 49%">
+							echo '<div class="form-group float-right" style="width: 100%">
 										<form action="/viaje/'.$vars[0].'/'.$vars[1] . '" method="post">
-    										<textarea class="form-control" id="" name="respuesta" rows="1" cols="70" placeholder="responde a '.$pregunta['nombre'].'" style="display: inline-block"></textarea>
-    										<br><input type="hidden" name="idPregunta" value="'.$pregunta['idPregunta'].'">
-    										<button type="submit" name="responder" class="btn btn-info float-right"> Enviar </button>
+    										<textarea class="form-control" id="" style="margin-top:0; margin-left: 35rem; width: 50%" name="respuesta" rows="1" cols="8" placeholder="Responde a '.$pregunta['nombre'].'" style="display: inline-block"></textarea>
+    										<input type="hidden" name="idPregunta" value="'.$pregunta['idPregunta'].'">
+    										<button type="submit" name="responder" class="btn btn-info float-right" style="margin-top: 0.2rem; margin-bottom: 0"> Enviar </button>
     									</form>
   									</div>';
 						}
