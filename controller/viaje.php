@@ -73,6 +73,11 @@
 			setcookie("responder_pregunta",false);
 		}
 
+		!isset($_POST['preguntar'])?:include('php/realizar_pregunta.php');
+		if(isset($_COOKIE['realizar_pregunta']) && $_COOKIE['realizar_pregunta']){
+			setcookie("realizar_pregunta",false);
+		}
+
 
     ?>
     <div class="row" style="padding: 5px 0px;">
@@ -484,14 +489,16 @@
 						if ($viaje['idPiloto']!=$_SESSION['userId']){?>
 				 <hr>
 				 <h5>Pregunta! <small>sacate las dudas</small> </h5>
+				 <form action="<?php echo "/viaje/$vars[0]/$vars[1]"?>" method="post">
  				<div class="row">
  					<div class="col-md-10">
- 						<textarea class="form-control" name="name" cols="80" style="width: 100%; min-height: 50px" placeholder="Ej: puedo llevar a mi perrito?, mate dulce o amargo?"></textarea>
+ 						<textarea class="form-control" name="pregunta" cols="80" style="width: 100%; min-height: 50px" placeholder="Ej: puedo llevar a mi perrito?, mate dulce o amargo?"></textarea>
  					</div>
  					<div class="col-md-2">
- 						<button type="button" class="btn btn-light" style="width:100%; height: 100%">Enviar</button>
+ 						<button type="submit" name="preguntar" class="btn btn-light" style="width:100%; height: 100%">Enviar</button>
  					</div>
  				</div>
+				 </form>
 			<?php }	
 			} ?>
 			</div>
