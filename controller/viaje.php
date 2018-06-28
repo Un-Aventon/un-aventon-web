@@ -8,14 +8,14 @@
     // incluyo la conexion.
     include('php/conexion.php');
 
-    !isset($_POST['localidad_origen'])?:include 'php/modificar_viaje_control.php';
+    !isset($_POST['localidad_origen'])?:include('php/modificar_viaje_control.php');
 
     $viaje=mysqli_query($conexion,"SELECT *
                                    from viaje
                                    inner join vehiculo on viaje.idVehiculo=vehiculo.idVehiculo
                                    inner join tipo_vehiculo on vehiculo.tipo=tipo_vehiculo.idTipo
                                    inner join usuario on viaje.idPiloto=usuario.idUser
-                                   where idViaje = $vars[0]")
+                                   where idViaje = '$vars[0]'")
                                    or die ("problemas con el select de viaje".mysqli_error($conexion));
     $viaje=mysqli_fetch_array($viaje);
 
@@ -67,6 +67,12 @@
 		if(isset($_COOKIE["rechazar_postulacion"]) && $_COOKIE["rechazar_postulacion"]){
 			setcookie("rechazar_postulacion",false);
 		}
+
+		!isset($_POST['responder'])?:include('php/responder_pregunta.php');
+		if(isset($_COOKIE['responder_pregunta']) && $_COOKIE['responder_pregunta']){
+			setcookie("responder_pregunta",false);
+		}
+
 
     ?>
     <div class="row" style="padding: 5px 0px;">
@@ -453,10 +459,16 @@
 							<?php echo "Piloto: ".$pregunta['respuesta'] ?>
 						</div>
 						<?php }
-						elseif($viaje['idPiloto']==$_SESSION['userId']){
+						elseif(isset($_SESSION['userId'])){
+							if($viaje['idPiloto']==$_SESSION['userId']){
 							echo '<div class="form-group float-right" style="widht: 49%">
-    									<textarea class="form-control" id="" rows="1" cols="70" placeholder="responde a '.$pregunta['nombre'].'" style="display: inline-block"></textarea>
+										<form action="/viaje/'.$vars[0].'/'.$vars[1] . '" method="post">
+    										<textarea class="form-control" id="" name="respuesta" rows="1" cols="70" placeholder="responde a '.$pregunta['nombre'].'" style="display: inline-block"></textarea>
+    										<br><input type="hidden" name="idPregunta" value="'.$pregunta['idPregunta'].'">
+    										<button type="submit" name="responder" class="btn btn-info float-right"> Enviar </button>
+    									</form>
   									</div>';
+						}
 						} ?>
 
 						<br>
@@ -467,7 +479,9 @@
 				 ?>
 			 	</div>
 
-					<?php if ($viaje['idPiloto']!=$_SESSION['userId']){?>
+					<?php 
+					if(isset($_SESSION['userId'])){
+						if ($viaje['idPiloto']!=$_SESSION['userId']){?>
 				 <hr>
 				 <h5>Pregunta! <small>sacate las dudas</small> </h5>
  				<div class="row">
@@ -478,7 +492,8 @@
  						<button type="button" class="btn btn-light" style="width:100%; height: 100%">Enviar</button>
  					</div>
  				</div>
-			<?php } ?>
+			<?php }	
+			} ?>
 			</div>
 		</div>
 		<div class="row" style="height: 10px">
