@@ -85,7 +85,8 @@ if(!isset($hora_salida))
 $fecha_salida = $_POST['fecha_salida'];
 $fecha_partida = date($fecha_salida . ' ' . $hora_salida . ':00');
 
-if(!(isset($fecha_salida)) or ($fecha_partida <= date("Y-m-d h-m-s"))){
+
+if(($fecha_partida <= date("Y-m-d H:i:s"))){
 	echo '<div class="alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 				La fecha ingresada no es válida.
