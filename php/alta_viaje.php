@@ -205,7 +205,6 @@ if($ok)
 					
 					if(es_fecha_valida($conexion, $id_vehiculo, $aux_fecha, $tiempo_estimado, $_SESSION['userId']) < 1 )
 					{
-
 						$carga = mysqli_query($conexion, "INSERT into viaje (idPiloto, idVehiculo, fecha_publicacion, fecha_partida, tiempo_estimado,  origen, destino, asientos_disponibles, costo, tipo) values ('$piloto', '$id_vehiculo', now(), '$aux_fecha', '$tiempo_estimado' ,'$c_origen' , '$c_destino', '$cant_asientos', '$costo','$tipo') ") or die ('nope ' . mysqli_error($conexion));
 	
 
@@ -227,13 +226,14 @@ if($ok)
 							'error' => es_fecha_valida($conexion, $id_vehiculo, $aux_fecha, $tiempo_estimado, $_SESSION['userId'])
 							));
 					}
-					
+					//semana siguiente
 					$aux_fecha = date(sum_days($aux_fecha, '+7') . " " . $hora_salida . ':00');
+					
 
 
 				}
 			}
-			$fecha_partida = date(sum_days($fecha_partida, '+1') . " " . $hora_salida . ':00');
+			$aux_fecha = date(sum_days($fecha_partida, '+1') . " " . $hora_salida . ':00');
 		}
 	}else
 	{
