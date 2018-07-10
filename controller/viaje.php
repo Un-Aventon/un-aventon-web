@@ -455,7 +455,7 @@
 					while ($pregunta=mysqli_fetch_array($preguntas)){
 						?>
 						<small style="color: grey"><?php echo date_toString($pregunta['fecha'],"n"); ?></small>
-						<div class="contenedorPyR" style="background-color: #deffff">
+						<div class="contenedorPyR" style="background-color: #FFDA2E">
 							<?php echo $pregunta['nombre']." ".$pregunta['apellido'].": ".$pregunta['pregunta'];?>
 						</div>
 
