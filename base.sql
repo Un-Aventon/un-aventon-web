@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `calificacion` (
   `idCalificador` int(6) NOT NULL,
   `idCalificado` int(6) NOT NULL,
   `tipo` varchar(10) NOT NULL,
+  `idViaje` int(6) NOT NULL,	
   `fecha` datetime NOT NULL,
   `calificacion` varchar(6) DEFAULT NULL,
   `comentario` varchar(255) NOT NULL,
