@@ -16,7 +16,6 @@ $consulta = "SELECT calificacion.idCalificacion, calificacion.idCalificador, cal
 $calificaciones_como_copiloto = mysqli_query($conexion, $consulta) or die("Error en la consulta de calificaciones pendientes como copiloto". mysqli_error($conexion));
 
 
-
 ?>
 
 <div class="row">
@@ -177,10 +176,48 @@ $calificaciones_como_copiloto = mysqli_query($conexion, $consulta) or die("Error
 
         </div>
         <div class="card-footer text-right py-2">
-          <a href="#" class="btn btn-success">Calificar al piloto</a>
+          <a href="#"class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter<?php echo $pendiente_como_copiloto['idCalificacion'];?>">Calificar al piloto</a>
         </div>
       </div>
     </div><!-- Fin de este viaje -->
+
+    <!-- Modal -->
+    <form action="/calificaciones" method="post">
+    <div class="modal fade" id="exampleModalCenter<?php echo $pendiente_como_copiloto['idCalificacion'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Calificar a <?php echo $pendiente_como_copiloto['nombre'] . ' ' . $pendiente_como_copiloto['apellido']; ?></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-warning" role="alert">
+              Fué tu piloto en el viaje <?php echo $pendiente_como_copiloto['origen'] . ' a ' . $pendiente_como_copiloto['destino']; ?> que se realizó en la fecha <?php $date = date_create($pendiente_como_copiloto['fecha_partida']);
+              echo $date->format('d-m-Y');?>
+            </div>
+            <div class="form-group">
+            <label for="exampleFormControlSelect1">Cual fue tu experiencia en su viaje?</label>
+              <select class="form-control" id="exampleFormControlSelect1">
+                <option>Buena</option>
+                <option>Mala</option>
+                <option>Regular</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Comenta tu experiencia</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="¿Que tal estuvo el viaje con el piloto?"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-success">Enviar!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
     <?php
     }
     ?>
