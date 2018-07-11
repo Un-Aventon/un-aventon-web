@@ -3,6 +3,18 @@ function render($vars = []){
 
 include('php/conexion.php');
 
+!isset($_POST['enviarCalificacion'])?:include('php/calificar_piloto.php');
+
+if(isset($_COOKIE["calificar_piloto"]) && $_COOKIE["calificar_piloto"])
+{
+    echo '<div class="alert alert-success alert-dismissable centrado" style="z-index: 99999; box-shadow: 0px 3px 20px rgba(54, 54, 54, 0.7)">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                Tu calificacion se envió correctamente!
+            </div>';
+
+    setcookie("calificar_piloto",false);
+}
+
 $consulta = "SELECT calificacion.idCalificacion, calificacion.idCalificador, calificacion.idCalificado, calificacion.idViaje, viaje.idPiloto, viaje.fecha_partida, viaje.origen, viaje.destino, usuario.nombre, usuario.apellido\n"
 
     . "FROM calificacion \n"
@@ -153,6 +165,22 @@ $calificaciones_como_copiloto = mysqli_query($conexion, $consulta) or die("Error
 
   <div class="col col-md-6 mCustomScrollbar" data-mcs-theme="dark-3" style="max-height: 520px; overflow: auto;">
   <?php
+  if(mysqli_num_rows($calificaciones_como_copiloto) == 0){
+
+    ?>
+    <div class="cardalert alert-info">
+      <div class="card-body ">
+        <h5 class="card-title">No tienes calificaciones a pilotos pendientes!</h5>
+        <small class="card-text">Al finalizar un viaje como copiloto, podrás calificar al piloto en esta sección.</small>
+        <div class="pt-2 my-0 text-right">
+          <a href="/" class="btn btn-primary">Busca viajes!</a>
+      </div>
+      </div>
+    </div>
+
+  <?php
+}
+  else{
     while($pendiente_como_copiloto = mysqli_fetch_array($calificaciones_como_copiloto))
     {
   ?>
@@ -199,20 +227,21 @@ $calificaciones_como_copiloto = mysqli_query($conexion, $consulta) or die("Error
             </div>
             <div class="form-group">
             <label for="exampleFormControlSelect1">Cual fue tu experiencia en su viaje?</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>Buena</option>
-                <option>Mala</option>
-                <option>Regular</option>
+              <select name="calificacion" class="form-control" id="exampleFormControlSelect1">
+                <option value="1">Buena</option>
+                <option value="-1">Mala</option>
+                <option value="0">Regular</option>
               </select>
             </div>
             <div class="form-group">
               <label for="exampleFormControlTextarea1">Comenta tu experiencia</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="¿Que tal estuvo el viaje con el piloto?"></textarea>
+              <textarea name="comentario" class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="¿Que tal estuvo el viaje con el piloto?"></textarea>
+              <input type="hidden" name="idCalificacion" value="<?php echo $pendiente_como_copiloto['idCalificacion']?>">
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-success">Enviar!</button>
+            <button type="submit" name="enviarCalificacion" class="btn btn-success">Enviar!</button>
           </div>
         </div>
       </div>
@@ -220,6 +249,7 @@ $calificaciones_como_copiloto = mysqli_query($conexion, $consulta) or die("Error
   </form>
     <?php
     }
+  }
     ?>
 
 
