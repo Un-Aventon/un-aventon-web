@@ -1,9 +1,22 @@
 <?php
 function render($vars = []){
 
-// FALTA INCLUIR TODA LA LOGICA. SOLO ES VISTA
-
 include('php/conexion.php');
+
+$consulta = "SELECT calificacion.idCalificacion, calificacion.idCalificador, calificacion.idCalificado, calificacion.idViaje, viaje.idPiloto, viaje.fecha_partida, viaje.origen, viaje.destino, usuario.nombre, usuario.apellido\n"
+
+    . "FROM calificacion \n"
+
+    . "INNER JOIN viaje ON ((calificacion.idCalificado=viaje.idPiloto) AND (calificacion.idViaje = viaje.idViaje))\n"
+
+    . "INNER JOIN usuario on (calificacion.idCalificado = usuario.idUser)\n"
+
+    . "WHERE (calificacion.idCalificador = 7) and (calificacion.calificacion IS NULL)";
+
+$calificaciones_como_copiloto = mysqli_query($conexion, $consulta) or die("Error en la consulta de calificaciones pendientes como copiloto". mysqli_error($conexion));
+
+
+
 ?>
 
 <div class="row">
@@ -140,21 +153,24 @@ include('php/conexion.php');
 
 
   <div class="col col-md-6 mCustomScrollbar" data-mcs-theme="dark-3" style="max-height: 520px; overflow: auto;">
-
-
+  <?php
+    while($pendiente_como_copiloto = mysqli_fetch_array($calificaciones_como_copiloto))
+    {
+  ?>
     <div class="row px-3 my-4"> <!-- Comienzo de este viaje-->
       <div class="card" style="width: 30rem;">
-        <h5 class="card-header h-50">chascomus,Buenos Aires a la plata,Buenos Aires</h5>
+        <h5 class="card-header h-50"><?php echo $pendiente_como_copiloto['origen'] . ' a ' . $pendiente_como_copiloto['destino']; ?></h5>
         <div class="card-body px-0 py-0">
           <table class="table">
             <tbody>
               <tr>
                 <th scope="row">Piloto</th>
-                <td>Mark Weiss</td>
+                <td><?php echo $pendiente_como_copiloto['nombre'] . ' ' . $pendiente_como_copiloto['apellido']; ?></td>
               </tr>
               <tr>
                 <th scope="row">Fecha del viaje</th>
-                <td>10/08/2018</td>
+                <td><?php $date = date_create($pendiente_como_copiloto['fecha_partida']);
+                echo $date->format('d-m-Y');?></td>
               </tr>
             </tbody>
           </table>
@@ -165,34 +181,12 @@ include('php/conexion.php');
         </div>
       </div>
     </div><!-- Fin de este viaje -->
-
-    <div class="row px-3 my-4"> <!-- Comienzo de este viaje-->
-      <div class="card" style="width: 30rem;">
-        <h5 class="card-header h-50">la plata,Buenos Aires a buenos aires,Buenos Aires</h5>
-        <div class="card-body px-0 py-0">
-          <table class="table">
-            <tbody>
-              <tr>
-                <th scope="row">Piloto</th>
-                <td>Pepito flores</td>
-              </tr>
-              <tr>
-                <th scope="row">Fecha del viaje</th>
-                <td>06/07/2018</td>
-              </tr>
-            </tbody>
-          </table>
-
-        </div>
-        <div class="card-footer text-right py-2">
-          <a href="#" class="btn btn-success">Calificar al piloto</a>
-        </div>
-      </div>
-    </div><!-- Fin de este viaje -->
+    <?php
+    }
+    ?>
 
 
-
-  </div>
+  </div> <!-- Fin scroll bar -->
 
 </div>
 
