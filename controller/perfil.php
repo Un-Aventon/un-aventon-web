@@ -140,7 +140,7 @@ function render($vars = [])
     <div class="col-md-8">
       <h1 class="display-4" style="margin-bottom: -6px"><?php echo $user['nombre']." ".$user['apellido']; ?></h1>
       <span style="margin-bottom: 10px; display: block"><?php echo $user['email']; ?></span>
-      <span><?php echo calificacion($user['idUser']) ?> puntos</span> | <a href="/calificaciones">ver calificaciones</a> <br>
+      <span><?php echo calificacion($user['idUser']) ?> puntos</span> | <a href="/calificaciones">ver calificaciones pendientes</a> <br>
       <span><?php echo $contador_vehiculos['cont']; ?> vehiculos</span> | <a href="#" data-toggle="modal" data-target="#CargarAuto">agregar un vehiculo</a> | <a href="/listado-vehiculos">ver vehiculos</a> <br>
     </div>
     <div class="col-md-1">
