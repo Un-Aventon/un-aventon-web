@@ -15,6 +15,18 @@ if(isset($_COOKIE["calificar_usuario"]) && $_COOKIE["calificar_usuario"])
     setcookie("calificar_usuario",false);
 }
 
+!isset($_POST['calificar_a_todos'])?:include('php/calificar_copilotos.php');
+
+if(isset($_COOKIE["calificar_a_todos"]) && $_COOKIE["calificar_a_todos"])
+{
+    echo '<div class="alert alert-success alert-dismissable centrado" style="z-index: 99999; box-shadow: 0px 3px 20px rgba(54, 54, 54, 0.7)">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                Tu calificacion se envió correctamente!
+            </div>';
+
+    setcookie("calificar_a_todos",false);
+}
+
 $consulta = "SELECT calificacion.idCalificacion, calificacion.idCalificador, calificacion.idCalificado, calificacion.idViaje, viaje.idPiloto, viaje.fecha_partida, viaje.origen, viaje.destino, usuario.nombre, usuario.apellido\n"
 
     . "FROM calificacion \n"
@@ -68,7 +80,7 @@ $calificaciones_como_piloto = mysqli_query($conexion, $consulta) or die("Error e
     if(mysqli_num_rows($calificaciones_como_piloto) == 0){
 
       ?>
-      <div class="cardalert alert-info mt-2 mb-4">
+      <div class="alert-info mt-2 mb-4">
         <div class="card-body ">
           <h5 class="card-title">No tienes calificaciones a copilotos pendientes!</h5>
           <small class="card-text">Al finalizar un viaje como piloto, podrás calificar a los copilotos en esta sección.</small>
@@ -84,7 +96,9 @@ $calificaciones_como_piloto = mysqli_query($conexion, $consulta) or die("Error e
   $pendiente_como_piloto = mysqli_fetch_array($calificaciones_como_piloto);
   while ($pendiente_como_piloto) {
     $idViaje = $pendiente_como_piloto['idViaje'];
-
+    $arr = array();
+    $datos_extras = array();
+    $datos_extras = $pendiente_como_piloto;
   ?>
     <div class="row px-3 my-4"> <!-- Comienzo de este viaje-->
       <div class="card" style="width: 30rem;">
@@ -94,6 +108,7 @@ $calificaciones_como_piloto = mysqli_query($conexion, $consulta) or die("Error e
           <ul class="list-group list-group-flush py-1">
           <?php
           while (($pendiente_como_piloto) && ($pendiente_como_piloto['idViaje'] == $idViaje)){
+            $arr[] = $pendiente_como_piloto['idCalificacion'];
 
           ?>
             <li class="list-group-item">
@@ -153,7 +168,55 @@ $calificaciones_como_piloto = mysqli_query($conexion, $consulta) or die("Error e
           </ul>
         </div>
         <div class="card-footer">
-          <a href="#" class="btn btn-info">Calificar a todos</a>
+            <a href="#"  class="btn btn-info" data-toggle="modal" data-target="#grupo<?php echo $datos_extras['idCalificacion'];?>">Calificar a todos</a>
+
+             <!-- Modal -->
+             <form action="/calificaciones" method="post">
+             <div class="modal fade" id="grupo<?php echo $datos_extras['idCalificacion'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+               <div class="modal-dialog modal-dialog-centered" role="document">
+                 <div class="modal-content">
+                   <div class="modal-header">
+                     <h5 class="modal-title" id="exampleModalCenterTitle">Calificar al grupo</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                     </button>
+                   </div>
+                   <div class="modal-body">
+                     <div class="alert alert-warning" role="alert">
+                       Estas a punto de calificar a todas las personas del viaje <?php echo $datos_extras['origen'] . ' a ' . $datos_extras['destino']; ?> que se realizó en la fecha <?php $date = date_create($datos_extras['fecha_partida']);
+                       echo $date->format('d-m-Y');?>. Eso significa que la misma calificacion irá para todos los miembros del viaje por igual.
+                     </div>
+                     <div class="form-group">
+                     <label for="exampleFormControlSelect1">Cual fue tu experiencia con el grupo en tu viaje?</label>
+                       <select name="calificacion" class="form-control" id="exampleFormControlSelect1">
+                         <option value="1">Buena</option>
+                         <option value="-1">Mala</option>
+                         <option value="0">Regular</option>
+                       </select>
+                     </div>
+                     <div class="form-group">
+                       <label for="exampleFormControlTextarea1">Comenta detalles de tu experiencia con el grupo</label>
+                       <textarea name="comentario" class="form-control" id="exampleFormControlTextarea1" rows="2" placeholder="¿Que tal estuvo el viaje con el copiloto?"></textarea>
+                     </div>
+                   </div>
+                   <div class="modal-footer">
+                     <?php
+                     foreach ($arr as $key => $value) {
+                       ?>
+                         <input type="hidden" name="numero<?php echo $key;?>" value="<?php echo $value;?>">
+                       <?php
+                     }
+                     ?>
+                     <input type="hidden" name="cant_usuarios" value="<?php echo count($arr);?>">
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                     <button type="submit" name="calificar_a_todos" class="btn btn-success">Enviar!</button>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </form>
+
+
         </div>
       </div>
     </div><!-- Fin de este viaje -->
@@ -171,7 +234,7 @@ $calificaciones_como_piloto = mysqli_query($conexion, $consulta) or die("Error e
   if(mysqli_num_rows($calificaciones_como_copiloto) == 0){
 
     ?>
-    <div class="cardalert alert-info mt-2 mb-4">
+    <div class="alert-info mt-2 mb-4">
       <div class="card-body ">
         <h5 class="card-title">No tienes calificaciones a pilotos pendientes!</h5>
         <small class="card-text">Al finalizar un viaje como copiloto, podrás calificar al piloto en esta sección.</small>
@@ -207,7 +270,7 @@ $calificaciones_como_piloto = mysqli_query($conexion, $consulta) or die("Error e
 
         </div>
         <div class="card-footer text-right py-2">
-          <a href="#"class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter<?php echo $pendiente_como_copiloto['idCalificacion'];?>">Calificar al piloto</a>
+          <a href="#" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter<?php echo $pendiente_como_copiloto['idCalificacion'];?>">Calificar al piloto</a>
         </div>
       </div>
     </div><!-- Fin de este viaje -->
