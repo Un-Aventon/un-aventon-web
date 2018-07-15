@@ -47,7 +47,9 @@ $consulta = "SELECT calificacion.idCalificacion, calificacion.idCalificador, cal
 
     . "INNER JOIN usuario on (calificacion.idCalificado = usuario.idUser)\n"
 
-    . "WHERE (calificacion.idCalificador = $_SESSION[userId]) and (calificacion.calificacion IS NULL)";
+    . "WHERE (calificacion.idCalificador = $_SESSION[userId]) and (calificacion.calificacion IS NULL)"
+
+    . "ORDER BY calificacion.idViaje ASC";
 
 $calificaciones_como_piloto = mysqli_query($conexion, $consulta) or die("Error en la consulta de calificaciones pendientes como piloto". mysqli_error($conexion));
 
