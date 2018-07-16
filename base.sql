@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-07-2018 a las 19:21:49
+-- Tiempo de generación: 16-07-2018 a las 02:47:01
 -- Versión del servidor: 10.1.34-MariaDB
 -- Versión de PHP: 7.2.7
 
@@ -65,11 +65,13 @@ INSERT INTO `calificacion` (`idCalificacion`, `idCalificador`, `idCalificado`, `
 (37, 0, 4, '3', 0, '2018-06-27 22:42:37', '-1', 'harcodeada'),
 (38, 0, 7, '3', 0, '2018-06-28 11:02:12', '-1', 'penalizacion por rechazo de postulacion'),
 (39, 0, 7, '3', 0, '2018-06-28 11:05:22', '1', 'hola mundo'),
-(40, 7, 5, '2', 47, '2018-07-11 07:20:00', '1', 'sss'),
+(40, 7, 5, '2', 47, '2018-07-11 07:20:00', NULL, 'sss'),
 (41, 7, 5, '2', 48, '2018-07-11 07:20:00', '1', 'asdasdas'),
-(42, 7, 4, '2', 53, '2018-07-05 14:00:00', '1', 'buena onda los chabones'),
-(43, 7, 5, '2', 53, '2018-07-05 14:00:00', '1', 'buena onda los chabones'),
-(44, 7, 6, '2', 53, '2018-07-05 14:00:00', '1', 'buena onda los chabones');
+(42, 7, 4, '2', 53, '2018-07-05 14:00:00', NULL, 'buena onda los chabones'),
+(43, 7, 5, '2', 53, '2018-07-05 14:00:00', NULL, 'buena onda los chabones'),
+(44, 7, 6, '2', 53, '2018-07-05 14:00:00', NULL, 'buena onda los chabones'),
+(45, 7, 4, '2', 54, '2018-06-27 17:29:18', NULL, ''),
+(46, 7, 5, '2', 54, '2018-06-27 17:29:18', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -125,15 +127,18 @@ CREATE TABLE `pago` (
   `idPago` int(6) NOT NULL,
   `idViaje` int(6) NOT NULL,
   `fecha` date NOT NULL,
-  `hora` time NOT NULL
+  `hora` time NOT NULL,
+  `estado` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `pago`
 --
 
-INSERT INTO `pago` (`idPago`, `idViaje`, `fecha`, `hora`) VALUES
-(1, 1, '2018-06-20', '00:20:06');
+INSERT INTO `pago` (`idPago`, `idViaje`, `fecha`, `hora`, `estado`) VALUES
+(1, 1, '2018-06-20', '00:20:06', NULL),
+(2, 52, '2018-06-28', '00:00:04', NULL),
+(3, 54, '2018-06-27', '00:00:04', NULL);
 
 -- --------------------------------------------------------
 
@@ -230,10 +235,10 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idUser`, `email`, `clave`, `nombre`, `apellido`, `admin`) VALUES
-(4, 'user1@mail.com', '12345', 'jose', 'perez', 0),
+(4, 'user1@mail.com', '12345', 'Valentin', 'Damia', 0),
 (5, 'user2@mail.com', '12345', 'jose', 'perez', 0),
 (6, 'user3@mail.com', '12345', 'Juana', 'Valle', 0),
-(7, 'koumsky@gmail.com', '12345', 'Martin', 'Salem', 0);
+(7, 'koumsky@gmail.com', '12345', 'Mariano', 'Martinelli', 0);
 
 -- --------------------------------------------------------
 
@@ -294,7 +299,8 @@ INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `
 (50, 7, 15, '2018-06-27 22:05:04', '2018-06-30 13:00:00', 2, 'chascomus,Buenos Aires', 'la plata,Buenos Aires', 1, 500, 1, 'unico'),
 (51, 7, 15, '2018-06-27 22:05:04', '2018-07-07 13:00:00', 2, 'chascomus,Buenos Aires', 'la plata,Buenos Aires', 3, 500, 1, 'recurrente'),
 (52, 7, 15, '2018-06-28 11:03:03', '2018-07-05 14:00:00', 7, 'nequen,NeuquÃ©n', 'el bolson,RÃ­o Negro', 1, 1200, 1, 'unico'),
-(53, 7, 15, '2018-06-28 11:03:03', '2018-07-05 14:00:00', 1, 'Buenos aires, la Plata', 'Buenos aires, Palermo', 3, 3000, 3, 'unico');
+(53, 7, 15, '2018-06-28 11:03:03', '2018-07-05 14:00:00', 1, 'Buenos aires, la Plata', 'Buenos aires, Palermo', 3, 3000, 3, 'unico'),
+(54, 7, 15, '2018-06-27 17:29:18', '2018-06-27 17:31:00', 1, 'Palermo', 'Tandil', 3, 3000, 3, 'unico');
 
 --
 -- Índices para tablas volcadas
@@ -368,7 +374,7 @@ ALTER TABLE `viaje`
 -- AUTO_INCREMENT de la tabla `calificacion`
 --
 ALTER TABLE `calificacion`
-  MODIFY `idCalificacion` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `idCalificacion` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT de la tabla `estado_participacion`
@@ -386,7 +392,7 @@ ALTER TABLE `estado_viaje`
 -- AUTO_INCREMENT de la tabla `pago`
 --
 ALTER TABLE `pago`
-  MODIFY `idPago` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idPago` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `participacion`
@@ -422,7 +428,7 @@ ALTER TABLE `vehiculo`
 -- AUTO_INCREMENT de la tabla `viaje`
 --
 ALTER TABLE `viaje`
-  MODIFY `idViaje` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `idViaje` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

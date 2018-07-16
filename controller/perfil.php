@@ -26,6 +26,16 @@ function render($vars = [])
                                     die ("problemas con el contador");
   $contador_vehiculos=mysqli_fetch_array($contador_vehiculos);
 
+  $sql = "SELECT pago.idPago\n"
+
+      . "FROM pago\n"
+
+      . "INNER JOIN viaje ON (viaje.idViaje = pago.idViaje)\n"
+
+      . "WHERE viaje.idPiloto = $_SESSION[userId] AND pago.estado IS NULL";
+
+  $contador_pagos = mysqli_query($conexion, $sql);
+
   !isset($_POST['marca'])?:include('php/alta_vehiculo.php');
 
   if(isset($_COOKIE["carga_vehiculo"]) && $_COOKIE["carga_vehiculo"])
@@ -142,6 +152,7 @@ function render($vars = [])
       <span style="margin-bottom: 10px; display: block"><?php echo $user['email']; ?></span>
       <span><?php echo calificacion($user['idUser']) ?> puntos</span> | <a href="/calificaciones">ver calificaciones pendientes</a> <br>
       <span><?php echo $contador_vehiculos['cont']; ?> vehiculos</span> | <a href="#" data-toggle="modal" data-target="#CargarAuto">agregar un vehiculo</a> | <a href="/listado-vehiculos">ver vehiculos</a> <br>
+      <span><?php echo mysqli_num_rows($contador_pagos)?> pagos pendientes</span> | <a href="/pagos_pendientes">ver pagos pendientes</a> <br>
     </div>
     <div class="col-md-1">
       <img src="img/cambio.png" class="boton_cambios" alt="boton cambios" title="Cambiar datos personales" data-toggle="modal" data-target="#modalCambioDatos">
