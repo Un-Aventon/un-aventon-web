@@ -104,7 +104,7 @@ $calificaciones_como_piloto = mysqli_query($conexion, $consulta) or die("Error e
   ?>
     <div class="row px-3 my-4"> <!-- Comienzo de este viaje-->
       <div class="card" style="width: 30rem;">
-        <h5 class="card-header h-50"><?php echo $pendiente_como_piloto['destino']?></h5>
+        <h5 class="card-header h-50"><?php echo $pendiente_como_piloto['origen'] . ' a ' . $pendiente_como_piloto['destino']?></h5>
         <div class="card-body">
           <h5 class="card-title">Tus copilotos en este viaje</h5>
           <ul class="list-group list-group-flush py-1">
