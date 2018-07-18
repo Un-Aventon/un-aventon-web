@@ -37,8 +37,10 @@
                 $_SESSION['mail'] = $result['email'];
                 $_SESSION['nombre'] = $result['nombre'];
                 $_SESSION['apellido'] = $result['apellido'];
+								$_SESSION['admin'] = $result['admin'];
 
-                header("Location: /");
+								if($_SESSION['admin'] == 1) header("Location: /pagos_admin");
+								else header("Location: /");
 
             } //fin verificar usuario existe
       }// fin verificar string
