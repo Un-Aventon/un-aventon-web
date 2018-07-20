@@ -7,17 +7,35 @@ function render($vars = [])
   {
     if($_SESSION['admin'] == 1)
     {
-      // Aca va toda la vista
+      if(isset($_POST['filtrar']))
+      {
+        $inicial = $_POST['inicial'];
+        $terminal = $_POST['terminal'];
+        $sql = "SELECT pago.fecha, usuario.nombre, usuario.apellido, viaje.costo\n"
 
-      $sql = "SELECT pago.fecha, usuario.nombre, usuario.apellido, viaje.costo\n"
+        . "FROM pago\n"
 
-    . "FROM pago\n"
+        . "INNER JOIN viaje on (pago.idViaje = viaje.idViaje)\n"
 
-    . "INNER JOIN viaje on (pago.idViaje = viaje.idViaje)\n"
+        . "INNER JOIN usuario ON (viaje.idPiloto = usuario.idUser)\n"
 
-    . "INNER JOIN usuario ON (viaje.idPiloto = usuario.idUser)"
+        . "WHERE pago.estado IS NOT NULL AND (pago.fecha BETWEEN '$inicial' AND '$terminal')";
+        //var_dump($inicial);
+        //var_dump($terminal);
 
-    . "WHERE pago.estado IS NOT NULL";
+      }
+      else
+      {
+        $sql = "SELECT pago.fecha, usuario.nombre, usuario.apellido, viaje.costo\n"
+
+      . "FROM pago\n"
+
+      . "INNER JOIN viaje on (pago.idViaje = viaje.idViaje)\n"
+
+      . "INNER JOIN usuario ON (viaje.idPiloto = usuario.idUser)"
+
+      . "WHERE pago.estado IS NOT NULL";
+      }
 
     $pagos = mysqli_query($conexion, $sql);
 
@@ -37,16 +55,16 @@ function render($vars = [])
     <div class="row my-2 mb-3 ml-4">
       <div class="col col-md-5">
           <label>Desde</label>
-          <input type="date" name="inicial" class="form-control" <?php if(isset($inicial)){ echo 'value="' . $inicial . '"';}?>>
+          <input type="date" name="inicial" class="form-control" <?php if(isset($inicial)){ echo 'value="' . $inicial . '"';}?> required>
       </div>
 
       <div class="col col-md-5">
           <label>Hasta</label>
-          <input type="date" name="terminal" class="form-control" <?php if(isset($terminal)){ echo 'value="' . $terminal . '"';}?>>
+          <input type="date" name="terminal" class="form-control" <?php if(isset($terminal)){ echo 'value="' . $terminal . '"';}?> required>
       </div>
 
       <div class="col col-md-2 pt-4 mt-2">
-        <button type="submit" name="filtar"class="btn btn-info w-75"> Filtrar </button>
+        <button type="submit" name="filtrar"class="btn btn-info w-75"> Filtrar </button>
       </div>
     </div>
   </form>
@@ -63,8 +81,10 @@ function render($vars = [])
               </thead>
             <tbody>
               <?php
+              $total = 0;
               while($pago = mysqli_fetch_array($pagos))
               {
+                $total += $pago['costo'] * 5 / 100;
               ?>
               <tr>
                 <td><?php echo $pago['nombre'] . " " . $pago['apellido'];?></td>
@@ -76,6 +96,13 @@ function render($vars = [])
               ?>
             </tbody>
         </table>
+      </div>
+    </div>
+
+    <div class="row px-3 pt-5">
+      <div class="col col-md-12 alert alert-info" style="height: 3rem">
+        <?php if(isset($inicial) && isset($terminal)) echo "Monto total abonado entre las fechas $inicial y $terminal: $$total";
+              else echo "Monto total historico: $$total";?>
       </div>
     </div>
     <?php
