@@ -10,7 +10,9 @@
         if ( (comprobar_string($_REQUEST['email'])) && (comprobar_string($_REQUEST['nombre'])) && (comprobar_string($_REQUEST['apellido'])) ){
 
           $usuarios=mysqli_query($conexion, "SELECT *
-                                 from usuario
+                                 
+from usuario
+
                                  where email = '$_REQUEST[email]' and IdUser <> '$_SESSION[userId]'")
                                  or die("problemas en la busqueda de usuarios con el mismo email".mysqli_error($conexion));
           if(mysqli_num_rows($usuarios) == 0){

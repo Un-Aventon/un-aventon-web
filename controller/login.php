@@ -6,7 +6,9 @@
       // incluyo la conexion
       include('php/conexion.php');
 
-      $rec=mysqli_query($conexion,"SELECT * FROM Usuario WHERE email='$mail' AND clave='$password'")
+      $rec=mysqli_query($conexion,"SELECT * 
+from usuario
+ WHERE email='$mail' AND clave='$password'")
       or
       die("Problemas en la base de datos:".mysqli_error($conexion));
 

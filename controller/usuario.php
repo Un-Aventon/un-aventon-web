@@ -6,7 +6,9 @@
     include('php/conexion.php');
 
     $usuario=mysqli_query($conexion,"SELECT *
-                                     from usuario
+                                     
+from usuario
+
                                      where idUser='$vars[0]'")
                                      or die ("problemas en el select de usuarios");
     $usuario=mysqli_fetch_array($usuario);

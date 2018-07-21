@@ -17,7 +17,9 @@ function render($arr = [])
         if(preg_match($email_patter, $mail))
         {
           //verifico que no se encuentre registrado el email.
-          $rec=mysqli_query($conexion,"SELECT * FROM Usuario WHERE email='$mail' ")
+          $rec=mysqli_query($conexion,"SELECT * 
+from usuario
+ WHERE email='$mail' ")
           or
           die("Problemas en la base de datos:".mysqli_error($conexion));
           if(mysqli_fetch_array($rec) > 0)
@@ -78,7 +80,10 @@ function render($arr = [])
 
           if(!$form)
           {
-            $rec=mysqli_query($conexion,"INSERT into Usuario (email,clave,nombre,apellido) VALUES ('$mail','$pass','$nombre','$apellido' )") or die ('error '.mysqli_error($conexion));
+            $rec=mysqli_query($conexion,"
+
+insert into usuario
+ (email,clave,nombre,apellido) VALUES ('$mail','$pass','$nombre','$apellido' )") or die ('error '.mysqli_error($conexion));
             echo "<h2> El usuario se registro correctamente. </h3><br/>";
             echo "<h4><a href='/login'> iniciar sesion </a></h4>";
           }
