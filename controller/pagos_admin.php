@@ -2,7 +2,6 @@
 function render($vars = [])
 {
   include('php/conexion.php');
-
   if(isset($_SESSION['userId']))
   {
     if($_SESSION['admin'] == 1)
@@ -12,33 +11,22 @@ function render($vars = [])
         $inicial = $_POST['inicial'];
         $terminal = $_POST['terminal'];
         $sql = "SELECT pago.fecha, usuario.nombre, usuario.apellido, viaje.costo\n"
-
         . "FROM pago\n"
-
         . "INNER JOIN viaje on (pago.idViaje = viaje.idViaje)\n"
-
         . "INNER JOIN usuario ON (viaje.idPiloto = usuario.idUser)\n"
-
         . "WHERE pago.estado IS NOT NULL AND (pago.fecha BETWEEN '$inicial' AND '$terminal')";
         //var_dump($inicial);
         //var_dump($terminal);
-
       }
       else
       {
         $sql = "SELECT pago.fecha, usuario.nombre, usuario.apellido, viaje.costo\n"
-
       . "FROM pago\n"
-
       . "INNER JOIN viaje on (pago.idViaje = viaje.idViaje)\n"
-
       . "INNER JOIN usuario ON (viaje.idPiloto = usuario.idUser)"
-
       . "WHERE pago.estado IS NOT NULL";
       }
-
     $pagos = mysqli_query($conexion, $sql);
-
     ?>
 
     <div class="row">
@@ -46,7 +34,7 @@ function render($vars = [])
           <img src="img/pago.png" alt="imagen de usuario" style="width: 150px; margin-top: 15px">
         </div>
         <div class="col-md-8" style="margin-top: 1.5rem">
-          <h1 class="display-6" style="font-family: helvetica;">Administracion de pagos</h1>
+          <h1 class="display-6" style="font-family: helvetica;">Administración de pagos</h1>
           <p class="mb-1"> En esta sección se encuentra toda la información en relacion a las comisiones cobradas por 'UnAventon' a los usuarios que publican viajes. </p>
         </div>
     </div>
@@ -75,7 +63,7 @@ function render($vars = [])
               <thead>
                 <tr>
                   <th scope="col">Nombre Completo</th>
-                  <th scope="col" class="">Fecha</th>
+                  <th scope="col">Fecha</th>
                   <th scope="col">Monto Cobrado</th>
                 </tr>
               </thead>
@@ -103,14 +91,12 @@ function render($vars = [])
       <div class="col col-md-12 alert alert-info" style="height: 3rem">
         <?php if(isset($inicial) && isset($terminal)) echo "Monto total abonado entre las fechas $inicial y $terminal: $$total";
               else echo "Monto total historico: $$total";?>
+        <?php if(isset($_POST['filtrar'])) echo "<a href='/pagos_admin' class='btn btn-info float-right' style='margin-top:-0.5rem; width: 12rem;'> Volver pagos historicos </a>";?>
       </div>
     </div>
     <?php
-
-
     }
     else  echo "Menú solo para administradores";
   }
   else echo "Debes ser administrador logueado para ver esta sección";
-
 }
