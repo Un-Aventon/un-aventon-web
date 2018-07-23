@@ -91,7 +91,7 @@ function render($vars = [])
       <div class="col col-md-12 alert alert-info" style="height: 3rem">
         <?php if(isset($inicial) && isset($terminal)) echo "Monto total abonado entre las fechas $inicial y $terminal: $$total";
               else echo "Monto total historico: $$total";?>
-        <?php if(isset($_POST['filtrar'])) echo "<a href='/pagos_admin' class='btn btn-info float-right' style='margin-top:-0.5rem; width: 12rem;'> Volver pagos historicos </a>";?>
+        <?php if(isset($_POST['filtrar'])) echo "<a href='/pagos_admin' class='btn btn-info float-right' style='margin-top:-0.5rem; width: 12rem;'> Volver a pagos historicos </a>";?>
       </div>
     </div>
     <?php
