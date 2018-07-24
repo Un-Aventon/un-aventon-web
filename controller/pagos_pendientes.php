@@ -3,6 +3,18 @@ function render($vars = []){
 
 include('php/conexion.php');
 
+!isset($_POST['idPago'])?:include('php/pagar_viaje.php');
+
+if(isset($_COOKIE["pagar_viaje"]) && $_COOKIE["pagar_viaje"])
+{
+    echo '<div class="alert alert-success alert-dismissable centrado" style="z-index: 99999; box-shadow: 0px 3px 20px rgba(54, 54, 54, 0.7)">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                Tu pago se efectuó correctamente!
+            </div>';
+
+    setcookie("pagar_viaje",false);
+}
+
 $sql = "SELECT pago.idPago, viaje.idPiloto, viaje.fecha_partida, viaje.origen, viaje.destino, viaje.costo, usuario.nombre, usuario.apellido\n"
 
     . "FROM pago\n"
@@ -93,10 +105,50 @@ $pagos_abonados = mysqli_query($conexion, $sql);
           </table>
         </div>
         <div class="card-footer text-right py-2">
-          <a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="">Realizar Pago</a>
+          <a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter<?php echo $pago['idPago'];?>">Realizar Pago</a>
         </div>
       </div>
   </div> <!-- Fin del pago pendiente -->
+
+  <form action="/pagos_pendientes" method="post">
+    <div class="modal fade" id="exampleModalCenter<?php echo $pago['idPago'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle"> Realizar Pago</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-warning" role="alert">
+              Estas a punto de abonar el viaje <?php echo $pago['origen'] . ' a ' . $pago['destino']; ?> que se realizó en la fecha <?php $date = date_create($pago['fecha_partida']);
+              echo $date->format('d-m-Y');?> con un valor de <?php $costo = $pago['costo'] * 5 /100; echo "$$costo.";?>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Ingresa los 16 dígitos de tu tarjeta</label>
+              <input type="text" class="form-control" minlength="16" maxlength="16" name="numero" placeholder="1111 2222 3333 4444" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Ingresa la fecha de vencimiento de la tarjeta</label>
+              <input type="date" class="form-control" name="vencimiento" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Ingresa el código de seguridad de la tarjeta</label>
+              <input type="text" class="form-control" name="codigoseg" minlength="3" maxlength="3" placeholder="123" required>
+              <input type="hidden" name="idPago" value="<?php echo $pago['idPago']?>">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" name="enviarCalificacion" class="btn btn-success">Pagar!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+
   <?php
   }
   }
