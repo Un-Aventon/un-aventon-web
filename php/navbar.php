@@ -27,7 +27,12 @@
                   <?php echo $_SESSION['nombre']." ".$_SESSION['apellido']; ?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/perfil">Mi perfil</a>
+                <?php 
+                  if($_SESSION['admin'] != 1)
+                  {
+                    echo '<a class="dropdown-item" href="/perfil">Mi perfil</a>';
+                  } 
+                ?>
                   <a class="dropdown-item" href="/logout">Cerrar sesion</a>
                 </div>
             </li>

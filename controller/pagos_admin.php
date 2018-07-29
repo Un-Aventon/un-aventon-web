@@ -96,7 +96,7 @@ function render($vars = [])
     </div>
     <?php
     }
-    else  echo "Menú solo para administradores";
+    else  header("Location: /");
   }
-  else echo "Debes ser administrador logueado para ver esta sección";
+  else header("Location: /");
 }

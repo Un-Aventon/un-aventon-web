@@ -18,6 +18,12 @@ class Router
             $url = explode('/', $url);
 
             $url['1']? $this->file = $url['1'] : $this->file ='home';
+            
+            //Si es el admin, solo puede ver los pagos realizados
+            if(isset($_SESSION['admin']) and $_SESSION['admin'] == 1 and $this->get_file() != 'logout')
+            {
+                  $this->file = 'pagos_admin';
+            }
 
             $this->variables = array_slice($url, 2);
       }
