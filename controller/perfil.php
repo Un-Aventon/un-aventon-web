@@ -434,6 +434,9 @@ from usuario
         </form>
       </div>
       <div class="modal-footer">
+        <div class="col-sm-6 text-left">
+          <a href="/del_account">Eliminar Cuenta</a>
+        </div>
         <a href="#" onclick="alert('Esta funcion todavia esta en desarrollo')">Cambiar clave de acceso</a>
       </div>
     </div>

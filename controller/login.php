@@ -8,7 +8,7 @@
 
       $rec=mysqli_query($conexion,"SELECT * 
 from usuario
- WHERE email='$mail' AND clave='$password'")
+ WHERE email='$mail' AND clave='$password' and estadoUsuario = 1")
       or
       die("Problemas en la base de datos:".mysqli_error($conexion));
 

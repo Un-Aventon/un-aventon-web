@@ -19,7 +19,7 @@ function render($arr = [])
           //verifico que no se encuentre registrado el email.
           $rec=mysqli_query($conexion,"SELECT * 
 from usuario
- WHERE email='$mail' ")
+ WHERE email='$mail' and estadoUsuario = 1 ")
           or
           die("Problemas en la base de datos:".mysqli_error($conexion));
           if(mysqli_fetch_array($rec) > 0)
