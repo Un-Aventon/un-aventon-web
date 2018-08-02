@@ -1,9 +1,10 @@
 <?php
 if(isset($_POST['enviarCalificacion']))
 {
+  $fecha = date("Y-m-d");
   $sql = "UPDATE calificacion\n"
 
-    . "SET calificacion.calificacion=$_POST[calificacion], comentario='$_POST[comentario]'"
+    . "SET calificacion.calificacion=$_POST[calificacion], comentario='$_POST[comentario]', fecha = '$fecha'"
 
     . "WHERE calificacion.idCalificacion = $_POST[idCalificacion]";
   mysqli_query($conexion, $sql) or die("Problemas al actualizar la calificacion del piloto/copiloto" . mysqli_error($conexion));

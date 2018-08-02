@@ -116,7 +116,7 @@ $calificaciones_como_piloto = mysqli_query($conexion, $consulta) or die("Error e
             <li class="list-group-item">
               <div class="row">
                 <div class="col col-md-6">
-                  <?php echo $pendiente_como_piloto['nombre'] . ' ' . $pendiente_como_piloto['apellido'];?>
+                  <a href="usuario/<?php echo $pendiente_como_piloto['idCalificado'];?>" target="_blank"><?php echo $pendiente_como_piloto['nombre'] . ' ' . $pendiente_como_piloto['apellido'];?></a>
                 </div>
                 <div class="col col-md-6 text-right pr-1">
                   <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter<?php echo $pendiente_como_piloto['idCalificacion'];?>">Calificar</button>
@@ -260,7 +260,7 @@ $calificaciones_como_piloto = mysqli_query($conexion, $consulta) or die("Error e
             <tbody>
               <tr>
                 <th scope="row">Piloto</th>
-                <td><?php echo $pendiente_como_copiloto['nombre'] . ' ' . $pendiente_como_copiloto['apellido']; ?></td>
+                <td><a href="usuario/<?php echo $pendiente_como_copiloto['idCalificado'];?>" target="_blank"><?php echo $pendiente_como_copiloto['nombre'] . ' ' . $pendiente_como_copiloto['apellido']; ?></a></td>
               </tr>
               <tr>
                 <th scope="row">Fecha del viaje</th>

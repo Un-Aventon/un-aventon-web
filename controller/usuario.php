@@ -80,6 +80,9 @@
 
 					. "WHERE calificacion.idCalificado = $vars[0] AND calificacion.calificacion = 1";
 		}
+
+		$calificacionesNoNulas = mysqli_query($conexion, "SELECT * FROM calificacion WHERE idCalificado = $vars[0] and calificacion IS NOT NULL");
+
     $c = mysqli_query($conexion, $sql) or die(mysqli_error($conexion));
 
     $usuario=mysqli_query($conexion,"SELECT *
@@ -92,7 +95,7 @@
     <h1>Perfil de <?php echo $usuario['nombre']." ".$usuario['apellido'];?> </h1>
     <?php $calificaciones = calificacion_grafica_simple($usuario['idUser']);
 
-    echo "calificaciones totales: ".$calificaciones["contador_total"]."
+    echo "calificaciones totales: ".mysqli_num_rows($calificacionesNoNulas)."
           <br>";
     echo  "<small class='float-right''>".$calificaciones['positivas']." calificaciones positivas </small> <br>";
     echo "<div class='progress'>
@@ -155,7 +158,7 @@
 	          ?>
 	          <div class="card border-<?php echo $estilo;?> mb-3 w-100">
 	            <div class="card-body text-<?php echo $estilo;?> text-left">
-	              <h6 class="card-title text-dark"><?php echo $calificacion['nombre'] . " " . $calificacion['apellido'];?> Calificó positivo a <?php echo $usuario['nombre'] . " " . $usuario['apellido'];?></h6>
+	              <h6 class="card-title text-dark"><?php echo $calificacion['nombre'] . " " . $calificacion['apellido'];?> Calificó a <?php echo $usuario['nombre'] . " " . $usuario['apellido'];?></h6>
 	              <p class="card-text"><?php echo $calificacion['comentario'];?></p>
 	              <small class="float-right" style="margin-top: -4.3rem; margin-bottom: 0rem"> <?php $date = date_create($calificacion['fecha']);
 								echo $date->format('d-m-Y');?></small>
