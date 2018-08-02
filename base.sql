@@ -235,7 +235,7 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`idUser`, `email`, `clave`, `nombre`, `apellido`, `admin`, `estadoUsuario`, `recuperarContraseña`) VALUES
+INSERT INTO `usuario` (`idUser`, `email`, `clave`, `nombre`, `apellido`, `admin`, `estadoUsuario`, `recuperarPassword`) VALUES
 (4, 'user1@mail.com', '12345', 'Valentin', 'Damia', 0, 1, 0),
 (5, 'user2@mail.com', '12345', 'jose', 'perez', 0, 1, 0),
 (6, 'user3@mail.com', '12345', 'Juana', 'Valle', 0, 1, 0),
