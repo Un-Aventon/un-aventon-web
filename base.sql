@@ -228,7 +228,7 @@ CREATE TABLE `usuario` (
   `apellido` varchar(50) NOT NULL,
   `admin` int(1) NOT NULL DEFAULT '0',
   `estadoUsuario` int(11) NOT NULL DEFAULT '1',
-  `recuperarContraseña` tinyint(1) NOT NULL DEFAULT '0'
+  `recuperarPassword` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
