@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jul 31, 2018 at 07:54 PM
--- Server version: 10.1.34-MariaDB
--- PHP Version: 7.2.7
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 02-08-2018 a las 02:58:44
+-- Versión del servidor: 10.1.31-MariaDB
+-- Versión de PHP: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `base`
+-- Base de datos: `base`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `calificacion`
+-- Estructura de tabla para la tabla `calificacion`
 --
 
 CREATE TABLE `calificacion` (
@@ -40,7 +40,7 @@ CREATE TABLE `calificacion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `calificacion`
+-- Volcado de datos para la tabla `calificacion`
 --
 
 INSERT INTO `calificacion` (`idCalificacion`, `idCalificador`, `idCalificado`, `tipo`, `idViaje`, `fecha`, `calificacion`, `comentario`) VALUES
@@ -76,7 +76,7 @@ INSERT INTO `calificacion` (`idCalificacion`, `idCalificador`, `idCalificado`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `estado_participacion`
+-- Estructura de tabla para la tabla `estado_participacion`
 --
 
 CREATE TABLE `estado_participacion` (
@@ -86,7 +86,7 @@ CREATE TABLE `estado_participacion` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `estado_participacion`
+-- Volcado de datos para la tabla `estado_participacion`
 --
 
 INSERT INTO `estado_participacion` (`idEstado`, `color`, `estado`) VALUES
@@ -99,7 +99,7 @@ INSERT INTO `estado_participacion` (`idEstado`, `color`, `estado`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `estado_viaje`
+-- Estructura de tabla para la tabla `estado_viaje`
 --
 
 CREATE TABLE `estado_viaje` (
@@ -109,7 +109,7 @@ CREATE TABLE `estado_viaje` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `estado_viaje`
+-- Volcado de datos para la tabla `estado_viaje`
 --
 
 INSERT INTO `estado_viaje` (`idEstado`, `color`, `estado`) VALUES
@@ -120,7 +120,7 @@ INSERT INTO `estado_viaje` (`idEstado`, `color`, `estado`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pago`
+-- Estructura de tabla para la tabla `pago`
 --
 
 CREATE TABLE `pago` (
@@ -132,7 +132,7 @@ CREATE TABLE `pago` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pago`
+-- Volcado de datos para la tabla `pago`
 --
 
 INSERT INTO `pago` (`idPago`, `idViaje`, `fecha`, `hora`, `estado`) VALUES
@@ -143,7 +143,7 @@ INSERT INTO `pago` (`idPago`, `idViaje`, `fecha`, `hora`, `estado`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `participacion`
+-- Estructura de tabla para la tabla `participacion`
 --
 
 CREATE TABLE `participacion` (
@@ -155,14 +155,13 @@ CREATE TABLE `participacion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `participacion`
+-- Volcado de datos para la tabla `participacion`
 --
 
 INSERT INTO `participacion` (`idParticipacion`, `idUsuario`, `idViaje`, `fecha_solicitud`, `estado`) VALUES
 (43, 1, 46, '2018-06-27 17:11:29', 1),
 (44, 1, 45, '2018-06-27 17:15:31', 1),
 (45, 6, 50, '2018-06-27 22:24:52', 1),
-(46, 4, 50, '2018-06-27 22:25:22', 1),
 (47, 6, 51, '2018-06-28 11:00:03', 1),
 (48, 6, 52, '2018-06-28 11:04:07', 2),
 (49, 4, 53, '2018-06-28 11:03:03', 5),
@@ -172,7 +171,7 @@ INSERT INTO `participacion` (`idParticipacion`, `idUsuario`, `idViaje`, `fecha_s
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pregunta`
+-- Estructura de tabla para la tabla `pregunta`
 --
 
 CREATE TABLE `pregunta` (
@@ -185,7 +184,7 @@ CREATE TABLE `pregunta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pregunta`
+-- Volcado de datos para la tabla `pregunta`
 --
 
 INSERT INTO `pregunta` (`idPregunta`, `idPreguntante`, `idViaje`, `pregunta`, `respuesta`, `fecha`) VALUES
@@ -196,7 +195,7 @@ INSERT INTO `pregunta` (`idPregunta`, `idPreguntante`, `idViaje`, `pregunta`, `r
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo_vehiculo`
+-- Estructura de tabla para la tabla `tipo_vehiculo`
 --
 
 CREATE TABLE `tipo_vehiculo` (
@@ -206,7 +205,7 @@ CREATE TABLE `tipo_vehiculo` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tipo_vehiculo`
+-- Volcado de datos para la tabla `tipo_vehiculo`
 --
 
 INSERT INTO `tipo_vehiculo` (`idTipo`, `icono`, `tipo`) VALUES
@@ -218,7 +217,7 @@ INSERT INTO `tipo_vehiculo` (`idTipo`, `icono`, `tipo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -228,23 +227,24 @@ CREATE TABLE `usuario` (
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `admin` int(1) NOT NULL DEFAULT '0',
-  `estadoUsuario` int(11) NOT NULL DEFAULT '1'
+  `estadoUsuario` int(11) NOT NULL DEFAULT '1',
+  `recuperarContraseña` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`idUser`, `email`, `clave`, `nombre`, `apellido`, `admin`, `estadoUsuario`) VALUES
-(4, 'user1@mail.com', '12345', 'Valentin', 'Damia', 0, 1),
-(5, 'user2@mail.com', '12345', 'jose', 'perez', 0, 1),
-(6, 'user3@mail.com', '12345', 'Juana', 'Valle', 0, 1),
-(7, 'koumsky@gmail.com', '12345', 'Mariano', 'Martinelli', 0, 1);
+INSERT INTO `usuario` (`idUser`, `email`, `clave`, `nombre`, `apellido`, `admin`, `estadoUsuario`, `recuperarContraseña`) VALUES
+(4, 'user1@mail.com', '12345', 'Valentin', 'Damia', 0, 1, 0),
+(5, 'user2@mail.com', '12345', 'jose', 'perez', 0, 1, 0),
+(6, 'user3@mail.com', '12345', 'Juana', 'Valle', 0, 1, 0),
+(7, 'koumsky@gmail.com', '12345', 'Mariano', 'Martinelli', 0, 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vehiculo`
+-- Estructura de tabla para la tabla `vehiculo`
 --
 
 CREATE TABLE `vehiculo` (
@@ -260,18 +260,19 @@ CREATE TABLE `vehiculo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `vehiculo`
+-- Volcado de datos para la tabla `vehiculo`
 --
 
 INSERT INTO `vehiculo` (`idVehiculo`, `idPropietario`, `cant_asientos`, `modelo`, `marca`, `color`, `patente`, `tipo`, `eliminado`) VALUES
 (13, 5, 4, '2010', 'ford', 'azul', 'jey001', 1, 0),
 (14, 6, 5, '2008', 'Chevrolet', 'negro', 'jio003', 1, 0),
-(15, 7, 4, '2018', 'Peugeot', 'negro', 'hjh212', 1, 0);
+(15, 7, 4, '2018', 'Peugeot', 'negro', 'hjh212', 1, 0),
+(16, 4, 3, 'kangoo', 'renault', 'rojo', 'aaa222', 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `viaje`
+-- Estructura de tabla para la tabla `viaje`
 --
 
 CREATE TABLE `viaje` (
@@ -290,7 +291,7 @@ CREATE TABLE `viaje` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `viaje`
+-- Volcado de datos para la tabla `viaje`
 --
 
 INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `fecha_partida`, `tiempo_estimado`, `origen`, `destino`, `asientos_disponibles`, `costo`, `estado`, `tipo`) VALUES
@@ -304,129 +305,129 @@ INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `
 (54, 7, 15, '2018-06-27 17:29:18', '2018-06-27 17:31:00', 1, 'Palermo', 'Tandil', 3, 3000, 3, 'unico');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `calificacion`
+-- Indices de la tabla `calificacion`
 --
 ALTER TABLE `calificacion`
   ADD PRIMARY KEY (`idCalificacion`);
 
 --
--- Indexes for table `estado_participacion`
+-- Indices de la tabla `estado_participacion`
 --
 ALTER TABLE `estado_participacion`
   ADD PRIMARY KEY (`idEstado`);
 
 --
--- Indexes for table `estado_viaje`
+-- Indices de la tabla `estado_viaje`
 --
 ALTER TABLE `estado_viaje`
   ADD PRIMARY KEY (`idEstado`);
 
 --
--- Indexes for table `pago`
+-- Indices de la tabla `pago`
 --
 ALTER TABLE `pago`
   ADD PRIMARY KEY (`idPago`);
 
 --
--- Indexes for table `participacion`
+-- Indices de la tabla `participacion`
 --
 ALTER TABLE `participacion`
   ADD PRIMARY KEY (`idParticipacion`);
 
 --
--- Indexes for table `pregunta`
+-- Indices de la tabla `pregunta`
 --
 ALTER TABLE `pregunta`
   ADD PRIMARY KEY (`idPregunta`);
 
 --
--- Indexes for table `tipo_vehiculo`
+-- Indices de la tabla `tipo_vehiculo`
 --
 ALTER TABLE `tipo_vehiculo`
   ADD PRIMARY KEY (`idTipo`);
 
 --
--- Indexes for table `usuario`
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`idUser`);
 
 --
--- Indexes for table `vehiculo`
+-- Indices de la tabla `vehiculo`
 --
 ALTER TABLE `vehiculo`
   ADD PRIMARY KEY (`idVehiculo`);
 
 --
--- Indexes for table `viaje`
+-- Indices de la tabla `viaje`
 --
 ALTER TABLE `viaje`
   ADD PRIMARY KEY (`idViaje`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `calificacion`
+-- AUTO_INCREMENT de la tabla `calificacion`
 --
 ALTER TABLE `calificacion`
   MODIFY `idCalificacion` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
--- AUTO_INCREMENT for table `estado_participacion`
+-- AUTO_INCREMENT de la tabla `estado_participacion`
 --
 ALTER TABLE `estado_participacion`
   MODIFY `idEstado` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `estado_viaje`
+-- AUTO_INCREMENT de la tabla `estado_viaje`
 --
 ALTER TABLE `estado_viaje`
   MODIFY `idEstado` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `pago`
+-- AUTO_INCREMENT de la tabla `pago`
 --
 ALTER TABLE `pago`
   MODIFY `idPago` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `participacion`
+-- AUTO_INCREMENT de la tabla `participacion`
 --
 ALTER TABLE `participacion`
   MODIFY `idParticipacion` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
--- AUTO_INCREMENT for table `pregunta`
+-- AUTO_INCREMENT de la tabla `pregunta`
 --
 ALTER TABLE `pregunta`
   MODIFY `idPregunta` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `tipo_vehiculo`
+-- AUTO_INCREMENT de la tabla `tipo_vehiculo`
 --
 ALTER TABLE `tipo_vehiculo`
   MODIFY `idTipo` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `usuario`
+-- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   MODIFY `idUser` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `vehiculo`
+-- AUTO_INCREMENT de la tabla `vehiculo`
 --
 ALTER TABLE `vehiculo`
-  MODIFY `idVehiculo` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idVehiculo` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `viaje`
+-- AUTO_INCREMENT de la tabla `viaje`
 --
 ALTER TABLE `viaje`
   MODIFY `idViaje` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
