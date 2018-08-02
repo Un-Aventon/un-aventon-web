@@ -6,7 +6,7 @@
       // incluyo la conexion
       include('php/conexion.php');
 
-      $rec=mysqli_query($conexion,"SELECT * 
+      $rec=mysqli_query($conexion,"SELECT *
 from usuario
  WHERE email='$mail' AND clave='$password' and estadoUsuario = 1")
       or
@@ -80,7 +80,7 @@ from usuario
 				    		<label class="form-check-label" for="exampleCheck1">Recuerdame</label>
 							</div>
 							<div class="col-lg-6 justify-content-right">
-								<p class="text-right"><a href="#" onclick="alert('Esta funcion todavia esta en desarrollo')">¿Olvidaste tu contraseña?</a></p>
+								<p class="text-right"><a href="/form_rec_contrasena">¿Olvidaste tu contraseña?</a></p>
 							</div>
 				  	</div>
 				  </div>

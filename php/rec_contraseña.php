@@ -11,7 +11,7 @@ if(isset($_POST['enviar']))
     $ok = true;
   }
   else {
-    echo '<div class="alert alert-warning alert-dismissable centrado" style="z-index: 99999; box-shadow: 0px 3px 20px rgba(54, 54, 54, 0.7)">
+    echo '<div class="alert alert-danger alert-dismissable centrado" style="z-index: 99999; box-shadow: 0px 3px 20px rgba(54, 54, 54, 0.7)">
               <button type="button" class="close" data-dismiss="alert">&times;</button>
                 El email ingresado no existe!
             </div>';

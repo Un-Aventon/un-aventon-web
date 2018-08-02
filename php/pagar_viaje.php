@@ -1,11 +1,23 @@
 <?php
+// LA VALIDACION ES SIMULADA. SOLO ACEPTA LAS TARJETAS QUE NO FORMEN PARTE DEL ARRAY HARDCODEADO ABAJO
+	function es_valida($tarjetaEnviada)
+	{
+		$tarjetasInvalidas = ["7777777777777777",
+													"1234123412341234",
+													"4321432143214321",
+													"9876987698769876"];
+		$esValida = true;
+		foreach ($tarjetasInvalidas as $t) {
+			if($t == $tarjetaEnviada) $esValida = false;
+		}
+		return $esValida;
+	}
 
-// LA VALIDACION ES SIMULADA. SOLO ACEPTA LA TARJETA 7777 7777 7777 7777
 	$num = $_POST['numero'];
   $fecha = $_POST['vencimiento'];
   $cod = $_POST['codigoseg'];
 
-  if($num == "7777777777777777" and ($fecha >= date("Y-m-d") and preg_match("/^[0-9]{3}/", $cod)))
+  if(es_valida($num) and ($fecha >= date("Y-m-d") and preg_match("/^[0-9]{3}/", $cod)))
 	{
     var_dump($num);
     $sql = "UPDATE pago SET estado = 1 WHERE idPago = $_POST[idPago]";

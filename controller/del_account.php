@@ -1,4 +1,4 @@
-<?php 
+<?php
 function render($vars = [])
 {
 	//parche
@@ -35,8 +35,8 @@ function render($vars = [])
 		$postulaciones_ac = mysqli_query($conexion, "UPDATE participacion SET estado = 3 where idUsuario = $u_id and estado = 2");
 
 		//Viajes activos y sus respectivas postulaciones
-		$v = mysqli_query($conexion, 
-			"UPDATE participacion as p 
+		$v = mysqli_query($conexion,
+			"UPDATE participacion as p
 			 INNER JOIN viaje as v ON p.idViaje = v.idViaje
 			 set p.estado = 4, v.estado = 2
 			 where v.idPiloto = '$u_id'
@@ -62,18 +62,18 @@ function render($vars = [])
 		//Formulario de baja
 		?>
 
-	  	<div class="row h-100 justify-content-center align-items-center">
-			<div class="card bg-white" style="max-width: 600px; height: 400px; margin-top: 20px; margin-bottom: 20px">
+	  	<div class="row h-50 justify-content-center align-items-center">
+			<div class="card bg-white" style="max-width: 600px; height: 240px; margin-top: 20px; margin-bottom: 20px">
   			<div class="card-header"><h2 class="text-center">Eliminar cuenta</h2></div>
   			<div class="card-body">
     			<form action="/del_account" method="post">
 				  <div class="form-group">
-				    <label for="exampleInputPassword1">Ingresa tu ontraseña para realizar la eliminacion</label>
+				    <label for="exampleInputPassword1">Ingresa tu contraseña para realizar la eliminacion</label>
 				    <input type="password" name="pass" class="form-control" id="exampleInputPassword1" placeholder="Ingresa una contraseña">
 				  </div>
 
 				  <div class="container-fluid" style="margin-top:.5rem; padding: 0">
-						<input type="submit" onclick="return confirm('Esta seguro que desea eliminar su cuenta? \n esta accion es irreversible')" name="login" value="Eliminar cuenta :(" class="btn btn-danger form-control form-control-lg">
+						<input type="submit" onclick="return confirm('Esta seguro que desea eliminar su cuenta? \n esta accion es irreversible')" name="login" value="Eliminar cuenta" class="btn btn-danger form-control form-control-lg">
 				  </div>
 				</form>
  			 </div>
