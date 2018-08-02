@@ -23,7 +23,7 @@ function render($vars = [])
         <form action="/form_rec_contrasena" method="post">
           <div class="form-group">
             <label for="exampleInputEmail1">Ingresa el email de la cuenta que deseas recuperar</label>
-            <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
           </div>
           <button type="submit" name="enviar" class="btn btn-primary">Recuperar</button>
           </form>

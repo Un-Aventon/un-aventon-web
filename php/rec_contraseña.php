@@ -20,6 +20,8 @@ if(isset($_POST['enviar']))
 
 if($ok)
 {
+  $update = "UPDATE usuario SET recuperarPassword = 1 WHERE idUser = $user[idUser]";
+  mysqli_query($conexion, $update);
   setcookie("rec_contraseña",true);
   $r = new Router;
   $file = $r->get_file();
