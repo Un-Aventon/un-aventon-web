@@ -131,11 +131,11 @@ $pagos_abonados = mysqli_query($conexion, $sql);
             </div>
             <div class="form-group">
               <label for="exampleFormControlTextarea1">Ingresa la fecha de vencimiento de la tarjeta</label>
-              <input type="date" class="form-control" name="vencimiento" required>
+              <input type="date" class="form-control" name="vencimiento" id="vencimiento" required>
             </div>
             <div class="form-group">
               <label for="exampleFormControlTextarea1">Ingresa el código de seguridad de la tarjeta</label>
-              <input type="text" class="form-control" name="codigoseg" minlength="3" maxlength="3" placeholder="123" required>
+              <input type="text" class="form-control" name="codigoseg" id="codigoseg" minlength="3" maxlength="3" placeholder="123" required>
               <input type="hidden" name="idPago" value="<?php echo $pago['idPago']?>">
             </div>
           </div>

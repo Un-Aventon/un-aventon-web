@@ -2,14 +2,17 @@
 
 // LA VALIDACION ES SIMULADA. SOLO ACEPTA LA TARJETA 7777 7777 7777 7777
 	$num = $_POST['numero'];
+  $fecha = $_POST['vencimiento'];
+  $cod = $_POST['codigoseg'];
 
-  if($num == "7777777777777777")
+  if($num == "7777777777777777" and ($fecha >= date("Y-m-d") and preg_match("/^[0-9]{3}/", $cod)))
 	{
     var_dump($num);
     $sql = "UPDATE pago SET estado = 1 WHERE idPago = $_POST[idPago]";
     mysqli_query($conexion, $sql);
     setcookie("pagar_viaje",true);
     $r = new Router;
+
     $file = $r->get_file();
     header('Location: /' . $file);
   }
