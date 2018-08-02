@@ -52,7 +52,7 @@ function calificacion($idUser){
   include('php/conexion.php');
   $calificaciones=mysqli_query($conexion,"SELECT SUM(calificacion) as calificacion_final
                                           from calificacion
-                                          where idCalificado='$idUser'")
+                                          where calificacion.idCalificado='$idUser' AND calificacion.calificacion IS NOT NULL")
                                           or die ("error calculo calificacion");
   return(mysqli_fetch_array($calificaciones)['calificacion_final']+0);
 }
@@ -151,9 +151,9 @@ function es_fecha_valida($conexion, $id_vehiculo, $fecha_partida, $tiempo_estima
   ") or die (mysqli_error($conexion));
 
   $piloto = mysqli_query($conexion, "
-    SELECT * 
+    SELECT *
       from viaje v, participacion p
-      where 
+      where
       p.idUsuario = '$id_piloto'
       and v.idViaje = p.idViaje
       or v.idPiloto = '$id_piloto'

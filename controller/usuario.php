@@ -95,7 +95,7 @@
     <h1>Perfil de <?php echo $usuario['nombre']." ".$usuario['apellido'];?> </h1>
     <?php $calificaciones = calificacion_grafica_simple($usuario['idUser']);
 
-    echo "calificaciones totales: ".mysqli_num_rows($calificacionesNoNulas)."
+    echo "Puntaje total: ".calificacion($vars[0])."
           <br>";
     echo  "<small class='float-right''>".$calificaciones['positivas']." calificaciones positivas </small> <br>";
     echo "<div class='progress'>
