@@ -27,33 +27,44 @@ function render($vars = [])
 				</div>';
 			$ok=false;
 		}
+		else {
 
-		//postulaciones no aceptadas
-		$postulaciones_na = mysqli_query($conexion, "DELETE from participacion where idUsuario = '$u_id' and estado=1 ");
+					//postulaciones no aceptadas
+					$postulaciones_na = mysqli_query($conexion, "DELETE from participacion where idUsuario = $u_id and estado=1 ");
 
-		//postulaciones aceptadas
-		$postulaciones_ac = mysqli_query($conexion, "UPDATE participacion SET estado = 3 where idUsuario = $u_id and estado = 2");
+					//postulaciones aceptadas
+					$postulaciones_ac = mysqli_query($conexion, "UPDATE participacion SET estado = 3 where idUsuario = $u_id and estado = 2");
 
-		//Viajes activos y sus respectivas postulaciones
-		$v = mysqli_query($conexion,
-			"UPDATE participacion as p
-			 INNER JOIN viaje as v ON p.idViaje = v.idViaje
-			 set p.estado = 4, v.estado = 2
-			 where v.idPiloto = '$u_id'
-			 and v.estado = 1
-			") or die(mysqli_error($conexion));
+					//Viajes activos SOLO con sus respectivas postulaciones
+					$vp = mysqli_query($conexion,
+						"UPDATE participacion as p
+						 INNER JOIN viaje as v ON p.idViaje = v.idViaje
+						 set p.estado = 4, v.estado = 2
+						 where v.idPiloto = $u_id
+						 and v.estado = 1
+						") or die("viajes con postulaciones". mysqli_error($conexion));
+
+						// VIAJES QUE NO TIENEN POSTULANTES y no son alcanzables desde la actualizacion anterior
+						$v = mysqli_query($conexion,
+							"UPDATE viaje as v
+							 set v.estado = 2
+							 where v.idPiloto = $u_id
+							 and v.estado = 1
+							") or die("viajes solos".mysqli_error($conexion));
 
 
-		$usuario = mysqli_query($conexion, "UPDATE usuario SET estadoUsuario = 2 where idUser = '$u_id'") or die (mysqli_error($conexion));
 
-		if($ok and $postulaciones_ac and $v and $usuario)
-		{
-			session_destroy();
-			echo '<div class="alert alert-success">
-						La cuenta se elimino correctamente.<br/>
-						<a href="/"> Ir al inicio</a>
-				</div>';
-			$ok = true;
+					$usuario = mysqli_query($conexion, "UPDATE usuario SET estadoUsuario = 2 where idUser = '$u_id'") or die (mysqli_error($conexion));
+
+					if($ok and $postulaciones_ac and $vp and $v and $usuario)
+					{
+						session_destroy();
+						echo '<div class="alert alert-success">
+									La cuenta se elimino correctamente.<br/>
+									<a href="/"> Ir al inicio</a>
+							</div>';
+						$ok = true;
+					}
 		}
 
 	}
