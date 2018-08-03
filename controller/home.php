@@ -7,33 +7,17 @@
 
 		<div class="row" style="padding:10px 10px;">
 			<div class="col-md-3" style="background-color: #fafafa; padding: 20px 15px; border-radius: 8px">
-				<form class="form-inline my-2 my-lg-0">
-				      <input class="form-control mr-sm-1" type="search" aria-label="Search" placeholder="Quiero viajar a..."  style="width: 75%">
-				      <button class="btn btn-outline-danger my-2 my-sm-0" type="submit"> <img src="https://png.icons8.com/ios-glyphs/2x/search.png" alt="" style="width:20px; margin-top:-3px"> </button>
+				<form action="" method="POST" class="form-inline my-2 my-lg-0">
+					<div class="">
+						<input class="form-control mr-sm-1" type="search" aria-label="Search" placeholder="Viajo desde..." name="origen" id="origen" required style="width: 75%" <?php if(isset($_POST['origen'])){ echo 'value="'.$_POST['origen'].'"';} ?>><br/>
+				      	<input class="form-control mr-sm-1" type="search" aria-label="Search" placeholder="Viajo hacia..." name="destino" id="destino" style="width: 75%" <?php if(isset($_POST['destino'])){ echo 'value="'.$_POST['destino'].'"';} ?>>
+
+					</div>
+				      	<input type="date" id="fecha" name="fecha_partida" class="form-control" min="<?php echo date('Y-m-d'); ?>" style="width: 75%" <?php if(isset($_POST['fecha_partida'])){ echo 'value="'.$_POST['fecha_partida'].'"';} else { echo 'value="'.date('Y-m-d').'"'; } ?>><br/>
+				      <button class="btn btn-outline-danger my-2 my-sm-0" type="submit"> Buscar <img src="https://png.icons8.com/ios-glyphs/2x/search.png" alt="" placeholder="fecha de partida" style="width:20px; margin-top:-3px"> </button>
 				</form>
 				<br>
-				<div class="strike">
-   				<span>filtros</span>
-				</div>
-				<nav class="nav flex-column">
-				  <a class="nav-link active" style="color: #333!important" href="#">viajes menores a 2000 km</a>
-				  <a class="nav-link" href="#" style="color: #333!important">viajes recurrentes</a>
-				  <a class="nav-link" href="#" style="color: #333!important">+ de 1 asientos disponibles</a>
-					<a class="nav-link" href="#" style="color: #333!important">viajes en mi localidad</a>
-				</nav>
-				<center><button type="button" class="btn btn-outline-danger" style="width:100%">Aplicar</button></center>
-				<br>
-
-				<div class="strike">
-   				<span>orden</span>
-				</div>
-				<nav class="nav flex-column">
-				  <a class="nav-link active" style="color: #333!important" href="#">mejor puntaje piloto</a>
-				  <a class="nav-link" href="#" style="color: #333!important">menor recorrido</a>
-				  <a class="nav-link" href="#" style="color: #333!important">mayor recorrido</a>
-				</nav>
-				<center><button type="button" class="btn btn-outline-danger" style="width:100%">Aplicar</button></center>
-				<hr>
+				
 
 				<a href="/altaviaje"><img src="img/boton.jpg" alt="" class="img-fluid boton_crear"></a>
 
@@ -55,13 +39,11 @@
  			</div>
 			<div class="col-md-9">
 			<?php
-			$viajes=mysqli_query($conexion,"SELECT *, tipo_vehiculo.tipo as tipoVehiculo
-											from viaje
-											inner join usuario on viaje.idPiloto = usuario.idUser
-											inner join vehiculo on viaje.idVehiculo = vehiculo.idVehiculo
-											inner join tipo_vehiculo on vehiculo.tipo = tipo_vehiculo.idTipo
-											where fecha_partida > now() and estado = 1
-											order by fecha_partida") or
+
+			include('php/filtro.php');
+
+			$v = viajes_query();
+			$viajes=mysqli_query($conexion, $v) or
 											die("Problemas en el select:".mysqli_error($conexion));
 
 											// to do: meterle un poco de color
