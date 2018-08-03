@@ -1,0 +1,9 @@
+Estimado <<Nombre y apellido del usuario>>:
+
+Oímos que has olvidado tu contraseña, pero no hay de que preocuparse. 
+Puedes utilizar el siguiente link para poder restablecer tu contraseña:
+
+localhost/cambiar_contrasena/{idUser}
+
+Muchas gracias,
+Equipo de soporte de UnAventón.
