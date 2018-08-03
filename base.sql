@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-08-2018 a las 02:58:44
+-- Tiempo de generación: 03-08-2018 a las 04:09:48
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.3
 
@@ -44,34 +44,16 @@ CREATE TABLE `calificacion` (
 --
 
 INSERT INTO `calificacion` (`idCalificacion`, `idCalificador`, `idCalificado`, `tipo`, `idViaje`, `fecha`, `calificacion`, `comentario`) VALUES
-(18, 0, 2, '3', 0, '2018-06-27 17:11:45', '-1', 'penalizacion por rechazo de postulacion'),
-(19, 0, 2, '3', 0, '2018-06-27 17:16:39', '-1', 'penalizacion por rechazo de postulacion'),
-(20, 5, 1, '1', 0, '2018-06-27 00:00:00', NULL, ''),
-(21, 0, 7, '3', 0, '2018-06-27 22:34:39', '-1', 'penalizacion por rechazo de postulacion'),
-(22, 0, 7, '3', 0, '2018-06-27 22:42:37', '-1', 'penalizacion por rechazo de postulacion'),
-(23, 0, 7, '3', 0, '2018-06-27 22:42:37', '0', 'harcodeada'),
-(25, 0, 7, '3', 0, '2018-06-27 22:42:37', '0', 'harcodeada'),
-(26, 0, 7, '3', 0, '2018-06-27 22:42:37', '0', 'harcodeada'),
-(27, 0, 7, '3', 0, '2018-06-27 22:42:37', '1', 'harcodeada'),
-(28, 0, 7, '3', 0, '2018-06-27 22:42:37', '1', 'harcodeada'),
-(29, 0, 7, '3', 0, '2018-06-27 22:42:37', '1', 'harcodeada'),
-(30, 0, 7, '3', 0, '2018-06-27 22:42:37', '1', 'harcodeada'),
-(31, 0, 7, '3', 0, '2018-06-27 22:42:37', '1', 'harcodeada'),
-(32, 0, 6, '3', 0, '2018-06-27 22:42:37', '1', 'harcodeada'),
-(33, 0, 6, '3', 0, '2018-06-27 22:42:37', '1', 'harcodeada'),
-(34, 0, 6, '3', 0, '2018-06-27 22:42:37', '1', 'harcodeada'),
-(35, 0, 6, '3', 0, '2018-06-27 22:42:37', '0', 'harcodeada'),
-(36, 0, 4, '3', 0, '2018-06-27 22:42:37', '-1', 'harcodeada'),
-(37, 0, 4, '3', 0, '2018-06-27 22:42:37', '-1', 'harcodeada'),
-(38, 0, 7, '3', 0, '2018-06-28 11:02:12', '-1', 'penalizacion por rechazo de postulacion'),
-(39, 0, 7, '3', 0, '2018-06-28 11:05:22', '1', 'hola mundo'),
-(40, 7, 5, '2', 47, '2018-07-11 07:20:00', NULL, 'sss'),
-(41, 7, 5, '2', 48, '2018-07-11 07:20:00', '1', 'asdasdas'),
-(42, 7, 4, '2', 53, '2018-07-05 14:00:00', NULL, 'buena onda los chabones'),
-(43, 7, 5, '2', 53, '2018-07-05 14:00:00', NULL, 'buena onda los chabones'),
-(44, 7, 6, '2', 53, '2018-07-05 14:00:00', NULL, 'buena onda los chabones'),
-(45, 7, 4, '2', 54, '2018-06-27 17:29:18', NULL, ''),
-(46, 7, 5, '2', 54, '2018-06-27 17:29:18', NULL, '');
+(1, 7, 6, '1', 1, '2018-08-02 00:00:00', NULL, '1'),
+(2, 7, 4, '1', 1, '2018-08-02 00:00:00', NULL, '1'),
+(3, 7, 5, '1', 7, '2018-08-02 00:00:00', NULL, '1'),
+(4, 5, 7, '1', 7, '2018-08-02 00:00:00', NULL, '1'),
+(5, 7, 4, '1', 6, '2018-07-01 10:10:00', NULL, ''),
+(6, 7, 6, '1', 6, '2018-07-01 10:10:00', NULL, ''),
+(7, 6, 7, '1', 1, '2018-08-02 00:00:00', NULL, '1'),
+(8, 6, 7, '1', 6, '2018-07-01 10:10:00', NULL, ''),
+(9, 4, 7, '1', 1, '2018-07-01 10:10:00', NULL, ''),
+(10, 4, 7, '1', 6, '2018-07-01 10:10:00', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -136,9 +118,9 @@ CREATE TABLE `pago` (
 --
 
 INSERT INTO `pago` (`idPago`, `idViaje`, `fecha`, `hora`, `estado`) VALUES
-(1, 1, '2018-06-20', '00:20:06', NULL),
-(2, 52, '2018-06-28', '00:00:04', NULL),
-(3, 54, '2018-06-27', '00:00:04', NULL);
+(1, 1, '2018-07-01', '14:00:00', NULL),
+(2, 6, '2018-07-01', '14:00:00', NULL),
+(3, 7, '2018-07-16', '17:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -159,14 +141,11 @@ CREATE TABLE `participacion` (
 --
 
 INSERT INTO `participacion` (`idParticipacion`, `idUsuario`, `idViaje`, `fecha_solicitud`, `estado`) VALUES
-(43, 1, 46, '2018-06-27 17:11:29', 1),
-(44, 1, 45, '2018-06-27 17:15:31', 1),
-(45, 6, 50, '2018-06-27 22:24:52', 1),
-(47, 6, 51, '2018-06-28 11:00:03', 1),
-(48, 6, 52, '2018-06-28 11:04:07', 2),
-(49, 4, 53, '2018-06-28 11:03:03', 5),
-(50, 5, 53, '2018-06-28 11:03:03', 5),
-(51, 6, 54, '2018-06-28 11:03:03', 5);
+(1, 4, 1, '2018-08-02 16:36:37', 5),
+(2, 6, 1, '2018-08-02 16:38:33', 5),
+(3, 7, 7, '2018-08-02 20:15:14', 5),
+(4, 4, 6, '2018-08-02 20:32:00', 5),
+(5, 6, 6, '2018-08-02 20:32:11', 5);
 
 -- --------------------------------------------------------
 
@@ -188,9 +167,7 @@ CREATE TABLE `pregunta` (
 --
 
 INSERT INTO `pregunta` (`idPregunta`, `idPreguntante`, `idViaje`, `pregunta`, `respuesta`, `fecha`) VALUES
-(1, 5, 50, 'podremos parar a comprar facturas por el camino?', 'no.', '2018-06-27 10:10:04'),
-(2, 6, 50, 'Bart, podemos levantar a ese vago?', 'No veo por que no', '2018-06-27 17:07:00'),
-(3, 5, 50, 'Podriamos salir 2 horas antes?, es de urgencia', '', '2018-06-27 07:18:06');
+(1, 4, 3, ' Alguno lleva mate?', 'nop', '2018-08-02 20:56:21');
 
 -- --------------------------------------------------------
 
@@ -228,7 +205,7 @@ CREATE TABLE `usuario` (
   `apellido` varchar(50) NOT NULL,
   `admin` int(1) NOT NULL DEFAULT '0',
   `estadoUsuario` int(11) NOT NULL DEFAULT '1',
-  `recuperarPassword` int(11) NOT NULL DEFAULT '0'
+  `recuperarPassword` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -236,10 +213,11 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idUser`, `email`, `clave`, `nombre`, `apellido`, `admin`, `estadoUsuario`, `recuperarPassword`) VALUES
-(4, 'user1@mail.com', '12345', 'Valentin', 'Damia', 0, 1, 0),
-(5, 'user2@mail.com', '12345', 'jose', 'perez', 0, 1, 0),
-(6, 'user3@mail.com', '12345', 'Juana', 'Valle', 0, 1, 0),
-(7, 'koumsky@gmail.com', '12345', 'Mariano', 'Martinelli', 0, 1, 0);
+(4, 'valentin@mail.com', '12345', 'Valentin', 'Damia', 0, 1, 0),
+(5, 'jose@mail.com', '12345', 'jose', 'perez', 0, 1, 0),
+(6, 'juana@mail.com', '12345', 'Juana', 'Valle', 0, 1, 0),
+(7, 'martinelli@gmail.com', '12345', 'Mariano', 'Martinelli', 0, 1, 0),
+(8, 'root@mail.com', '12345', 'UnAventon', 'SuperAdmin', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -295,14 +273,13 @@ CREATE TABLE `viaje` (
 --
 
 INSERT INTO `viaje` (`idViaje`, `idPiloto`, `idVehiculo`, `fecha_publicacion`, `fecha_partida`, `tiempo_estimado`, `origen`, `destino`, `asientos_disponibles`, `costo`, `estado`, `tipo`) VALUES
-(47, 5, 13, '2018-06-27 17:29:18', '2018-06-27 17:31:00', 1, 'la plata,Buenos Aires', 'buenos aires,Buenos Aires', 3, 100, 3, 'unico'),
-(48, 5, 13, '2018-06-27 17:33:49', '2018-12-31 23:59:00', 1, 'la plata,Buenos Aires', 'buenos aires,Buenos Aires', 1, 100, 3, 'unico'),
-(49, 7, 15, '2018-06-27 21:27:40', '2018-06-27 23:30:00', 1, 'la plata,Buenos Aires', 'buenos aires,Buenos Aires', 3, 200, 2, 'unico'),
-(50, 7, 15, '2018-06-27 22:05:04', '2018-06-30 13:00:00', 2, 'chascomus,Buenos Aires', 'la plata,Buenos Aires', 1, 500, 1, 'unico'),
-(51, 7, 15, '2018-06-27 22:05:04', '2018-07-07 13:00:00', 2, 'chascomus,Buenos Aires', 'la plata,Buenos Aires', 3, 500, 1, 'recurrente'),
-(52, 7, 15, '2018-06-28 11:03:03', '2018-07-05 14:00:00', 7, 'nequen,NeuquÃ©n', 'el bolson,RÃ­o Negro', 1, 1200, 1, 'unico'),
-(53, 7, 15, '2018-06-28 11:03:03', '2018-07-05 14:00:00', 1, 'Buenos aires, la Plata', 'Buenos aires, Palermo', 3, 3000, 3, 'unico'),
-(54, 7, 15, '2018-06-27 17:29:18', '2018-06-27 17:31:00', 1, 'Palermo', 'Tandil', 3, 3000, 3, 'unico');
+(1, 7, 15, '2018-07-02 16:14:04', '2018-07-08 10:00:00', 1, 'rawson,Buenos Aires', 'lujan,Buenos Aires', 2, 1000, 3, 'unico'),
+(2, 7, 15, '2018-08-02 16:14:04', '2018-08-15 10:00:00', 1, 'rawson,Buenos Aires', 'lujan,Buenos Aires', 2, 1000, 2, 'unico'),
+(3, 7, 15, '2018-08-02 16:14:04', '2018-08-22 10:00:00', 1, 'rawson,Buenos Aires', 'lujan,Buenos Aires', 2, 1000, 1, 'unico'),
+(4, 7, 15, '2018-08-02 16:14:04', '2018-08-29 10:00:00', 1, 'rawson,Buenos Aires', 'lujan,Buenos Aires', 2, 1000, 1, 'unico'),
+(5, 7, 15, '2018-08-02 16:18:04', '2018-09-05 08:00:00', 1, 'iruya,Salta', 'la plata,Buenos Aires', 2, 1000, 1, 'unico'),
+(6, 7, 15, '2018-05-20 16:24:57', '2018-05-30 14:00:00', 6, 'achiras,CÃ³rdoba', 'chilecito,Mendoza', 2, 1000, 3, 'unico'),
+(7, 5, 13, '2018-06-19 17:16:26', '2018-06-20 10:10:00', 5, 'la plata,Buenos Aires', 'necochea,Buenos Aires', 2, 1000, 3, 'unico');
 
 --
 -- Índices para tablas volcadas
@@ -376,7 +353,7 @@ ALTER TABLE `viaje`
 -- AUTO_INCREMENT de la tabla `calificacion`
 --
 ALTER TABLE `calificacion`
-  MODIFY `idCalificacion` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `idCalificacion` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `estado_participacion`
@@ -394,19 +371,19 @@ ALTER TABLE `estado_viaje`
 -- AUTO_INCREMENT de la tabla `pago`
 --
 ALTER TABLE `pago`
-  MODIFY `idPago` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idPago` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `participacion`
 --
 ALTER TABLE `participacion`
-  MODIFY `idParticipacion` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `idParticipacion` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `pregunta`
 --
 ALTER TABLE `pregunta`
-  MODIFY `idPregunta` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idPregunta` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_vehiculo`
@@ -418,7 +395,7 @@ ALTER TABLE `tipo_vehiculo`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUser` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idUser` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `vehiculo`
@@ -430,7 +407,7 @@ ALTER TABLE `vehiculo`
 -- AUTO_INCREMENT de la tabla `viaje`
 --
 ALTER TABLE `viaje`
-  MODIFY `idViaje` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `idViaje` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
