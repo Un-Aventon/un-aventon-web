@@ -10,11 +10,11 @@ function viajes_query(){
 											where fecha_partida > now() and estado = 1";
 	if(isset($_POST['origen']) and comprobar_string($_POST['origen']))
 	{
-		$query .= " AND origen LIKE '%$_POST[origen]%' ";
+		$query .= " AND origen LIKE '$_POST[origen]%' ";
 
 		if(isset($_POST['destino']) and comprobar_string($_POST['destino']))
 		{
-			$query .= " AND destino LIKE '%$_POST[destino]%' ";
+			$query .= " AND destino LIKE '$_POST[destino]%' ";
 		}
 		if(isset($_POST['fecha_partida']) and !empty($_POST['fecha_partida']))
 		{
