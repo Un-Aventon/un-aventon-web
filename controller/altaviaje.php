@@ -44,17 +44,16 @@ function render($vars = [])
 							<hr>
 							<p class="mb-0">
 						</p>
-					<a href="/perfil"> Ir a calificar </a>
+					<a href="/calificaciones"> Ir a calificar </a>
 				</div>';
 		$form = false;
 	}
 
-	$pagos_p = mysqli_query($conexion,
-	"SELECT * from viaje v
-		WHERE v.idPiloto = '$_SESSION[userId]'
-		and v.estado = 3
-		and not EXISTS ( SELECT null from pago where idViaje = v.idViaje )
-	") or die (mysqli_error($conexion));
+	$pagos_p = mysqli_query($conexion,"SELECT * from viaje
+																							INNER JOIN pago ON viaje.idViaje = pago.idViaje
+																							where viaje.idPiloto = '$_SESSION[userId]'
+																							and viaje.estado = 3 and pago.estado IS NULL")
+																							or die ("error consulta pagos --> ".mysqli_error($conexion));
 
 	if($form and (mysqli_fetch_array($pagos_p) > 0))
 	{
@@ -63,7 +62,7 @@ function render($vars = [])
 					<hr>
 					<p class="mb-0">
 				</p>
-			<a href="#"> Pagar </a>
+			<a href="/pagos_pendientes"> Pagar </a>
 		</div>';
 		$form = false;
 	}
@@ -209,7 +208,7 @@ function render($vars = [])
 								    <span class="input-group-text">veces</span>
 								  </div>
 								</div>
-								
+
 
 							</div>
 

@@ -233,9 +233,9 @@
 						break;
 					default:
 						$pagos_noRealizados=mysqli_query($conexion,"SELECT * from viaje
-																												where idPiloto = '$_SESSION[userId]'
-																												and estado = 3
-																												AND idViaje NOT IN (SELECT idViaje from pago)")
+																												INNER JOIN pago ON viaje.idViaje = pago.idViaje
+																												where viaje.idPiloto = '$_SESSION[userId]'
+																												and viaje.estado = 3 and pago.estado IS NULL")
 																												or die ("error consulta pagos --> ".mysqli_error($conexion));
 						$pagosOk = mysqli_num_rows($pagos_noRealizados) == 0;
 
