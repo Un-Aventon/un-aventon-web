@@ -28,46 +28,59 @@ function render($vars = [])
 			$ok=false;
 		}
 		else {
+			$pagosPendientes = mysqli_query($conexion, "SELECT * FROM pago
+																									INNER JOIN viaje ON viaje.idViaje = pago.idViaje
+																									WHERE (viaje.estado = 3) AND (viaje.idPiloto = $u_id) AND (pago.estado IS NULL)");
+			if(mysqli_num_rows($pagosPendientes) > 0)
+			{
+				echo '<div class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+							Para darte de baja primero debes efectuar los pagos que tienes pendientes.
+					</div>';
+				$ok=false;
+			}
+			else {
 
-					//postulaciones no aceptadas
-					$postulaciones_na = mysqli_query($conexion, "DELETE from participacion where idUsuario = $u_id and estado=1 ");
+						//postulaciones no aceptadas
+						$postulaciones_na = mysqli_query($conexion, "DELETE from participacion where idUsuario = $u_id and estado=1 ");
 
-					//postulaciones aceptadas
-					$postulaciones_ac = mysqli_query($conexion, "UPDATE participacion SET estado = 3 where idUsuario = $u_id and estado = 2");
+						//postulaciones aceptadas
+						$postulaciones_ac = mysqli_query($conexion, "UPDATE participacion SET estado = 3 where idUsuario = $u_id and estado = 2");
 
-					//Viajes activos SOLO con sus respectivas postulaciones
-					$vp = mysqli_query($conexion,
-						"UPDATE participacion as p
-						 INNER JOIN viaje as v ON p.idViaje = v.idViaje
-						 set p.estado = 4, v.estado = 2
-						 where v.idPiloto = $u_id
-						 and v.estado = 1
-						") or die("viajes con postulaciones". mysqli_error($conexion));
-
-						// VIAJES QUE NO TIENEN POSTULANTES y no son alcanzables desde la actualizacion anterior
-						$v = mysqli_query($conexion,
-							"UPDATE viaje as v
-							 set v.estado = 2
+						//Viajes activos SOLO con sus respectivas postulaciones
+						$vp = mysqli_query($conexion,
+							"UPDATE participacion as p
+							 INNER JOIN viaje as v ON p.idViaje = v.idViaje
+							 set p.estado = 4, v.estado = 2
 							 where v.idPiloto = $u_id
 							 and v.estado = 1
-							") or die("viajes solos".mysqli_error($conexion));
+							") or die("viajes con postulaciones". mysqli_error($conexion));
+
+							// VIAJES QUE NO TIENEN POSTULANTES y no son alcanzables desde la actualizacion anterior
+							$v = mysqli_query($conexion,
+								"UPDATE viaje as v
+								 set v.estado = 2
+								 where v.idPiloto = $u_id
+								 and v.estado = 1
+								") or die("viajes solos".mysqli_error($conexion));
 
 
 
-					$usuario = mysqli_query($conexion, "UPDATE usuario SET estadoUsuario = 2 where idUser = '$u_id'") or die (mysqli_error($conexion));
+						$usuario = mysqli_query($conexion, "UPDATE usuario SET estadoUsuario = 2 where idUser = '$u_id'") or die (mysqli_error($conexion));
 
-					if($ok and $postulaciones_ac and $vp and $v and $usuario)
-					{
-						session_destroy();
-						echo '<div class="alert alert-success">
-									La cuenta se elimino correctamente.<br/>
-									<a href="/"> Ir al inicio</a>
-							</div>';
-						$ok = true;
-					}
+						if($ok and $postulaciones_ac and $vp and $v and $usuario)
+						{
+							session_destroy();
+							echo '<div class="alert alert-success">
+										La cuenta se elimino correctamente.<br/>
+										<a href="/"> Ir al inicio</a>
+								</div>';
+							$ok = true;
+						}
+			}
+
 		}
-
-	}
+		}
 	if(!$ok)
 	{
 		//Formulario de baja
