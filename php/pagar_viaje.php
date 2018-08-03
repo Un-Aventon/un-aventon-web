@@ -20,7 +20,8 @@
   if(es_valida($num) and ($fecha >= date("Y-m-d") and preg_match("/^[0-9]{3}/", $cod)))
 	{
     var_dump($num);
-    $sql = "UPDATE pago SET estado = 1 WHERE idPago = $_POST[idPago]";
+		$fecha = date("Y-m-d");
+    $sql = "UPDATE pago SET fecha = '$fecha', estado = 1 WHERE idPago = $_POST[idPago]";
     mysqli_query($conexion, $sql);
     setcookie("pagar_viaje",true);
     $r = new Router;
