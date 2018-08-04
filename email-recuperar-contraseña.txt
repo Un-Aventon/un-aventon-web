@@ -6,4 +6,4 @@ Puedes utilizar el siguiente link para poder restablecerla:
 localhost/cambiar_contrasena/{idUser}
 
 Muchas gracias,
-Equipo de soporte de UnAventón.
+Equipo de soporte de UnAventón!
