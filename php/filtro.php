@@ -23,7 +23,7 @@ function viajes_query(){
 
 	}
 	
-	$query .= " order by fecha_partida ";
+	$query .= " order by fecha_partida";
 	return $query;
 
 }
